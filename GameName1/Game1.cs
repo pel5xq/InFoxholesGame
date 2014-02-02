@@ -31,6 +31,9 @@ namespace GameName1
         MachineGun machineGun;
         Wave wave;
         double lastWeaponToggle;
+        Scavenger scavenger;
+        double lastScavengeCall;
+        int currentScavengeCommand; //0 = come back, 1 = scavenge
 
         //Testing
         Enemy anEnemy;
@@ -39,6 +42,7 @@ namespace GameName1
         private int startingSniperAmmo = 10;
         private int startingMachinegunAmmo = 50;
         double weaponToggleCooldown = 100;
+        double scavengeToggleCooldown = 750;
         private int trenchOffsetX = 272;
         private int trenchOffsetY = 120;
         private int gunOffsetX = 187;
@@ -47,6 +51,10 @@ namespace GameName1
         private Vector2 secondHudPosition = new Vector2(10, 50);
         private int enemySpawnXoffset = 100;
         private int enemySpawnYoffset = 200;
+        private int scavengerSpawnXoffset = 140;
+        private int scavengerSpawnYoffset = 180;
+        private int scavengerIdleXoffset = 30;
+        private int scavengerIdleYoffset = 300;
 
         public Game1()
             : base()
@@ -73,6 +81,9 @@ namespace GameName1
             machineGun.isSelected = false;
             wave = new Wave1();
             lastWeaponToggle = 0;
+            scavenger = new Scavenger();
+            lastScavengeCall = 0;
+            currentScavengeCommand = 0;
 
             anEnemy = new Enemy1();
 
@@ -98,6 +109,7 @@ namespace GameName1
             machineGun.Initialize(spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y), Content.Load<Texture2D>("Graphics\\rifleBurst"),
                 Content.Load<Texture2D>("Graphics\\BAR"), new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y), 
                 secondHudPosition, startingMachinegunAmmo);
+            scavenger.Initialize(Content, new Vector2(scavengerIdleXoffset, scavengerIdleYoffset));
 
             anEnemy.Initialize(Content, new Vector2(GraphicsDevice.Viewport.Width - enemySpawnXoffset, GraphicsDevice.Viewport.Height - enemySpawnYoffset));
 
@@ -138,11 +150,27 @@ namespace GameName1
                 }
                 lastWeaponToggle = gameTime.TotalGameTime.TotalMilliseconds;
             }
+            int scavengeCommand = -1;
+            if (Keyboard.GetState().IsKeyDown(Keys.W) && gameTime.TotalGameTime.TotalMilliseconds - lastScavengeCall > scavengeToggleCooldown)
+            {
+                if (currentScavengeCommand == 0)
+                {
+                    currentScavengeCommand = 1;
+                    scavengeCommand = 1;
+                }
+                else
+                {
+                    currentScavengeCommand = 0;
+                    scavengeCommand = 0;   
+                }
+                lastScavengeCall = gameTime.TotalGameTime.TotalMilliseconds;
+            }
             previousKeyboardState = currentKeyboardState;
             previousMouseState = currentMouseState;
             currentKeyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();
             UpdateCrosshair(gameTime);
+            scavenger.Update(scavengeCommand, gameTime);
 
             anEnemy.Update();
 
@@ -164,6 +192,7 @@ namespace GameName1
             weapon.Draw(spriteBatch);
             sniperRifle.DrawHUD(spriteBatch, gameTime);
             machineGun.DrawHUD(spriteBatch, gameTime);
+            scavenger.Draw(spriteBatch);
 
             anEnemy.Draw(spriteBatch);
 
@@ -222,7 +251,7 @@ namespace GameName1
                             //Update game world here and inform weapon to draw
                             //shot, but can't draw yet
 
-                            if (anEnemy.isHit(crosshair.Position))
+                            if (anEnemy.isHit(crosshair.Position) || scavenger.isHit(crosshair.Position))
                             {
                                 weapon.ShotPoint.X = crosshair.Position.X + crosshair.Width / 2;
                                 weapon.ShotPoint.Y = crosshair.Position.Y + crosshair.Height / 2;
