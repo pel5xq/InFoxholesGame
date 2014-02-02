@@ -14,7 +14,7 @@ namespace GameName1
     class Enemy1 : Enemy
     {
         /* Magic Numbers*/
-        float speed = (float).4;
+        float E1Speed = .4f;
         int animationSpeed = 10;
         int numMapRows = 1;
         int numMapColumns = 4;
@@ -24,7 +24,7 @@ namespace GameName1
             EnemyTexture = content.Load<Texture2D>("Graphics\\Enemy1");
             EnemyDeathTexture = content.Load<Texture2D>("Graphics\\Enemy1Dead");
             EnemyTextureMap = new AnimatedSprite(content.Load<Texture2D>("Graphics\\Enemy1Map"), numMapRows, numMapColumns, animationSpeed);
-            Movement = new Vector2(-1 * speed, 0f);
+            speed = E1Speed;
             base.Initialize(content, position);   
         }
     }

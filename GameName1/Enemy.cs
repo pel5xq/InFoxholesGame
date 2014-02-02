@@ -13,24 +13,11 @@ namespace GameName1
 {
     class Enemy : Targetable
     {
-        public bool isHit(Vector2 crosshairPosition)
-        {
-            Vector2 truePosition = Vector2.Subtract(crosshairPosition, Position);
-            if (Alive && 
-                truePosition.X >=0 &&
-                truePosition.Y >=0 &&
-                truePosition.X <= EnemyTexture.Width &&
-                truePosition.Y <= EnemyTexture.Height) {
-                    Alive = false;
-                    return true;
-            }
-            return false;
-        }
         public Texture2D EnemyTexture;
         public AnimatedSprite EnemyTextureMap;
         public Texture2D EnemyDeathTexture;
         public Vector2 Position;
-        public Vector2 Movement;
+        public float speed;
         public bool Alive;
 
         public int Width
@@ -49,19 +36,33 @@ namespace GameName1
             Alive = true;
         }
 
+        public bool isHit(Vector2 crosshairPosition)
+        {
+            Vector2 truePosition = Vector2.Subtract(crosshairPosition, Position);
+            if (Alive &&
+                truePosition.X >= 0 &&
+                truePosition.Y >= 0 &&
+                truePosition.X <= EnemyTexture.Width &&
+                truePosition.Y <= EnemyTexture.Height)
+            {
+                Alive = false;
+                return true;
+            }
+            return false;
+        }
+
         public void Update()
         {
             //Check if at trench, otherwise move forward
             if (Alive)
             {
-                Position = Vector2.Add(Position, Movement);
+                Position = Pather.Move(Position, true, speed);
                 EnemyTextureMap.Update();
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //if (Alive) spriteBatch.Draw(EnemyTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             if (Alive) EnemyTextureMap.Draw(spriteBatch, Position, 1f);
             else spriteBatch.Draw(EnemyDeathTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
