@@ -131,14 +131,15 @@ namespace GameName1
         {
             if (ammoSupply > 0)
             {
-                if (ammoSupply >= clipSize)
+                int ammoToReplenish = clipSize - clipSupply;
+                if (ammoSupply >= ammoToReplenish)
                 {
                     clipSupply = clipSize;
-                    ammoSupply = ammoSupply - clipSize;
+                    ammoSupply = ammoSupply - ammoToReplenish;
                 }
                 else
                 {
-                    clipSupply = ammoSupply;
+                    clipSupply = ammoSupply + clipSupply;
                     ammoSupply = 0;
                 }
                 reloadMilli = currentTime.TotalGameTime.TotalMilliseconds;
