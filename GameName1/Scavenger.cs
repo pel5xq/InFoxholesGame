@@ -147,7 +147,7 @@ namespace GameName1
         }
 
         public void Draw(SpriteBatch spriteBatch)
-        {//activeTexture.Draw(spriteBatch, Position, 1f);
+        {
             if (Alive) 
             { 
                 if (action == 0) spriteBatch.Draw(idleTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);

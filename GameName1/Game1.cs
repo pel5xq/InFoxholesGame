@@ -71,7 +71,6 @@ namespace GameName1
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             player = new Player();
             crosshair = new Crosshair();
             sniperRifle = new SniperRifle();
@@ -104,11 +103,11 @@ namespace GameName1
             player.Initialize(Content.Load<Texture2D>("Graphics\\Trench"), playerPosition);
             crosshair.Initialize(Content.Load<Texture2D>("Graphics\\Crosshair"));
             sniperRifle.Initialize(spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y), Content.Load<Texture2D>("Graphics\\rifleBurst"),
-                Content.Load<Texture2D>("Graphics\\LeeEnfield"), new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y), 
-                firstHudPosition, startingSniperAmmo);
+                Content.Load<Texture2D>("Graphics\\LeeEnfield"), new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y),
+                firstHudPosition, startingSniperAmmo, Content.Load<Texture2D>("Graphics\\LeeEnfieldAmmo"));
             machineGun.Initialize(spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y), Content.Load<Texture2D>("Graphics\\rifleBurst"),
-                Content.Load<Texture2D>("Graphics\\BAR"), new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y), 
-                secondHudPosition, startingMachinegunAmmo);
+                Content.Load<Texture2D>("Graphics\\BAR"), new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y),
+                secondHudPosition, startingMachinegunAmmo, Content.Load<Texture2D>("Graphics\\BARAmmo"));
             scavenger.Initialize(Content, new Vector2(scavengerIdleXoffset, scavengerIdleYoffset));
 
             anEnemy.Initialize(Content, new Vector2(GraphicsDevice.Viewport.Width - enemySpawnXoffset, GraphicsDevice.Viewport.Height - enemySpawnYoffset));
@@ -243,8 +242,8 @@ namespace GameName1
                 }
                 else
                 {
-                    //Need to take firing cooldown into consideration
-                    if (weapon.cooldownOver(gameTime))
+                    //Need to take firing cooldown/reload into consideration
+                    if (weapon.isFireable(gameTime))
                     {
                         if (currentMouseState.LeftButton == ButtonState.Pressed) //implied state==1
                         {
