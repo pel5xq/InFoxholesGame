@@ -23,6 +23,7 @@ namespace GameName1
         {
             EnemyTexture = content.Load<Texture2D>("Graphics\\Enemy1");
             EnemyDeathTexture = content.Load<Texture2D>("Graphics\\Enemy1Dead");
+            FiringTexture = content.Load<Texture2D>("Graphics\\Enemy1Firing");
             EnemyTextureMap = new AnimatedSprite(content.Load<Texture2D>("Graphics\\Enemy1Map"), numMapRows, numMapColumns, animationSpeed);
             speed = E1Speed;
             base.Initialize(content, position);   

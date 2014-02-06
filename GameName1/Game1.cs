@@ -35,9 +35,6 @@ namespace GameName1
         double lastScavengeCall;
         int currentScavengeCommand; //0 = come back, 1 = scavenge
 
-        //Testing
-        Enemy anEnemy;
-
         /* Magic Numbers */
         private int startingSniperAmmo = 10;
         private int startingMachinegunAmmo = 50;
@@ -84,8 +81,6 @@ namespace GameName1
             lastScavengeCall = 0;
             currentScavengeCommand = 0;
 
-            anEnemy = new Enemy1();
-
             base.Initialize();
         }
 
@@ -95,10 +90,8 @@ namespace GameName1
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             player.Initialize(Content.Load<Texture2D>("Graphics\\Trench"), playerPosition);
             crosshair.Initialize(Content.Load<Texture2D>("Graphics\\Crosshair"));
@@ -109,8 +102,7 @@ namespace GameName1
                 Content.Load<Texture2D>("Graphics\\BAR"), new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y),
                 secondHudPosition, startingMachinegunAmmo, Content.Load<Texture2D>("Graphics\\BARAmmo"));
             scavenger.Initialize(Content, new Vector2(scavengerIdleXoffset, scavengerIdleYoffset));
-
-            anEnemy.Initialize(Content, new Vector2(GraphicsDevice.Viewport.Width - enemySpawnXoffset, GraphicsDevice.Viewport.Height - enemySpawnYoffset));
+            wave.Initialize(Content, new Vector2(GraphicsDevice.Viewport.Width - enemySpawnXoffset, GraphicsDevice.Viewport.Height - enemySpawnYoffset));
 
         }
 
@@ -174,8 +166,7 @@ namespace GameName1
             currentMouseState = Mouse.GetState();
             UpdateCrosshair(gameTime);
             scavenger.Update(scavengeCommand, gameTime);
-
-            anEnemy.Update();
+            wave.Update(gameTime, scavenger);
 
             base.Update(gameTime);
         }
@@ -196,8 +187,7 @@ namespace GameName1
             sniperRifle.DrawHUD(spriteBatch, gameTime);
             machineGun.DrawHUD(spriteBatch, gameTime);
             scavenger.Draw(spriteBatch);
-
-            anEnemy.Draw(spriteBatch);
+            wave.Draw(spriteBatch);
 
             spriteBatch.End();
 
@@ -254,7 +244,7 @@ namespace GameName1
                             //Update game world here and inform weapon to draw
                             //shot, but can't draw yet
 
-                            if (anEnemy.isHit(crosshair.Position) || scavenger.isHit(crosshair.Position))
+                            if (wave.isHit(crosshair.Position) || scavenger.isHit(crosshair.Position))
                             {
                                 weapon.ShotPoint.X = crosshair.Position.X + crosshair.Width / 2;
                                 weapon.ShotPoint.Y = crosshair.Position.Y + crosshair.Height / 2;

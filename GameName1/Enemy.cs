@@ -16,9 +16,16 @@ namespace GameName1
         public Texture2D EnemyTexture;
         public AnimatedSprite EnemyTextureMap;
         public Texture2D EnemyDeathTexture;
+        public Texture2D FiringTexture;
+        double firingAnimationRate;
+        double beginFiringTime;
         public Vector2 Position;
         public float speed;
         public bool Alive;
+        public bool isFiring;
+
+        /* Magic Number */
+        float firinganimationrate = 300;
 
         public int Width
         {
@@ -34,6 +41,9 @@ namespace GameName1
         {
             Position = position;
             Alive = true;
+            isFiring = false;
+            firingAnimationRate = firinganimationrate;
+            beginFiringTime = 0;
         }
 
         public bool isHit(Vector2 crosshairPosition)
@@ -51,10 +61,24 @@ namespace GameName1
             return false;
         }
 
-        public void Update()
+        public void Update(GameTime gametime, Scavenger scavenger)
         {
+            float scavR = scavenger.Width + scavenger.Position.X;
+            float scavL = scavenger.Position.X;
+            float myR = Width + Position.X;
+            float myL = Position.X;
+            if (scavenger.Alive && ((scavR >= myL && scavR <= myR) || (scavL >= myL && scavL <= myR)))
+            {
+                isFiring = true;
+                scavenger.Alive = false;
+                beginFiringTime = gametime.TotalGameTime.TotalMilliseconds;
+            }
+            else if (isFiring)
+            {
+                if (gametime.TotalGameTime.TotalMilliseconds - beginFiringTime > firingAnimationRate) isFiring = false;
+            }
             //Check if at trench, otherwise move forward
-            if (Alive)
+            if (Alive && !isFiring)
             {
                 Position = Pather.Move(Position, true, speed);
                 EnemyTextureMap.Update();
@@ -63,7 +87,11 @@ namespace GameName1
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (Alive) EnemyTextureMap.Draw(spriteBatch, Position, 1f);
+            if (Alive)
+            {
+                if (isFiring) spriteBatch.Draw(FiringTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                else EnemyTextureMap.Draw(spriteBatch, Position, 1f);
+            }
             else spriteBatch.Draw(EnemyDeathTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
     }
