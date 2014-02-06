@@ -33,11 +33,12 @@ namespace GameName1
         double lastWeaponToggle;
         Scavenger scavenger;
         double lastScavengeCall;
-        int currentScavengeCommand; //0 = come back, 1 = scavenge
+        int currentScavengeCommand; //0 = come back, 1 = scavenge, -1 for no change
 
         /* Magic Numbers */
         private int startingSniperAmmo = 10;
         private int startingMachinegunAmmo = 50;
+        private int startingFood = 1;
         double weaponToggleCooldown = 100;
         double scavengeToggleCooldown = 350;
         private int trenchOffsetX = 272;
@@ -46,12 +47,11 @@ namespace GameName1
         private int gunOffsetY = 115;
         private Vector2 firstHudPosition = new Vector2(10, 10);
         private Vector2 secondHudPosition = new Vector2(10, 50);
+        private Vector2 thirdHudPosition = new Vector2(10, 100);
         private int enemySpawnXoffset = 100;
         private int enemySpawnYoffset = 200;
-        private int scavengerSpawnXoffset = 140;
-        private int scavengerSpawnYoffset = 180;
-        private int scavengerIdleXoffset = 30;
-        private int scavengerIdleYoffset = 300;
+        Vector2 scavengerSpawn = new Vector2(140, 180);
+        Vector2 scavengerIdle = new Vector2(30, 300);
 
         public Game1()
             : base()
@@ -93,15 +93,13 @@ namespace GameName1
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            player.Initialize(Content.Load<Texture2D>("Graphics\\Trench"), playerPosition);
-            crosshair.Initialize(Content.Load<Texture2D>("Graphics\\Crosshair"));
-            sniperRifle.Initialize(spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y), Content.Load<Texture2D>("Graphics\\rifleBurst"),
-                Content.Load<Texture2D>("Graphics\\LeeEnfield"), new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y),
-                firstHudPosition, startingSniperAmmo, Content.Load<Texture2D>("Graphics\\LeeEnfieldAmmo"));
-            machineGun.Initialize(spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y), Content.Load<Texture2D>("Graphics\\rifleBurst"),
-                Content.Load<Texture2D>("Graphics\\BAR"), new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y),
-                secondHudPosition, startingMachinegunAmmo, Content.Load<Texture2D>("Graphics\\BARAmmo"));
-            scavenger.Initialize(Content, new Vector2(scavengerIdleXoffset, scavengerIdleYoffset));
+            player.Initialize(Content, playerPosition, startingFood, thirdHudPosition);
+            crosshair.Initialize(Content);
+            sniperRifle.Initialize(Content, spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y),
+                new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y), firstHudPosition, startingSniperAmmo);
+            machineGun.Initialize(Content, spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y),
+                new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y), secondHudPosition, startingMachinegunAmmo);
+            scavenger.Initialize(Content, scavengerIdle, scavengerSpawn);
             wave.Initialize(Content, new Vector2(GraphicsDevice.Viewport.Width - enemySpawnXoffset, GraphicsDevice.Viewport.Height - enemySpawnYoffset));
 
         }
@@ -165,8 +163,8 @@ namespace GameName1
             currentKeyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();
             UpdateCrosshair(gameTime);
-            scavenger.Update(scavengeCommand, gameTime);
             wave.Update(gameTime, scavenger);
+            scavenger.Update(scavengeCommand, gameTime, wave);
 
             base.Update(gameTime);
         }
@@ -179,8 +177,8 @@ namespace GameName1
         {
             GraphicsDevice.Clear(Color.White);
 
-            // TODO: Add your drawing code here
             spriteBatch.Begin();
+
             player.Draw(spriteBatch);
             crosshair.Draw(spriteBatch);
             weapon.Draw(spriteBatch);

@@ -22,13 +22,24 @@ namespace GameName1
         override public void Initialize(ContentManager content, Vector2 position)
         {
             waveSize = wavesize;
-            spawnTimings = new List<double>();
+            spawnTimings = new List<double>(waveSize);
             enemiesToSpawn = new List<Enemy>(waveSize);
+            lootList = new List<Loot>(waveSize);
             for (int i = 0; i < waveSize; i++)
             {
                 enemiesToSpawn.Insert(i, new Enemy1());
                 spawnTimings.Insert(i, baseTime + i * interval);
             }
+            lootList.Add(new SniperAmmoLoot(2));
+            lootList.Add(new FoodLoot(1));
+            lootList.Add(new MachineGunAmmoLoot(10));
+            lootList.Add(new FoodLoot(1));
+            lootList.Add(new MachineGunAmmoLoot(4));
+            lootList.Add(new SniperAmmoLoot(4));
+            lootList.Add(new MachineGunAmmoLoot(6));
+            lootList.Add(new FoodLoot(1));
+            lootList.Add(new SniperAmmoLoot(3));
+            lootList.Add(new SniperAmmoLoot(1));
             base.Initialize(content, position);
         }
     }

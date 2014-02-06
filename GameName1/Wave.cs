@@ -16,6 +16,7 @@ namespace GameName1
         public List<Enemy> enemiesToSpawn;
         public List<double> spawnTimings;
         public List<Enemy> enemiesOnScreen;
+        public List<Loot> lootList;
         public int waveSize;
         Vector2 spawnPoint;
         ContentManager contentManager;
@@ -44,10 +45,11 @@ namespace GameName1
             if (waveStartTime == 0) waveStartTime = gametime.TotalGameTime.TotalMilliseconds;
             else if ((spawnTimings.Count > 0) && spawnTimings[0] <= gametime.TotalGameTime.TotalMilliseconds - waveStartTime)
             {
-                enemiesToSpawn[0].Initialize(contentManager, spawnPoint);
+                enemiesToSpawn[0].Initialize(contentManager, spawnPoint, lootList[0]);
                 enemiesOnScreen.Add(enemiesToSpawn[0]);
                 enemiesToSpawn.RemoveAt(0);
                 spawnTimings.RemoveAt(0);
+                lootList.RemoveAt(0);
             }
             for (int i = 0; i < enemiesOnScreen.Count; i++)
             {

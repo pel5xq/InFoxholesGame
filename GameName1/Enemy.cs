@@ -23,6 +23,8 @@ namespace GameName1
         public float speed;
         public bool Alive;
         public bool isFiring;
+        public Loot loot;
+        public bool isLooted;
 
         /* Magic Number */
         float firinganimationrate = 300;
@@ -37,13 +39,15 @@ namespace GameName1
             get { return EnemyTexture.Height; }
         }
 
-        virtual public void Initialize(ContentManager content, Vector2 position)
+        virtual public void Initialize(ContentManager content, Vector2 position, Loot theLoot)
         {
             Position = position;
             Alive = true;
             isFiring = false;
             firingAnimationRate = firinganimationrate;
             beginFiringTime = 0;
+            loot = theLoot;
+            isLooted = false;
         }
 
         public bool isHit(Vector2 crosshairPosition)
@@ -63,15 +67,18 @@ namespace GameName1
 
         public void Update(GameTime gametime, Scavenger scavenger)
         {
-            float scavR = scavenger.Width + scavenger.Position.X;
-            float scavL = scavenger.Position.X;
-            float myR = Width + Position.X;
-            float myL = Position.X;
-            if (scavenger.Alive && ((scavR >= myL && scavR <= myR) || (scavL >= myL && scavL <= myR)))
-            {
-                isFiring = true;
-                scavenger.Alive = false;
-                beginFiringTime = gametime.TotalGameTime.TotalMilliseconds;
+
+            if (Alive && scavenger.Alive) {
+                float scavR = scavenger.Width + scavenger.Position.X;
+                float scavL = scavenger.Position.X;
+                float myR = Width + Position.X;
+                float myL = Position.X;
+                if ((scavR >= myL && scavR <= myR) || (scavL >= myL && scavL <= myR))
+                {
+                    isFiring = true;
+                    scavenger.Alive = false;
+                    beginFiringTime = gametime.TotalGameTime.TotalMilliseconds;
+                }
             }
             else if (isFiring)
             {

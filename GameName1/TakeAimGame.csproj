@@ -36,11 +36,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
+    <Compile Include="FoodLoot.cs" />
+    <Compile Include="Loot.cs" />
+    <Compile Include="MachineGunAmmoLoot.cs" />
     <Compile Include="Scavenger.cs" />
     <Compile Include="Pather.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Enemy1.cs" />
     <Compile Include="MachineGun.cs" />
+    <Compile Include="SniperAmmoLoot.cs" />
     <Compile Include="Targetable.cs" />
     <Compile Include="Wave1.cs" />
     <Compile Include="Wave.cs" />
@@ -89,6 +93,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\Enemy1Map.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Food.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\LeeEnfield.png">

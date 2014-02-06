@@ -23,16 +23,17 @@ namespace GameName1
         public AnimatedSprite activeTexture;
         public AnimatedSprite reverseTexture;
         int action; //0 means unsent, 1 means sent out, 2 means sent back, 3 means actively scavenging
+        public List<Loot> scavengedLoot;
         double whenScavengeBegan;
         int actionToReturnTo;
+        Vector2 scavengerSpawn = new Vector2(140, 180);
+        Vector2 scavengerIdle = new Vector2(30, 300);
 
         /* Magic Numbers*/
         float speedValue = .8f;
         int animationSpeed = 10;
         int numMapRows = 1;
         int numMapColumns = 4;
-        Vector2 scavengerSpawn = new Vector2(140, 180);
-        Vector2 scavengerIdle = new Vector2(30, 300);
         int ladderDetectX = 122;
         double timeToScavenge = 3000;
 
@@ -61,7 +62,7 @@ namespace GameName1
             get { return activeTexture.Texture.Height / activeTexture.Rows; }
         }
 
-        virtual public void Initialize(ContentManager content, Vector2 position)
+        virtual public void Initialize(ContentManager content, Vector2 position, Vector2 spawnPosition)
         {
             idleTexture = content.Load<Texture2D>("Graphics\\TrooperIdle");
             deathTexture = content.Load<Texture2D>("Graphics\\TrooperDead");
@@ -70,11 +71,14 @@ namespace GameName1
             reverseTexture = new AnimatedSprite(content.Load<Texture2D>("Graphics\\TrooperReverse"), numMapRows, numMapColumns, animationSpeed);
             speed = speedValue;
             Position = position;
+            Vector2 scavengerSpawn = spawnPosition;
+            Vector2 scavengerIdle = position;
             Alive = true;
             action = 0;
+            scavengedLoot = new List<Loot>();
         }
 
-        public void Update(int command, GameTime gameTime)
+        public void Update(int command, GameTime gameTime, Wave wave)
         {
             if (Alive)
             {
@@ -144,6 +148,15 @@ namespace GameName1
                     }
                 }
             }
+        }
+
+        public void addLootToSupply(SniperRifle sr, MachineGun mg, Player player)
+        {
+            for (int i = 0; i < scavengedLoot.Count; i++)
+            {
+                scavengedLoot[i].addLoot(sr, mg, player);
+            }
+            scavengedLoot.Clear();
         }
 
         public void Draw(SpriteBatch spriteBatch)

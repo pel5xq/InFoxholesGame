@@ -31,9 +31,9 @@ namespace GameName1
             get { return CrosshairTexture.Height; }
         }
 
-        public void Initialize(Texture2D texture)
+        public void Initialize(ContentManager Content)
         {
-            CrosshairTexture = texture;
+            CrosshairTexture = Content.Load<Texture2D>("Graphics\\Crosshair");
             Position = new Vector2(-1*CrosshairTexture.Width, -1*CrosshairTexture.Height);
             State = 0;
         }

@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
@@ -32,22 +36,20 @@ namespace GameName1
         private float lineThickness = 2f;
         private float halfPi = (float)(Math.PI / 2);
 
-        virtual public void Initialize(SpriteBatch spriteBatch, Vector2 gunPoint, Texture2D rifleBurst, 
-            Texture2D texture, Vector2 position, Vector2 HUDPosition, int ammosupply, Texture2D bulletTexture)
+        virtual public void Initialize(ContentManager Content, SpriteBatch spriteBatch, Vector2 gunPoint, Vector2 position, Vector2 HUDPosition, int ammosupply)
         {
             pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            burst = rifleBurst;
+            burst = Content.Load<Texture2D>("Graphics\\rifleBurst");
             pixel.SetData(new[] { Color.White });
             GunPoint = gunPoint;
             burstPoint = new Vector2(GunPoint.X - burst.Width / 2, GunPoint.Y - burst.Height / 2);
             ShotPoint = Vector2.Zero;
             lastShotMilli = 0;
             reloadMilli = 0;
-            WeaponTexture = texture;
+            
             Position = position;
             hudPosition = HUDPosition;
             ammoSupply = ammosupply - clipSize;
-            bullet = bulletTexture;
         }
 
         public int Width
@@ -158,6 +160,5 @@ namespace GameName1
         }
 
         abstract public float GetCrosshairVelocity(double timeElapsed);
-        //Add methods on ammo capacity, bullet texture, etc.
     }
 }

@@ -19,14 +19,14 @@ namespace GameName1
         int numMapRows = 1;
         int numMapColumns = 4;
 
-        override public void Initialize(ContentManager content, Vector2 position)
+        override public void Initialize(ContentManager content, Vector2 position, Loot theLoot)
         {
             EnemyTexture = content.Load<Texture2D>("Graphics\\Enemy1");
             EnemyDeathTexture = content.Load<Texture2D>("Graphics\\Enemy1Dead");
             FiringTexture = content.Load<Texture2D>("Graphics\\Enemy1Firing");
             EnemyTextureMap = new AnimatedSprite(content.Load<Texture2D>("Graphics\\Enemy1Map"), numMapRows, numMapColumns, animationSpeed);
             speed = E1Speed;
-            base.Initialize(content, position);   
+            base.Initialize(content, position, loot);   
         }
     }
 }

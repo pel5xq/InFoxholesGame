@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
@@ -20,14 +24,15 @@ namespace GameName1
         {
             return  (float)(2 - 2.6 * timeElapsed + 1.7 * Math.Pow(timeElapsed, 2)) / 30000;
         }
-        override public void Initialize(SpriteBatch spriteBatch, Vector2 gunPoint, Texture2D rifleBurst,
-            Texture2D texture, Vector2 position, Vector2 HUDPosition, int ammosupply, Texture2D bulletTexture)
+        override public void Initialize(ContentManager Content, SpriteBatch spriteBatch, Vector2 gunPoint, Vector2 position, Vector2 HUDPosition, int ammosupply)
         {
             milliCooldown = millicooldown;
             clipSize = clipsize;
             clipSupply = clipsize;
             reloadCooldown = reloadLength;
-            base.Initialize(spriteBatch, gunPoint, rifleBurst, texture, position, HUDPosition, ammosupply, bulletTexture);
+            WeaponTexture = Content.Load<Texture2D>("Graphics\\LeeEnfield");
+            bullet = Content.Load<Texture2D>("Graphics\\LeeEnfieldAmmo");
+            base.Initialize(Content, spriteBatch, gunPoint, position, HUDPosition, ammosupply);
         }
         override public void DrawHUD(SpriteBatch spriteBatch, GameTime gameTime)
         {
