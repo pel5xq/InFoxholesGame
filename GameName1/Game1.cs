@@ -39,7 +39,7 @@ namespace GameName1
         private int startingSniperAmmo = 10;
         private int startingMachinegunAmmo = 50;
         double weaponToggleCooldown = 100;
-        double scavengeToggleCooldown = 750;
+        double scavengeToggleCooldown = 350;
         private int trenchOffsetX = 272;
         private int trenchOffsetY = 120;
         private int gunOffsetX = 187;
