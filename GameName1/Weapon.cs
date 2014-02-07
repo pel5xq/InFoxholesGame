@@ -16,7 +16,7 @@ namespace GameName1
         public Texture2D WeaponTexture;
         public Vector2 Position;
         public Vector2 ShotPoint;
-        public Texture2D pixel;
+        public static Texture2D pixel;
         public Texture2D burst;
         public Texture2D bullet;
         public Vector2 burstPoint;

@@ -34,6 +34,9 @@ namespace GameName1
         Scavenger scavenger;
         double lastScavengeCall;
         int currentScavengeCommand; //0 = come back, 1 = scavenge, -1 for no change
+        public static bool gameOver;
+        public Texture2D gameOverTexture;
+        public Vector2 playerPosition;
 
         /* Magic Numbers */
         private int startingSniperAmmo = 10;
@@ -52,12 +55,14 @@ namespace GameName1
         private int enemySpawnYoffset = 200;
         Vector2 scavengerSpawn = new Vector2(140, 180);
         Vector2 scavengerIdle = new Vector2(30, 300);
+        Vector2 gameOverPositionOffset = new Vector2(0, 225);
 
         public Game1()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            gameOver = false;
         }
 
         /// <summary>
@@ -80,7 +85,7 @@ namespace GameName1
             scavenger = new Scavenger();
             lastScavengeCall = 0;
             currentScavengeCommand = 0;
-
+            gameOverTexture = Content.Load<Texture2D>("Graphics\\TrenchGameOver");
             base.Initialize();
         }
 
@@ -92,7 +97,7 @@ namespace GameName1
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+            playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             player.Initialize(Content, playerPosition, startingFood, thirdHudPosition);
             crosshair.Initialize(Content);
             sniperRifle.Initialize(Content, spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y),
@@ -179,13 +184,20 @@ namespace GameName1
 
             spriteBatch.Begin();
 
-            player.Draw(spriteBatch);
-            crosshair.Draw(spriteBatch);
-            weapon.Draw(spriteBatch);
-            sniperRifle.DrawHUD(spriteBatch, gameTime);
-            machineGun.DrawHUD(spriteBatch, gameTime);
-            scavenger.Draw(spriteBatch);
-            wave.Draw(spriteBatch);
+            if (!gameOver)
+            {
+                player.Draw(spriteBatch);
+                crosshair.Draw(spriteBatch);
+                weapon.Draw(spriteBatch);
+                sniperRifle.DrawHUD(spriteBatch, gameTime);
+                machineGun.DrawHUD(spriteBatch, gameTime);
+                scavenger.Draw(spriteBatch);
+                wave.Draw(spriteBatch);
+            }
+            else
+            {
+                spriteBatch.Draw(gameOverTexture, Vector2.Subtract(playerPosition, gameOverPositionOffset), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            }
 
             spriteBatch.End();
 

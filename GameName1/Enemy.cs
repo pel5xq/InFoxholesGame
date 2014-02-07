@@ -25,9 +25,16 @@ namespace GameName1
         public bool isFiring;
         public Loot loot;
         public bool isLooted;
+        public Vector2 toShoot;
 
         /* Magic Number */
         float firinganimationrate = 300;
+        int ladderCheckX = 122;
+        Vector2 gunPoint = new Vector2(122, 211);
+        Vector2 adjustShot = new Vector2(25, 7);
+        float lineThickness = 2f;
+        float angleAdjust = .25f;
+        float distanceAdjust = -15f;
 
         public int Width
         {
@@ -48,6 +55,7 @@ namespace GameName1
             beginFiringTime = 0;
             loot = theLoot;
             isLooted = false;
+            toShoot = Vector2.Zero;
         }
 
         public bool isHit(Vector2 crosshairPosition)
@@ -84,11 +92,30 @@ namespace GameName1
             {
                 if (gametime.TotalGameTime.TotalMilliseconds - beginFiringTime > firingAnimationRate) isFiring = false;
             }
-            //Check if at trench, otherwise move forward
+
             if (Alive && !isFiring)
             {
-                Position = Pather.Move(Position, true, speed);
-                EnemyTextureMap.Update();
+                //Check if at trench
+                if (Position.X <= ladderCheckX)
+                {
+                    //If the scavenger is there, kill both
+                    if (scavenger.Alive && scavenger.action == 0)
+                    {
+                        scavenger.Alive = false;
+                        beginFiringTime = gametime.TotalGameTime.TotalMilliseconds;
+                        Alive = false;
+                        toShoot = new Vector2(scavenger.Position.X + scavenger.Width/2, scavenger.Position.Y + scavenger.Height/4);
+                    }
+                    else //Otherwise, game over
+                    {
+                        Game1.gameOver = true;
+                    }
+                }
+                else
+                {
+                    Position = Pather.Move(Position, true, speed);
+                    EnemyTextureMap.Update();
+                }
             }
         }
 
@@ -96,10 +123,26 @@ namespace GameName1
         {
             if (Alive)
             {
-                if (isFiring) spriteBatch.Draw(FiringTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                if (isFiring)
+                {
+                    spriteBatch.Draw(FiringTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                }
                 else EnemyTextureMap.Draw(spriteBatch, Position, 1f);
             }
-            else spriteBatch.Draw(EnemyDeathTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            else
+            {
+                spriteBatch.Draw(EnemyDeathTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                if (!toShoot.Equals(Vector2.Zero))
+                {
+                    float distance = Vector2.Distance(toShoot, gunPoint);
+                    float angle = (float)Math.Atan2(gunPoint.Y - toShoot.Y, gunPoint.X - toShoot.X);
+                    spriteBatch.Draw(Weapon.pixel, toShoot, null, Color.Black, angle, Vector2.Zero, new Vector2(distance, lineThickness),
+                                 SpriteEffects.None, 0);
+                    spriteBatch.Draw(Weapon.pixel, Vector2.Add(toShoot, adjustShot), null, Color.Black, angle + angleAdjust, 
+                        Vector2.Zero, new Vector2(distance + distanceAdjust, lineThickness), SpriteEffects.None, 0);
+                    toShoot = Vector2.Zero;
+                }
+            }
         }
     }
 }

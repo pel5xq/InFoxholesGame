@@ -22,7 +22,7 @@ namespace GameName1
         public Texture2D scavengingTexture;
         public AnimatedSprite activeTexture;
         public AnimatedSprite reverseTexture;
-        int action; //0 means unsent, 1 means sent out, 2 means sent back, 3 means actively scavenging
+        public int action; //0 means unsent, 1 means sent out, 2 means sent back, 3 means actively scavenging
         public List<Loot> scavengedLoot;
         double whenScavengeBegan;
         int actionToReturnTo;
