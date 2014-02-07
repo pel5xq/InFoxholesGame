@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
-    class Enemy1 : Enemy
+    public class Enemy1 : Enemy
     {
         /* Magic Numbers*/
         float E1Speed = .4f;
@@ -26,7 +26,7 @@ namespace GameName1
             FiringTexture = content.Load<Texture2D>("Graphics\\Enemy1Firing");
             EnemyTextureMap = new AnimatedSprite(content.Load<Texture2D>("Graphics\\Enemy1Map"), numMapRows, numMapColumns, animationSpeed);
             speed = E1Speed;
-            base.Initialize(content, position, loot);   
+            base.Initialize(content, position, theLoot);   
         }
     }
 }

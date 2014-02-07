@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
-    class Wave1 : Wave
+    public class Wave1 : Wave
     {
 
         /* Magic Numbers */
@@ -30,16 +30,16 @@ namespace GameName1
                 enemiesToSpawn.Insert(i, new Enemy1());
                 spawnTimings.Insert(i, baseTime + i * interval);
             }
-            lootList.Add(new SniperAmmoLoot(2));
-            lootList.Add(new FoodLoot(1));
-            lootList.Add(new MachineGunAmmoLoot(10));
-            lootList.Add(new FoodLoot(1));
-            lootList.Add(new MachineGunAmmoLoot(4));
-            lootList.Add(new SniperAmmoLoot(4));
-            lootList.Add(new MachineGunAmmoLoot(6));
-            lootList.Add(new FoodLoot(1));
-            lootList.Add(new SniperAmmoLoot(3));
-            lootList.Add(new SniperAmmoLoot(1));
+            lootList.Add(new SniperAmmoLoot(2, content));
+            lootList.Add(new FoodLoot(1, content));
+            lootList.Add(new MachineGunAmmoLoot(10, content));
+            lootList.Add(new FoodLoot(1, content));
+            lootList.Add(new MachineGunAmmoLoot(4, content));
+            lootList.Add(new SniperAmmoLoot(4, content));
+            lootList.Add(new MachineGunAmmoLoot(6, content));
+            lootList.Add(new FoodLoot(1, content));
+            lootList.Add(new SniperAmmoLoot(3, content));
+            lootList.Add(new SniperAmmoLoot(1, content));
             base.Initialize(content, position);
         }
     }

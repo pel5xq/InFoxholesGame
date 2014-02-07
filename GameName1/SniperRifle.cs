@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
-    class SniperRifle : Weapon
+    public class SniperRifle : Weapon
     {
 
         /* MagicNumbers */

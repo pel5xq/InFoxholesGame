@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
-    class Scavenger : Targetable
+    public class Scavenger : Targetable
     {
 
         public bool Alive;
@@ -28,8 +28,7 @@ namespace GameName1
         int actionToReturnTo;
         Vector2 scavengerSpawn;
         Vector2 scavengerIdle;
-        bool drawLootFlag;
-        Enemy enemyToLoot;
+        Loot lootToLoot;
 
         /* Magic Numbers*/
         float speedValue = .8f;
@@ -38,6 +37,7 @@ namespace GameName1
         int numMapColumns = 4;
         int ladderDetectX = 122;
         double timeToScavenge = 3000;
+        int lootBuffer = 5;
 
         public bool isHit(Vector2 crosshairPosition)
         {
@@ -78,7 +78,7 @@ namespace GameName1
             Alive = true;
             action = 0;
             scavengedLoot = new List<Loot>();
-            drawLootFlag = false;
+            whenScavengeBegan = 0;
         }
 
         public void Update(int command, GameTime gameTime, Wave wave)
@@ -111,10 +111,63 @@ namespace GameName1
                             action = 2;
                         }
                     }
-                    else //else TODO look for nearest body to scavenge / check if can start to scavenge
+                    else //else scavenge
                     {
-                        Position = Pather.Move(Position, false, speed);
-                        activeTexture.Update();
+                        //If no enemies, just move forward
+                        if (wave.enemiesOnScreen.Count == 0)
+                        {
+                            Position = Pather.Move(Position, false, speed);
+                            activeTexture.Update();
+                        }
+                        //Look for nearest unlooted body
+                        Enemy closestEnemy = null;
+                        float closestDistance = float.MaxValue;
+                        for (int i = 0; i < wave.enemiesOnScreen.Count; i++)
+                        {
+                            if (!wave.enemiesOnScreen[i].Alive && !wave.enemiesOnScreen[i].isLooted)
+                            {
+                                float enemyDistance = Vector2.Distance(Position, wave.enemiesOnScreen[i].Position);
+                                if (enemyDistance < closestDistance)
+                                {
+                                    closestEnemy = wave.enemiesOnScreen[i];
+                                    closestDistance = enemyDistance;
+                                }
+                            }
+                        }
+                        if (closestEnemy != null) 
+                        {
+                            //If it is close enough to scavenge, do so
+                            float myR = Width + Position.X;
+                            float myL = Position.X;
+                            float enemyR = closestEnemy.Width + closestEnemy.Position.X;
+                            float enemyL = closestEnemy.Position.X;
+                            if ((myR >= enemyL && myR <= enemyR) || (myL >= enemyL && myL <= enemyR))
+                            {
+                                action = 3;
+                                lootToLoot = closestEnemy.loot;
+                                closestEnemy.isLooted = true;
+                                whenScavengeBegan = gameTime.TotalGameTime.TotalMilliseconds;
+                                actionToReturnTo = 1;
+                            }
+                            else //else move towards it
+                            {
+                                if (enemyL > myL) //Move right
+                                {
+                                    Position = Pather.Move(Position, false, speed);
+                                    activeTexture.Update();
+                                }
+                                else //Move left 
+                                {
+                                    Position = Pather.Move(Position, true, speed);
+                                    reverseTexture.Update();
+                                }
+                            }
+                        }
+                        else //Shouldn't happen
+                        {
+                            Position = Pather.Move(Position, false, speed);
+                            activeTexture.Update();
+                        }
                     }
                 }
                 else if (action == 2) //Coming back
@@ -131,6 +184,7 @@ namespace GameName1
                         {
                             Position = scavengerIdle;
                             action = 0;
+                            Game1.scavengerAddToSupply(this);
                         }
                         else
                         {
@@ -141,16 +195,15 @@ namespace GameName1
                 }
                 else //Scavenging from body
                 {
-                    if (gameTime.TotalGameTime.TotalMilliseconds - whenScavengeBegan > timeToScavenge)
+                    if (whenScavengeBegan != 0 && gameTime.TotalGameTime.TotalMilliseconds - whenScavengeBegan > timeToScavenge)
                     {
                         action = actionToReturnTo;
-                        drawLootFlag = true;
-                        enemyToLoot.isLooted = true;
-                        
+                        scavengedLoot.Add(lootToLoot);
                     }
                     else
                     {
-                        if (command != -1) actionToReturnTo = command;
+                        if (command == 0) actionToReturnTo = 2;
+                        else if (command == 1) actionToReturnTo = 1;
                     }
                 }
             }
@@ -168,11 +221,15 @@ namespace GameName1
         public void Draw(SpriteBatch spriteBatch)
         {
             if (Alive) 
-            { 
+            {
                 if (action == 0) spriteBatch.Draw(idleTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                 else if (action == 1) activeTexture.Draw(spriteBatch, Position, 1f);
                 else if (action == 2) reverseTexture.Draw(spriteBatch, Position, 1f);
-                else spriteBatch.Draw(scavengingTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                else
+                {
+                    spriteBatch.Draw(scavengingTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    lootToLoot.Draw(spriteBatch, new Vector2(Position.X, Position.Y - lootToLoot.texture.Height - lootBuffer));
+                }
             }
             else spriteBatch.Draw(deathTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }

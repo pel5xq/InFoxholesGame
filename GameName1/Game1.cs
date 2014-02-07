@@ -18,7 +18,7 @@ namespace GameName1
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Player player;
+        static Player player;
         KeyboardState currentKeyboardState;
         KeyboardState previousKeyboardState;
         MouseState currentMouseState;
@@ -27,8 +27,8 @@ namespace GameName1
         Vector2 aimingVector;
         TimeSpan aimingTimestamp;
         Weapon weapon;
-        SniperRifle sniperRifle;
-        MachineGun machineGun;
+        static SniperRifle sniperRifle;
+        static MachineGun machineGun;
         Wave wave;
         double lastWeaponToggle;
         Scavenger scavenger;
@@ -190,6 +190,10 @@ namespace GameName1
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public static void scavengerAddToSupply(Scavenger scavenger) {
+            scavenger.addLootToSupply(sniperRifle, machineGun, player);
         }
 
         private void UpdateCrosshair(GameTime gameTime)

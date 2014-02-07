@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
-    class MachineGun : Weapon
+    public class MachineGun : Weapon
     {
         /* MagicNumbers */
         float disabledAlpha = .5f;

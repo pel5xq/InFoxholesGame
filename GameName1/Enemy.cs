@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
-    class Enemy : Targetable
+    public class Enemy : Targetable
     {
         public Texture2D EnemyTexture;
         public AnimatedSprite EnemyTextureMap;

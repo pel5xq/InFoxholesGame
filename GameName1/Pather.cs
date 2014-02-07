@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace GameName1
 {
-    class Pather
+    public class Pather
     {
         /* Magic numbers */
         static int startY = 150;

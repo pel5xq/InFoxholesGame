@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
-    class Crosshair
+    public class Crosshair
     {
 
         public Texture2D CrosshairTexture;

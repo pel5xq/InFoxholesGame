@@ -11,13 +11,13 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
-    class Player
+    public class Player
     {
 
         public Texture2D PlayerTexture;
         public Vector2 Position;
         public Vector2 hudPosition;
-        public Texture2D foodTexture;
+        public static Texture2D foodTexture;
         public bool Active;
         public int foodSupply;
 

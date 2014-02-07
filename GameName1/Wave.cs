@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
-    class Wave
+    public class Wave
     {
         public List<Enemy> enemiesToSpawn;
         public List<double> spawnTimings;

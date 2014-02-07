@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
-    abstract class Weapon
+    public abstract class Weapon
     {
         public Texture2D WeaponTexture;
         public Vector2 Position;

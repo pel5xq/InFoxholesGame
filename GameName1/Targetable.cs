@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameName1
 {
-    interface Targetable
+    public interface Targetable
     {
         bool isHit(Vector2 crosshairPosition);
     }
