@@ -26,8 +26,10 @@ namespace GameName1
         public List<Loot> scavengedLoot;
         double whenScavengeBegan;
         int actionToReturnTo;
-        Vector2 scavengerSpawn = new Vector2(140, 180);
-        Vector2 scavengerIdle = new Vector2(30, 300);
+        Vector2 scavengerSpawn;
+        Vector2 scavengerIdle;
+        bool drawLootFlag;
+        Enemy enemyToLoot;
 
         /* Magic Numbers*/
         float speedValue = .8f;
@@ -71,11 +73,12 @@ namespace GameName1
             reverseTexture = new AnimatedSprite(content.Load<Texture2D>("Graphics\\TrooperReverse"), numMapRows, numMapColumns, animationSpeed);
             speed = speedValue;
             Position = position;
-            Vector2 scavengerSpawn = spawnPosition;
-            Vector2 scavengerIdle = position;
+            scavengerSpawn = spawnPosition;
+            scavengerIdle = position;
             Alive = true;
             action = 0;
             scavengedLoot = new List<Loot>();
+            drawLootFlag = false;
         }
 
         public void Update(int command, GameTime gameTime, Wave wave)
@@ -141,6 +144,9 @@ namespace GameName1
                     if (gameTime.TotalGameTime.TotalMilliseconds - whenScavengeBegan > timeToScavenge)
                     {
                         action = actionToReturnTo;
+                        drawLootFlag = true;
+                        enemyToLoot.isLooted = true;
+                        
                     }
                     else
                     {
