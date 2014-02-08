@@ -131,7 +131,7 @@ namespace GameName1
 
         public void reload(GameTime currentTime)
         {
-            if (ammoSupply > 0)
+            if (ammoSupply > 0 && clipSupply != clipSize)
             {
                 int ammoToReplenish = clipSize - clipSupply;
                 if (ammoSupply >= ammoToReplenish)

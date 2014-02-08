@@ -56,6 +56,8 @@ namespace GameName1
         Vector2 scavengerSpawn = new Vector2(140, 180);
         Vector2 scavengerIdle = new Vector2(30, 300);
         Vector2 gameOverPositionOffset = new Vector2(0, 225);
+        int windowWidth = 800;
+        int windowHeight = 482;
 
         public Game1()
             : base()
@@ -63,6 +65,10 @@ namespace GameName1
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             gameOver = false;
+            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = windowWidth;
+            graphics.PreferredBackBufferHeight = windowHeight;
+            graphics.ApplyChanges();
         }
 
         /// <summary>

@@ -39,6 +39,7 @@
     <Compile Include="FoodLoot.cs" />
     <Compile Include="Loot.cs" />
     <Compile Include="MachineGunAmmoLoot.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Scavenger.cs" />
     <Compile Include="Pather.cs" />
     <Compile Include="Enemy.cs" />
@@ -102,6 +103,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\LeeEnfieldAmmo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Menu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\rifleBurst.png">
