@@ -37,6 +37,8 @@ namespace GameName1
         public static bool gameOver;
         public Texture2D gameOverTexture;
         public Vector2 playerPosition;
+        public static bool isInMenu;
+        Menu menu;
 
         /* Magic Numbers */
         private int startingSniperAmmo = 10;
@@ -65,6 +67,7 @@ namespace GameName1
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             gameOver = false;
+            isInMenu = true;
             graphics.IsFullScreen = false;
             graphics.PreferredBackBufferWidth = windowWidth;
             graphics.PreferredBackBufferHeight = windowHeight;
@@ -102,7 +105,7 @@ namespace GameName1
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            menu = new Menu(Content, spriteBatch);
             playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             player.Initialize(Content, playerPosition, startingFood, thirdHudPosition);
             crosshair.Initialize(Content);
@@ -134,49 +137,56 @@ namespace GameName1
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            if (isInMenu)
             {
-                weapon.reload(gameTime);
+                menu.Update(gameTime);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Q) && gameTime.TotalGameTime.TotalMilliseconds - lastWeaponToggle > weaponToggleCooldown)
+            else
             {
-                if (sniperRifle.isSelected)
+                if (Keyboard.GetState().IsKeyDown(Keys.R))
                 {
-                    sniperRifle.isSelected = false;
-                    machineGun.isSelected = true;
-                    weapon = machineGun;
+                    weapon.reload(gameTime);
                 }
-                else
+                if (Keyboard.GetState().IsKeyDown(Keys.Q) && gameTime.TotalGameTime.TotalMilliseconds - lastWeaponToggle > weaponToggleCooldown)
                 {
-                    sniperRifle.isSelected = true;
-                    machineGun.isSelected = false;
-                    weapon = sniperRifle;
+                    if (sniperRifle.isSelected)
+                    {
+                        sniperRifle.isSelected = false;
+                        machineGun.isSelected = true;
+                        weapon = machineGun;
+                    }
+                    else
+                    {
+                        sniperRifle.isSelected = true;
+                        machineGun.isSelected = false;
+                        weapon = sniperRifle;
+                    }
+                    lastWeaponToggle = gameTime.TotalGameTime.TotalMilliseconds;
                 }
-                lastWeaponToggle = gameTime.TotalGameTime.TotalMilliseconds;
-            }
-            int scavengeCommand = -1;
-            if (Keyboard.GetState().IsKeyDown(Keys.W) && gameTime.TotalGameTime.TotalMilliseconds - lastScavengeCall > scavengeToggleCooldown)
-            {
-                if (currentScavengeCommand == 0)
+                int scavengeCommand = -1;
+                if (Keyboard.GetState().IsKeyDown(Keys.W) && gameTime.TotalGameTime.TotalMilliseconds - lastScavengeCall > scavengeToggleCooldown)
                 {
-                    currentScavengeCommand = 1;
-                    scavengeCommand = 1;
+                    if (currentScavengeCommand == 0)
+                    {
+                        currentScavengeCommand = 1;
+                        scavengeCommand = 1;
+                    }
+                    else
+                    {
+                        currentScavengeCommand = 0;
+                        scavengeCommand = 0;
+                    }
+                    lastScavengeCall = gameTime.TotalGameTime.TotalMilliseconds;
                 }
-                else
-                {
-                    currentScavengeCommand = 0;
-                    scavengeCommand = 0;   
-                }
-                lastScavengeCall = gameTime.TotalGameTime.TotalMilliseconds;
-            }
-            previousKeyboardState = currentKeyboardState;
-            previousMouseState = currentMouseState;
-            currentKeyboardState = Keyboard.GetState();
-            currentMouseState = Mouse.GetState();
-            UpdateCrosshair(gameTime);
-            wave.Update(gameTime, scavenger);
-            scavenger.Update(scavengeCommand, gameTime, wave);
+                previousKeyboardState = currentKeyboardState;
+                previousMouseState = currentMouseState;
+                currentKeyboardState = Keyboard.GetState();
+                currentMouseState = Mouse.GetState();
+                UpdateCrosshair(gameTime);
+                wave.Update(gameTime, scavenger);
+                scavenger.Update(scavengeCommand, gameTime, wave);
 
+            }
             base.Update(gameTime);
         }
 
@@ -190,21 +200,27 @@ namespace GameName1
 
             spriteBatch.Begin();
 
-            if (!gameOver)
+            if (isInMenu)
             {
-                player.Draw(spriteBatch);
-                crosshair.Draw(spriteBatch);
-                weapon.Draw(spriteBatch);
-                sniperRifle.DrawHUD(spriteBatch, gameTime);
-                machineGun.DrawHUD(spriteBatch, gameTime);
-                scavenger.Draw(spriteBatch);
-                wave.Draw(spriteBatch);
+                menu.Draw(spriteBatch, gameTime);
             }
             else
             {
-                spriteBatch.Draw(gameOverTexture, Vector2.Subtract(playerPosition, gameOverPositionOffset), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                if (!gameOver)
+                {
+                    player.Draw(spriteBatch);
+                    crosshair.Draw(spriteBatch);
+                    weapon.Draw(spriteBatch);
+                    sniperRifle.DrawHUD(spriteBatch, gameTime);
+                    machineGun.DrawHUD(spriteBatch, gameTime);
+                    scavenger.Draw(spriteBatch);
+                    wave.Draw(spriteBatch);
+                }
+                else
+                {
+                    spriteBatch.Draw(gameOverTexture, Vector2.Subtract(playerPosition, gameOverPositionOffset), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                }
             }
-
             spriteBatch.End();
 
             base.Draw(gameTime);

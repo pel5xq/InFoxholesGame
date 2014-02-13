@@ -18,8 +18,6 @@ namespace GameName1
     /// </summary>
     public static class Program
     {
-        public static Game mainGame;
-        public static Game menuGame;
 
         /// <summary>
         /// The main entry point for the application.
@@ -28,20 +26,8 @@ namespace GameName1
         static void Main()
         {
 
-            //using (var game = new Game1())
-               // game.Run();
-            //mainGame = new Game1();
-            
-            //mainGame.Run();
-            menuGame = new Menu();
-
-            menuGame.Exiting += delegate(object o, System.EventArgs e)
-            {
-                mainGame = new Game1();
-                mainGame.Run();
-            };
-
-            menuGame.Run();
+            using (var game = new Game1())
+                game.Run();
         }
     }
 //#endif
