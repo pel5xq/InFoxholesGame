@@ -39,6 +39,8 @@ namespace GameName1
         public Vector2 playerPosition;
         public static bool isInMenu;
         Menu menu;
+        public static bool isInfiniteAmmoMode;
+        public static bool isInfiniteFoodMode;
 
         /* Magic Numbers */
         private int startingSniperAmmo = 10;
@@ -68,6 +70,8 @@ namespace GameName1
             Content.RootDirectory = "Content";
             gameOver = false;
             isInMenu = true;
+            isInfiniteAmmoMode = false;
+            isInfiniteFoodMode = false;
             graphics.IsFullScreen = false;
             graphics.PreferredBackBufferWidth = windowWidth;
             graphics.PreferredBackBufferHeight = windowHeight;
@@ -89,7 +93,7 @@ namespace GameName1
             weapon = sniperRifle;
             sniperRifle.isSelected = true;
             machineGun.isSelected = false;
-            wave = new Wave1();
+            wave = new Wave2();
             lastWeaponToggle = 0;
             scavenger = new Scavenger();
             lastScavengeCall = 0;

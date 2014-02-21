@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace GameName1
 {
-    public class Wave1 : Wave
+    public class Wave2 : Wave
     {
 
         /* Magic Numbers */
@@ -21,8 +21,8 @@ namespace GameName1
 
         override public void Initialize(ContentManager content, Vector2 position)
         {
-            Game1.isInfiniteAmmoMode = true;
-            Game1.isInfiniteFoodMode = true;
+            Game1.isInfiniteAmmoMode = false;
+            Game1.isInfiniteFoodMode = false;
             waveSize = wavesize;
             spawnTimings = new List<double>(waveSize);
             enemiesToSpawn = new List<Enemy>(waveSize);

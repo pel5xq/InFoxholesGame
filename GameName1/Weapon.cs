@@ -98,10 +98,14 @@ namespace GameName1
                 spriteBatch.Draw(bullet, new Vector2(hudPosition.X + hudPadding * 2 + WeaponTexture.Width + i * bullet.Width, hudPosition.Y), 
                     null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
-            for (int i = clipSize; i < ammoSupply + clipSize; i++)
+            //Don't draw supply in infinite ammo mode
+            if (!Game1.isInfiniteAmmoMode)
             {
-                spriteBatch.Draw(bullet, new Vector2(hudPosition.X + hudPadding * 2 + WeaponTexture.Width + (i + 2) * bullet.Width, hudPosition.Y),
-                    null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                for (int i = clipSize; i < ammoSupply + clipSize; i++)
+                {
+                    spriteBatch.Draw(bullet, new Vector2(hudPosition.X + hudPadding * 2 + WeaponTexture.Width + (i + 2) * bullet.Width, hudPosition.Y),
+                        null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                }
             }
         }
 
@@ -131,7 +135,12 @@ namespace GameName1
 
         public void reload(GameTime currentTime)
         {
-            if (ammoSupply > 0 && clipSupply != clipSize)
+            if (Game1.isInfiniteAmmoMode && clipSupply != clipSize)
+            {
+                clipSupply = clipSize;
+                reloadMilli = currentTime.TotalGameTime.TotalMilliseconds;
+            }
+            else if (ammoSupply > 0 && clipSupply != clipSize)
             {
                 int ammoToReplenish = clipSize - clipSupply;
                 if (ammoSupply >= ammoToReplenish)
@@ -151,7 +160,7 @@ namespace GameName1
         public void removeAmmo(GameTime currentTime)
         {
             clipSupply = clipSupply - 1;
-            if (clipSupply == 0) reload(currentTime);
+            if (clipSupply == 0) reload(currentTime);    
         }
 
         public bool isFireable(GameTime currentTime)

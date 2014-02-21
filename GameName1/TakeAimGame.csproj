@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
+    <Compile Include="Wave2.cs" />
     <Compile Include="FoodLoot.cs" />
     <Compile Include="Loot.cs" />
     <Compile Include="MachineGunAmmoLoot.cs" />
