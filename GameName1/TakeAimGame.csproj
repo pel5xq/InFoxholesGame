@@ -40,6 +40,7 @@
     <Compile Include="Loot\FoodLoot.cs" />
     <Compile Include="Loot\Loot.cs" />
     <Compile Include="Loot\MachineGunAmmoLoot.cs" />
+    <Compile Include="Waves\WaveManager.cs" />
     <Compile Include="Windows\Menu.cs" />
     <Compile Include="Friendlies\Scavenger.cs" />
     <Compile Include="Util\Pather.cs" />

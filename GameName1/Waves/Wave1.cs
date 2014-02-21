@@ -15,14 +15,14 @@ namespace GameName1
     {
 
         /* Magic Numbers */
-        int wavesize = 10;
-        double baseTime = 1000;
-        double interval = 6500;
+        int wavesize = 3;
+        double baseTime = 1500;
+        double interval = 8000;
 
         override public void Initialize(ContentManager content, Vector2 position)
         {
-            Game1.isInfiniteAmmoMode = true;
-            Game1.isInfiniteFoodMode = true;
+            infiniteAmmoModeOn = true;
+            infiniteFoodModeOn = true;
             waveSize = wavesize;
             spawnTimings = new List<double>(waveSize);
             enemiesToSpawn = new List<Enemy>(waveSize);
@@ -35,13 +35,6 @@ namespace GameName1
             lootList.Add(new SniperAmmoLoot(2, content));
             lootList.Add(new FoodLoot(1, content));
             lootList.Add(new MachineGunAmmoLoot(10, content));
-            lootList.Add(new FoodLoot(1, content));
-            lootList.Add(new MachineGunAmmoLoot(4, content));
-            lootList.Add(new SniperAmmoLoot(4, content));
-            lootList.Add(new MachineGunAmmoLoot(6, content));
-            lootList.Add(new FoodLoot(1, content));
-            lootList.Add(new SniperAmmoLoot(3, content));
-            lootList.Add(new SniperAmmoLoot(1, content));
             base.Initialize(content, position);
         }
     }

@@ -27,7 +27,7 @@ namespace GameName1
         Weapon weapon;
         static SniperRifle sniperRifle;
         static MachineGun machineGun;
-        Wave wave;
+        WaveManager waveManager;
         double lastWeaponToggle;
         Scavenger scavenger;
         double lastScavengeCall;
@@ -92,7 +92,7 @@ namespace GameName1
             weapon = sniperRifle;
             sniperRifle.isSelected = true;
             machineGun.isSelected = false;
-            wave = new Wave2();
+            waveManager = new WaveManager();
             lastWeaponToggle = 0;
             scavenger = new Scavenger();
             lastScavengeCall = 0;
@@ -117,7 +117,7 @@ namespace GameName1
             machineGun.Initialize(Content, spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y),
                 new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y), secondHudPosition, startingMachinegunAmmo);
             scavenger.Initialize(Content, scavengerIdle, scavengerSpawn, fourthHudPosition);
-            wave.Initialize(Content, new Vector2(GraphicsDevice.Viewport.Width - enemySpawnXoffset, GraphicsDevice.Viewport.Height - enemySpawnYoffset));
+            waveManager.Initialize(Content, new Vector2(GraphicsDevice.Viewport.Width - enemySpawnXoffset, GraphicsDevice.Viewport.Height - enemySpawnYoffset));
 
         }
 
@@ -185,9 +185,9 @@ namespace GameName1
                 previousMouseState = currentMouseState;
                 currentKeyboardState = Keyboard.GetState();
                 currentMouseState = Mouse.GetState();
-                crosshair.Update(currentMouseState, weapon, gameTime, wave, scavenger, GraphicsDevice);
-                wave.Update(gameTime, scavenger);
-                scavenger.Update(scavengeCommand, gameTime, wave);
+                crosshair.Update(currentMouseState, weapon, gameTime, waveManager.getWave(), scavenger, GraphicsDevice);
+                waveManager.Update(gameTime, scavenger);
+                scavenger.Update(scavengeCommand, gameTime, waveManager.getWave());
 
             }
             base.Update(gameTime);
@@ -217,7 +217,7 @@ namespace GameName1
                     sniperRifle.DrawHUD(spriteBatch, gameTime);
                     machineGun.DrawHUD(spriteBatch, gameTime);
                     scavenger.Draw(spriteBatch);
-                    wave.Draw(spriteBatch);
+                    waveManager.Draw(spriteBatch);
                 }
                 else
                 {

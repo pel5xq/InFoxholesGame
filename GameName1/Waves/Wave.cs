@@ -21,6 +21,8 @@ namespace GameName1
         Vector2 spawnPoint;
         ContentManager contentManager;
         double waveStartTime;
+        public bool infiniteAmmoModeOn;
+        public bool infiniteFoodModeOn;
 
         virtual public void Initialize(ContentManager content, Vector2 position)
         {
@@ -63,6 +65,25 @@ namespace GameName1
             {
                 enemiesOnScreen[i].Draw(spriteBatch);
             }
+        }
+
+        public void applyModes()
+        {
+            Game1.isInfiniteAmmoMode = infiniteAmmoModeOn;
+            Game1.isInfiniteFoodMode = infiniteFoodModeOn;
+        }
+
+        public bool isOver()
+        {
+            if (enemiesToSpawn.Count == 0)
+            {
+                for (int i = 0; i < enemiesOnScreen.Count; i++)
+                {
+                    if (enemiesOnScreen[i].Alive) return false;
+                }
+                return true;
+            }
+            return false;
         }
     }
 }
