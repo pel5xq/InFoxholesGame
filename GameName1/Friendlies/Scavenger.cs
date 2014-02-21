@@ -22,6 +22,10 @@ namespace GameName1
         public Texture2D scavengingTexture;
         public AnimatedSprite activeTexture;
         public AnimatedSprite reverseTexture;
+        public Texture2D sentOutHudTexture;
+        public Texture2D sentBackHudTexture;
+        public Texture2D notSentHudTexture;
+        public Vector2 hudPosition;
         public int action; //0 means unsent, 1 means sent out, 2 means sent back, 3 means actively scavenging
         public List<Loot> scavengedLoot;
         double whenScavengeBegan;
@@ -64,17 +68,21 @@ namespace GameName1
             get { return activeTexture.Texture.Height / activeTexture.Rows; }
         }
 
-        virtual public void Initialize(ContentManager content, Vector2 position, Vector2 spawnPosition)
+        virtual public void Initialize(ContentManager content, Vector2 position, Vector2 spawnPosition, Vector2 HUDPosition)
         {
             idleTexture = content.Load<Texture2D>("Graphics\\TrooperIdle");
             deathTexture = content.Load<Texture2D>("Graphics\\TrooperDead");
             scavengingTexture = content.Load<Texture2D>("Graphics\\TrooperScavenging");
             activeTexture = new AnimatedSprite(content.Load<Texture2D>("Graphics\\Trooper"), numMapRows, numMapColumns, animationSpeed);
             reverseTexture = new AnimatedSprite(content.Load<Texture2D>("Graphics\\TrooperReverse"), numMapRows, numMapColumns, animationSpeed);
+            sentOutHudTexture = content.Load<Texture2D>("Graphics\\SendOutIcon");
+            sentBackHudTexture = content.Load<Texture2D>("Graphics\\SendBackIcon");
+            notSentHudTexture = content.Load<Texture2D>("Graphics\\NotSentIcon");
             speed = speedValue;
             Position = position;
             scavengerSpawn = spawnPosition;
             scavengerIdle = position;
+            hudPosition = HUDPosition;
             Alive = true;
             action = 0;
             scavengedLoot = new List<Loot>();
@@ -232,6 +240,16 @@ namespace GameName1
                 }
             }
             else spriteBatch.Draw(deathTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+            Texture2D textureToDraw = notSentHudTexture;
+            if (action == 1) textureToDraw = sentOutHudTexture;
+            else if (action == 2) textureToDraw = sentBackHudTexture;
+            else if (action == 3)
+            {
+                if (actionToReturnTo == 1) textureToDraw = sentOutHudTexture;
+                else if (actionToReturnTo == 2) textureToDraw = sentBackHudTexture;
+            }
+            spriteBatch.Draw(textureToDraw, hudPosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
     }
 }

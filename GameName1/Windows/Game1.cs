@@ -53,6 +53,7 @@ namespace GameName1
         private Vector2 firstHudPosition = new Vector2(10, 10);
         private Vector2 secondHudPosition = new Vector2(10, 50);
         private Vector2 thirdHudPosition = new Vector2(10, 100);
+        private Vector2 fourthHudPosition = new Vector2(10, 150);
         private int enemySpawnXoffset = 100;
         private int enemySpawnYoffset = 200;
         Vector2 scavengerSpawn = new Vector2(140, 180);
@@ -115,7 +116,7 @@ namespace GameName1
                 new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y), firstHudPosition, startingSniperAmmo);
             machineGun.Initialize(Content, spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y),
                 new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y), secondHudPosition, startingMachinegunAmmo);
-            scavenger.Initialize(Content, scavengerIdle, scavengerSpawn);
+            scavenger.Initialize(Content, scavengerIdle, scavengerSpawn, fourthHudPosition);
             wave.Initialize(Content, new Vector2(GraphicsDevice.Viewport.Width - enemySpawnXoffset, GraphicsDevice.Viewport.Height - enemySpawnYoffset));
 
         }
