@@ -24,8 +24,6 @@ namespace GameName1
         MouseState currentMouseState;
         MouseState previousMouseState;
         Crosshair crosshair;
-        Vector2 aimingVector;
-        TimeSpan aimingTimestamp;
         Weapon weapon;
         static SniperRifle sniperRifle;
         static MachineGun machineGun;
@@ -186,7 +184,7 @@ namespace GameName1
                 previousMouseState = currentMouseState;
                 currentKeyboardState = Keyboard.GetState();
                 currentMouseState = Mouse.GetState();
-                UpdateCrosshair(gameTime);
+                crosshair.Update(currentMouseState, weapon, gameTime, wave, scavenger, GraphicsDevice);
                 wave.Update(gameTime, scavenger);
                 scavenger.Update(scavengeCommand, gameTime, wave);
 
@@ -232,78 +230,6 @@ namespace GameName1
 
         public static void scavengerAddToSupply(Scavenger scavenger) {
             scavenger.addLootToSupply(sniperRifle, machineGun, player);
-        }
-
-        private void UpdateCrosshair(GameTime gameTime)
-        {
-            if (crosshair.State == 0)
-            { 
-                //If not firing, listen for aiming click
-                //If clicked, place crosshair in front of gun
-                //and switch to aiming state,
-                //recording aiming vector
-                //Also confirm that vector is going in logical direction
-                if (currentMouseState.RightButton == ButtonState.Pressed)
-                {
-                    float aimX = weapon.GunPoint.X;
-                    float aimY = weapon.GunPoint.Y - crosshair.Height / 2;
-                    aimingVector.X = currentMouseState.X - aimX;
-                    aimingVector.Y = currentMouseState.Y - aimY;
-                    aimingVector.Normalize();
-                    if (aimingVector.X > 0) {
-                        aimingTimestamp = gameTime.TotalGameTime;
-                        crosshair.Position.X = aimX;
-                        crosshair.Position.Y = aimY;
-                        crosshair.State = 1;
-                    }
-                }
-
-            }
-            else
-            {
-                //If aiming, listen for firing click
-                //If the aiming button is released, place it back offscreen
-                //switch to not firing state
-                //Otherwise, move crosshair along aiming vector
-                //and if there is a firing clip, determine hit
-                //and ammo changes or reload need
-
-
-                if (currentMouseState.RightButton == ButtonState.Released)
-                {
-                    crosshair.resetPosition();
-                    crosshair.State = 0;
-                }
-                else
-                {
-                    //Need to take firing cooldown/reload into consideration
-                    if (weapon.isFireable(gameTime))
-                    {
-                        if (currentMouseState.LeftButton == ButtonState.Pressed) //implied state==1
-                        {
-                            //Update game world here and inform weapon to draw
-                            //shot, but can't draw yet
-
-                            if (wave.isHit(crosshair.Position) || scavenger.isHit(crosshair.Position))
-                            {
-                                weapon.ShotPoint.X = crosshair.Position.X + crosshair.Width / 2;
-                                weapon.ShotPoint.Y = crosshair.Position.Y + crosshair.Height / 2;
-                            }
-                            else
-                            {
-                                weapon.ShotPoint.X = weapon.GunPoint.X + aimingVector.X * GraphicsDevice.Viewport.Width;
-                                weapon.ShotPoint.Y = weapon.GunPoint.Y + aimingVector.Y * GraphicsDevice.Viewport.Width;
-                            }
-                            weapon.startShotCooldown(gameTime);
-                        }
-                    }
-                    float velocity = weapon.GetCrosshairVelocity((gameTime.TotalGameTime.Subtract(aimingTimestamp)).TotalMilliseconds);
-                    crosshair.Position.X = aimingVector.X * velocity + crosshair.Position.X;
-                    crosshair.Position.Y = aimingVector.Y * velocity + crosshair.Position.Y;
-                }
-
-            }
-
         }
     }
 }
