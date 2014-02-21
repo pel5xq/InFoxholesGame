@@ -35,28 +35,28 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AnimatedSprite.cs" />
-    <Compile Include="Wave2.cs" />
-    <Compile Include="FoodLoot.cs" />
-    <Compile Include="Loot.cs" />
-    <Compile Include="MachineGunAmmoLoot.cs" />
-    <Compile Include="Menu.cs" />
-    <Compile Include="Scavenger.cs" />
-    <Compile Include="Pather.cs" />
-    <Compile Include="Enemy.cs" />
-    <Compile Include="Enemy1.cs" />
-    <Compile Include="MachineGun.cs" />
-    <Compile Include="SniperAmmoLoot.cs" />
-    <Compile Include="Targetable.cs" />
-    <Compile Include="Wave1.cs" />
-    <Compile Include="Wave.cs" />
-    <Compile Include="Crosshair.cs" />
-    <Compile Include="SniperRifle.cs" />
-    <Compile Include="Game1.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Util\AnimatedSprite.cs" />
+    <Compile Include="Waves\Wave2.cs" />
+    <Compile Include="Loot\FoodLoot.cs" />
+    <Compile Include="Loot\Loot.cs" />
+    <Compile Include="Loot\MachineGunAmmoLoot.cs" />
+    <Compile Include="Windows\Menu.cs" />
+    <Compile Include="Friendlies\Scavenger.cs" />
+    <Compile Include="Util\Pather.cs" />
+    <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\Enemy1.cs" />
+    <Compile Include="Weapons\MachineGun.cs" />
+    <Compile Include="Loot\SniperAmmoLoot.cs" />
+    <Compile Include="Targeting\Targetable.cs" />
+    <Compile Include="Waves\Wave1.cs" />
+    <Compile Include="Waves\Wave.cs" />
+    <Compile Include="Targeting\Crosshair.cs" />
+    <Compile Include="Weapons\SniperRifle.cs" />
+    <Compile Include="Windows\Game1.cs" />
+    <Compile Include="Friendlies\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Weapon.cs" />
+    <Compile Include="Weapons\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
