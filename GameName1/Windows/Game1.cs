@@ -54,7 +54,7 @@ namespace GameName1
         private Vector2 secondHudPosition = new Vector2(10, 50);
         private Vector2 thirdHudPosition = new Vector2(10, 100);
         private Vector2 fourthHudPosition = new Vector2(10, 150);
-        private int enemySpawnXoffset = 100;
+        private int enemySpawnXoffset = -100;
         private int enemySpawnYoffset = 200;
         Vector2 scavengerSpawn = new Vector2(140, 180);
         Vector2 scavengerIdle = new Vector2(30, 300);
