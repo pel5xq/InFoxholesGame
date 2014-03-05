@@ -23,9 +23,11 @@ namespace GameName1
         Vector2 botright;
         public Texture2D pixel;
         bool hoverFlag = false;
+        double endGracePeriod;
+        int secondsLeft;
 
         /* Magic Numbers */
-        //double gracePeriodLength = 15000;
+        double gracePeriodLength = 15000;
         int numberOfImplementedWaves = 2;
         static int startButtonLX = 345;
         static int startButtonLY = 415;
@@ -38,6 +40,8 @@ namespace GameName1
         Vector2 startTextPosition = new Vector2(395f, 425f);
         String buttonText = "OK";
         Vector2 mainTextPosition = new Vector2(190f, 100f);
+        Vector2 countdownPosition = new Vector2(300f, 130f);
+        String countdownText = "End of Day in: ";
 
         public void Initialize(ContentManager content, Vector2 position)
         {
@@ -53,6 +57,8 @@ namespace GameName1
             blankScreen = content.Load<Texture2D>("Graphics\\BlackScreen");
             topleft = new Vector2(startButtonLX, startButtonLY);
             botright = new Vector2(startButtonRX, startButtonRY);
+            endGracePeriod = 0;
+            secondsLeft = (int) (gracePeriodLength / 1000);
             getWave().applyModes();
         }
 
@@ -84,12 +90,19 @@ namespace GameName1
                 if (getWave().isOver())
                 {
                     State = 2;
+                    endGracePeriod = gametime.TotalGameTime.TotalMilliseconds + gracePeriodLength;
+                    secondsLeft = (int)(gracePeriodLength / 1000);
                 }
             }
             else if (State == 2)
             {
-                nextWave();
-                State = 0;
+                getWave().Update(gametime, scavenger);
+                secondsLeft = (int)((endGracePeriod - gametime.TotalGameTime.TotalMilliseconds) / 1000);
+                if (gametime.TotalGameTime.TotalMilliseconds > endGracePeriod)
+                {
+                    nextWave();
+                    State = 0;
+                }
             }
         }
 
@@ -123,7 +136,8 @@ namespace GameName1
             }
             else if (State == 2)
             {
-                //
+                getWave().Draw(spriteBatch);
+                spriteBatch.DrawString(Game1.font, countdownText + secondsLeft, countdownPosition, Color.Black);
             }
         }
 
