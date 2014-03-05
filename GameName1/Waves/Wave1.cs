@@ -35,6 +35,7 @@ namespace GameName1
             lootList.Add(new SniperAmmoLoot(2, content));
             lootList.Add(new FoodLoot(1, content));
             lootList.Add(new MachineGunAmmoLoot(10, content));
+            openingTextFilename = "Content//Text//Wave1Open.txt";
             base.Initialize(content, position);
         }
     }

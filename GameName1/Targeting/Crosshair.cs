@@ -51,6 +51,12 @@ namespace GameName1
             Position.Y = -1 * CrosshairTexture.Height;
         }
 
+        public void interruptAiming()
+        {
+            resetPosition();
+            State = 0;
+        }
+
         public void Update(MouseState currentMouseState, Weapon weapon, GameTime gameTime, Wave wave, Scavenger scavenger,
             GraphicsDevice graphicsDevice)
         {

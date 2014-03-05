@@ -101,11 +101,12 @@ namespace GameName1
             //Don't draw supply in infinite ammo mode
             if (!Game1.isInfiniteAmmoMode)
             {
-                for (int i = clipSize; i < ammoSupply + clipSize; i++)
+                /*for (int i = clipSize; i < ammoSupply + clipSize; i++)
                 {
                     spriteBatch.Draw(bullet, new Vector2(hudPosition.X + hudPadding * 2 + WeaponTexture.Width + (i + 2) * bullet.Width, hudPosition.Y),
                         null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                }
+                }*/
+                spriteBatch.DrawString(Game1.font, "| "+ammoSupply, new Vector2(hudPosition.X + hudPadding * 2 + WeaponTexture.Width + (clipSize + 2) * bullet.Width, hudPosition.Y), Color.Black);
             }
         }
 

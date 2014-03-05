@@ -42,7 +42,14 @@ namespace GameName1
             lootList.Add(new FoodLoot(1, content));
             lootList.Add(new SniperAmmoLoot(3, content));
             lootList.Add(new SniperAmmoLoot(1, content));
+            openingTextFilename = "Content//Text//Wave2Open.txt";
             base.Initialize(content, position);
+        }
+
+        override public void applyModes()
+        {
+            Game1.initializeAmmo();
+            base.applyModes();
         }
     }
 }

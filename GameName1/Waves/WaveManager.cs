@@ -18,22 +18,41 @@ namespace GameName1
         public int State; 
         // 0 = Wave Introduction, 1 = Wave Day
         // 2 = End of Day Countdown, 3 = Wave Conclusion
+        public Texture2D blankScreen;
+        Vector2 topleft;
+        Vector2 botright;
+        public Texture2D pixel;
+        bool hoverFlag = false;
 
         /* Magic Numbers */
         //double gracePeriodLength = 15000;
         int numberOfImplementedWaves = 2;
+        static int startButtonLX = 345;
+        static int startButtonLY = 415;
+        static int startButtonRX = 470;
+        static int startButtonRY = 465;
+        int startButtonWidth = startButtonRX - startButtonLX;
+        int startButtonHeight = startButtonRY - startButtonLY;
+        private float lineThickness = 4f;
+        private float halfPi = (float)(Math.PI / 2);
+        Vector2 startTextPosition = new Vector2(395f, 425f);
+        String buttonText = "OK";
+        Vector2 mainTextPosition = new Vector2(190f, 100f);
 
         public void Initialize(ContentManager content, Vector2 position)
         {
             waves = new List<Wave>();
             currentWave = 0;
-            State = 1;
+            State = 0;
             waves.Add(new Wave1());
             waves.Add(new Wave2());
             for (int i = 0; i < waves.Count; i++)
             {
                 waves[i].Initialize(content, position);
             }
+            blankScreen = content.Load<Texture2D>("Graphics\\BlackScreen");
+            topleft = new Vector2(startButtonLX, startButtonLY);
+            botright = new Vector2(startButtonRX, startButtonRY);
             getWave().applyModes();
         }
 
@@ -44,16 +63,68 @@ namespace GameName1
 
         public void Update(GameTime gametime, Scavenger scavenger)
         {
-            getWave().Update(gametime, scavenger);
-            if (getWave().isOver())
+            if (State == 0)
+            {
+                if (overStartButton(Mouse.GetState().X, Mouse.GetState().Y))
+                {
+                    hoverFlag = true;
+                    if (Mouse.GetState().LeftButton == ButtonState.Pressed && Game1.previousMouseState.LeftButton != ButtonState.Pressed)
+                    {
+                        State = 1;
+                    }
+                }
+                else
+                {
+                    hoverFlag = false;
+                }
+            }
+            else if (State == 1)
+            {
+                getWave().Update(gametime, scavenger);
+                if (getWave().isOver())
+                {
+                    State = 2;
+                }
+            }
+            else if (State == 2)
             {
                 nextWave();
+                State = 0;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            getWave().Draw(spriteBatch);
+            if (pixel == null)
+            {
+                pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+                pixel.SetData(new[] { Color.White });
+            }
+            if (State == 0)
+            {
+                spriteBatch.Draw(blankScreen, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(Game1.font, buttonText, startTextPosition, Color.White);
+                spriteBatch.DrawString(Game1.font, getWave().openingText, mainTextPosition, Color.White);
+                if (hoverFlag)
+                {
+                    spriteBatch.Draw(pixel, topleft, null, Color.White, 0, Vector2.Zero, new Vector2(125, lineThickness),
+                        SpriteEffects.None, 0);
+                    spriteBatch.Draw(pixel, topleft, null, Color.White, halfPi, Vector2.Zero, new Vector2(50, lineThickness),
+                        SpriteEffects.None, 0);
+                    spriteBatch.Draw(pixel, botright, null, Color.White, 2 * halfPi, Vector2.Zero, new Vector2(125, lineThickness),
+                        SpriteEffects.None, 0);
+                    spriteBatch.Draw(pixel, botright, null, Color.White, -1 * halfPi, Vector2.Zero, new Vector2(50, lineThickness),
+                        SpriteEffects.None, 0);
+                }
+            }
+            else if (State == 1)
+            {
+                getWave().Draw(spriteBatch);
+            }
+            else if (State == 2)
+            {
+                //
+            }
         }
 
         public Wave getWave()
@@ -69,6 +140,14 @@ namespace GameName1
                 getWave().applyModes();
             }
         }
-
+        private bool overStartButton(int mouseX, int mouseY)
+        {
+            if (mouseX <= startButtonRX && mouseX >= startButtonLX
+                && mouseY <= startButtonRY && mouseY >= startButtonLY)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

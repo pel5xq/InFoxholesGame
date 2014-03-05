@@ -19,18 +19,16 @@ namespace GameName1
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         static Player player;
-        KeyboardState currentKeyboardState;
-        KeyboardState previousKeyboardState;
-        MouseState currentMouseState;
-        MouseState previousMouseState;
+        public static KeyboardState currentKeyboardState;
+        public static KeyboardState previousKeyboardState;
+        public static MouseState currentMouseState;
+        public static MouseState previousMouseState;
         Crosshair crosshair;
         Weapon weapon;
         static SniperRifle sniperRifle;
         static MachineGun machineGun;
         WaveManager waveManager;
-        double lastWeaponToggle;
         Scavenger scavenger;
-        double lastScavengeCall;
         int currentScavengeCommand; //0 = come back, 1 = scavenge, -1 for no change
         public static bool gameOver;
         public Texture2D gameOverTexture;
@@ -39,13 +37,12 @@ namespace GameName1
         Menu menu;
         public static bool isInfiniteAmmoMode;
         public static bool isInfiniteFoodMode;
+        public static SpriteFont font;
 
         /* Magic Numbers */
-        private int startingSniperAmmo = 10;
-        private int startingMachinegunAmmo = 50;
+        private static int startingSniperAmmo = 10;
+        private static int startingMachinegunAmmo = 50;
         private int startingFood = 1;
-        double weaponToggleCooldown = 100;
-        double scavengeToggleCooldown = 350;
         private int trenchOffsetX = 272;
         private int trenchOffsetY = 120;
         private int gunOffsetX = 187;
@@ -85,6 +82,7 @@ namespace GameName1
         /// </summary>
         protected override void Initialize()
         {
+            font = Content.Load<SpriteFont>("Fonts\\Font");
             player = new Player();
             crosshair = new Crosshair();
             sniperRifle = new SniperRifle();
@@ -93,9 +91,7 @@ namespace GameName1
             sniperRifle.isSelected = true;
             machineGun.isSelected = false;
             waveManager = new WaveManager();
-            lastWeaponToggle = 0;
             scavenger = new Scavenger();
-            lastScavengeCall = 0;
             currentScavengeCommand = 0;
             gameOverTexture = Content.Load<Texture2D>("Graphics\\TrenchGameOver");
             base.Initialize();
@@ -137,6 +133,11 @@ namespace GameName1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            previousKeyboardState = currentKeyboardState;
+            previousMouseState = currentMouseState;
+            currentKeyboardState = Keyboard.GetState();
+            currentMouseState = Mouse.GetState();
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -150,7 +151,7 @@ namespace GameName1
                 {
                     weapon.reload(gameTime);
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Q) && gameTime.TotalGameTime.TotalMilliseconds - lastWeaponToggle > weaponToggleCooldown)
+                if (Keyboard.GetState().IsKeyDown(Keys.Q) && !previousKeyboardState.IsKeyDown(Keys.Q))
                 {
                     if (sniperRifle.isSelected)
                     {
@@ -164,10 +165,10 @@ namespace GameName1
                         machineGun.isSelected = false;
                         weapon = sniperRifle;
                     }
-                    lastWeaponToggle = gameTime.TotalGameTime.TotalMilliseconds;
+                    crosshair.interruptAiming();
                 }
                 int scavengeCommand = -1;
-                if (Keyboard.GetState().IsKeyDown(Keys.W) && gameTime.TotalGameTime.TotalMilliseconds - lastScavengeCall > scavengeToggleCooldown)
+                if (Keyboard.GetState().IsKeyDown(Keys.W) && !previousKeyboardState.IsKeyDown(Keys.W))
                 {
                     if (currentScavengeCommand == 0)
                     {
@@ -179,12 +180,7 @@ namespace GameName1
                         currentScavengeCommand = 0;
                         scavengeCommand = 0;
                     }
-                    lastScavengeCall = gameTime.TotalGameTime.TotalMilliseconds;
                 }
-                previousKeyboardState = currentKeyboardState;
-                previousMouseState = currentMouseState;
-                currentKeyboardState = Keyboard.GetState();
-                currentMouseState = Mouse.GetState();
                 crosshair.Update(currentMouseState, weapon, gameTime, waveManager.getWave(), scavenger, GraphicsDevice);
                 waveManager.Update(gameTime, scavenger);
                 scavenger.Update(scavengeCommand, gameTime, waveManager.getWave());
@@ -231,6 +227,14 @@ namespace GameName1
 
         public static void scavengerAddToSupply(Scavenger scavenger) {
             scavenger.addLootToSupply(sniperRifle, machineGun, player);
+        }
+
+        public static void initializeAmmo()
+        {
+            sniperRifle.ammoSupply = startingSniperAmmo;
+            sniperRifle.clipSupply = sniperRifle.clipSize;
+            machineGun.ammoSupply = startingMachinegunAmmo;
+            machineGun.clipSupply = machineGun.clipSize;
         }
     }
 }

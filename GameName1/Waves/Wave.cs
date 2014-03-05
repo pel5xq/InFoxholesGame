@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using System.IO;
 
 namespace GameName1
 {
@@ -23,6 +24,8 @@ namespace GameName1
         double waveStartTime;
         public bool infiniteAmmoModeOn;
         public bool infiniteFoodModeOn;
+        public String openingText;
+        public String openingTextFilename;
 
         virtual public void Initialize(ContentManager content, Vector2 position)
         {
@@ -30,6 +33,7 @@ namespace GameName1
             spawnPoint = position;
             contentManager = content;
             waveStartTime = 0;
+            openingText = getTextFromFile(openingTextFilename);
         }
 
         public bool isHit(Vector2 crosshairPosition)
@@ -67,7 +71,7 @@ namespace GameName1
             }
         }
 
-        public void applyModes()
+        virtual public void applyModes()
         {
             Game1.isInfiniteAmmoMode = infiniteAmmoModeOn;
             Game1.isInfiniteFoodMode = infiniteFoodModeOn;
@@ -84,6 +88,24 @@ namespace GameName1
                 return true;
             }
             return false;
+        }
+
+        public String getTextFromFile(String filename)
+        {
+            String result = "";
+            try
+            {
+                using (StreamReader sr = new StreamReader(filename))
+                {
+                    String line = sr.ReadToEnd();
+                    result += line;
+                }
+            }
+            catch (Exception e)
+            {
+                result = "Error" + e;
+            }
+            return result;
         }
     }
 }
