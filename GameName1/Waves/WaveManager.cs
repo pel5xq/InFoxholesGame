@@ -102,6 +102,8 @@ namespace GameName1
                 {
                     nextWave();
                     State = 0;
+                    scavenger.returnToTrench();
+                    Game1.resetScavengeCommand();
                 }
             }
         }

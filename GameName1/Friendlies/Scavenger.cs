@@ -251,5 +251,12 @@ namespace GameName1
             }
             spriteBatch.Draw(textureToDraw, hudPosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
+
+        public void returnToTrench()
+        {
+            Position = scavengerIdle;
+            action = 0; 
+            Game1.scavengerAddToSupply(this);
+        }
     }
 }

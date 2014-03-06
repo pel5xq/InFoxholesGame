@@ -29,7 +29,7 @@ namespace GameName1
         static MachineGun machineGun;
         WaveManager waveManager;
         Scavenger scavenger;
-        int currentScavengeCommand; //0 = come back, 1 = scavenge, -1 for no change
+        static int currentScavengeCommand; //0 = come back, 1 = scavenge, -1 for no change
         public static bool gameOver;
         public Texture2D gameOverTexture;
         public Vector2 playerPosition;
@@ -235,6 +235,11 @@ namespace GameName1
             sniperRifle.clipSupply = sniperRifle.clipSize;
             machineGun.ammoSupply = startingMachinegunAmmo;
             machineGun.clipSupply = machineGun.clipSize;
+        }
+
+        public static void resetScavengeCommand()
+        {
+            currentScavengeCommand = 0;
         }
     }
 }
