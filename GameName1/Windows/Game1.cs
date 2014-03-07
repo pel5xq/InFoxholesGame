@@ -28,7 +28,7 @@ namespace GameName1
         static SniperRifle sniperRifle;
         static MachineGun machineGun;
         WaveManager waveManager;
-        Scavenger scavenger;
+        ScavengerManager scavengerManager;
         static int currentScavengeCommand; //0 = come back, 1 = scavenge, -1 for no change
         public static bool gameOver;
         public Texture2D gameOverTexture;
@@ -42,7 +42,7 @@ namespace GameName1
         /* Magic Numbers */
         private static int startingSniperAmmo = 10;
         private static int startingMachinegunAmmo = 50;
-        private int startingFood = 1;
+        private static int startingFood = 1;
         private int trenchOffsetX = 272;
         private int trenchOffsetY = 120;
         private int gunOffsetX = 187;
@@ -58,6 +58,7 @@ namespace GameName1
         Vector2 gameOverPositionOffset = new Vector2(0, 225);
         int windowWidth = 800;
         int windowHeight = 482;
+        int numStartingLives = 4;
 
         public Game1()
             : base()
@@ -91,7 +92,7 @@ namespace GameName1
             sniperRifle.isSelected = true;
             machineGun.isSelected = false;
             waveManager = new WaveManager();
-            scavenger = new Scavenger();
+            scavengerManager = new ScavengerManager();
             currentScavengeCommand = 0;
             gameOverTexture = Content.Load<Texture2D>("Graphics\\TrenchGameOver");
             base.Initialize();
@@ -112,7 +113,7 @@ namespace GameName1
                 new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y), firstHudPosition, startingSniperAmmo);
             machineGun.Initialize(Content, spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y),
                 new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y), secondHudPosition, startingMachinegunAmmo);
-            scavenger.Initialize(Content, scavengerIdle, scavengerSpawn, fourthHudPosition);
+            scavengerManager.Initialize(Content, scavengerSpawn, fourthHudPosition, numStartingLives);
             waveManager.Initialize(Content, new Vector2(GraphicsDevice.Viewport.Width - enemySpawnXoffset, GraphicsDevice.Viewport.Height - enemySpawnYoffset));
 
         }
@@ -181,9 +182,9 @@ namespace GameName1
                         scavengeCommand = 0;
                     }
                 }
-                crosshair.Update(currentMouseState, weapon, gameTime, waveManager.getWave(), scavenger, GraphicsDevice);
-                waveManager.Update(gameTime, scavenger);
-                scavenger.Update(scavengeCommand, gameTime, waveManager.getWave());
+                crosshair.Update(currentMouseState, weapon, gameTime, waveManager.getWave(), scavengerManager.getActiveScavenger(), GraphicsDevice);
+                waveManager.Update(gameTime, scavengerManager);
+                scavengerManager.Update(scavengeCommand, gameTime, waveManager.getWave());
 
             }
             base.Update(gameTime);
@@ -212,7 +213,7 @@ namespace GameName1
                     weapon.Draw(spriteBatch);
                     sniperRifle.DrawHUD(spriteBatch, gameTime);
                     machineGun.DrawHUD(spriteBatch, gameTime);
-                    scavenger.Draw(spriteBatch);
+                    scavengerManager.Draw(spriteBatch);
                     waveManager.Draw(spriteBatch);
                 }
                 else
@@ -235,6 +236,7 @@ namespace GameName1
             sniperRifle.clipSupply = sniperRifle.clipSize;
             machineGun.ammoSupply = startingMachinegunAmmo;
             machineGun.clipSupply = machineGun.clipSize;
+            player.foodSupply = startingFood;
         }
 
         public static void resetScavengeCommand()

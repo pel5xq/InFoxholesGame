@@ -67,7 +67,7 @@ namespace GameName1
             return getWave().isHit(crosshairPosition);
         }
 
-        public void Update(GameTime gametime, Scavenger scavenger)
+        public void Update(GameTime gametime, ScavengerManager scavengerManager)
         {
             if (State == 0)
             {
@@ -86,7 +86,7 @@ namespace GameName1
             }
             else if (State == 1)
             {
-                getWave().Update(gametime, scavenger);
+                getWave().Update(gametime, scavengerManager);
                 if (getWave().isOver())
                 {
                     State = 2;
@@ -96,14 +96,15 @@ namespace GameName1
             }
             else if (State == 2)
             {
-                getWave().Update(gametime, scavenger);
+                getWave().Update(gametime, scavengerManager);
                 secondsLeft = (int)((endGracePeriod - gametime.TotalGameTime.TotalMilliseconds) / 1000);
                 if (gametime.TotalGameTime.TotalMilliseconds > endGracePeriod)
                 {
+                    scavengerManager.returnToTrench();
                     nextWave();
                     State = 0;
-                    scavenger.returnToTrench();
                     Game1.resetScavengeCommand();
+                    scavengerManager.cleanUpBodies();
                 }
             }
         }

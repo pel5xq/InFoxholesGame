@@ -73,22 +73,24 @@ namespace GameName1
             return false;
         }
 
-        public void Update(GameTime gametime, Scavenger scavenger)
+        public void Update(GameTime gametime, ScavengerManager scavengerManager)
         {
 
-            if (Alive && scavenger.Alive) {
-                float scavR = scavenger.Width + scavenger.Position.X;
-                float scavL = scavenger.Position.X;
+            if (Alive && scavengerManager.getActiveScavenger().Alive)
+            {
+                float scavR = scavengerManager.getActiveScavenger().Width 
+                    + scavengerManager.getActiveScavenger().Position.X;
+                float scavL = scavengerManager.getActiveScavenger().Position.X;
                 float myR = Width + Position.X;
                 float myL = Position.X;
                 if ((scavR >= myL && scavR <= myR) || (scavL >= myL && scavL <= myR))
                 {
                     isFiring = true;
-                    scavenger.Alive = false;
+                    scavengerManager.getActiveScavenger().Alive = false;
                     beginFiringTime = gametime.TotalGameTime.TotalMilliseconds;
                 }
             }
-            else if (isFiring)
+            if (isFiring)
             {
                 if (gametime.TotalGameTime.TotalMilliseconds - beginFiringTime > firingAnimationRate) isFiring = false;
             }
@@ -99,12 +101,14 @@ namespace GameName1
                 if (Position.X <= ladderCheckX)
                 {
                     //If the scavenger is there, kill both
-                    if (scavenger.Alive && scavenger.action == 0)
+                    if (scavengerManager.getActiveScavenger().Alive && scavengerManager.getActiveScavenger().action == 0)
                     {
-                        scavenger.Alive = false;
+                        scavengerManager.getActiveScavenger().Alive = false;
                         beginFiringTime = gametime.TotalGameTime.TotalMilliseconds;
                         Alive = false;
-                        toShoot = new Vector2(scavenger.Position.X + scavenger.Width/2, scavenger.Position.Y + scavenger.Height/4);
+                        toShoot = new Vector2(scavengerManager.getActiveScavenger().Position.X +
+                            scavengerManager.getActiveScavenger().Width / 2, scavengerManager.getActiveScavenger().Position.Y
+                            + scavengerManager.getActiveScavenger().Height / 4);
                     }
                     else //Otherwise, game over
                     {

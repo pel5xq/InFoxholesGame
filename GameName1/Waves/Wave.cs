@@ -46,7 +46,7 @@ namespace GameName1
             return retval;
         }
 
-        public void Update(GameTime gametime, Scavenger scavenger)
+        public void Update(GameTime gametime, ScavengerManager scavengerManager)
         {
             if (waveStartTime == 0) waveStartTime = gametime.TotalGameTime.TotalMilliseconds;
             else if ((spawnTimings.Count > 0) && spawnTimings[0] <= gametime.TotalGameTime.TotalMilliseconds - waveStartTime)
@@ -59,7 +59,7 @@ namespace GameName1
             }
             for (int i = 0; i < enemiesOnScreen.Count; i++)
             {
-                enemiesOnScreen[i].Update(gametime, scavenger);
+                enemiesOnScreen[i].Update(gametime, scavengerManager);
             }
         }
 
