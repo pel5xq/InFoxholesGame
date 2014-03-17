@@ -60,7 +60,7 @@ namespace GameName1
                 scavengers[activeScavenger].Active = true;
                 //Don't use last scavenger's commands at death
                 command = -1;
-                Game1.resetScavengeCommand();
+                MainGame.resetScavengeCommand();
             }
             for (int i = 0; i < scavengers.Count; i++)
             {

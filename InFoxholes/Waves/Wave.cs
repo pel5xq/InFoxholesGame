@@ -73,8 +73,8 @@ namespace GameName1
 
         virtual public void applyModes()
         {
-            Game1.isInfiniteAmmoMode = infiniteAmmoModeOn;
-            Game1.isInfiniteFoodMode = infiniteFoodModeOn;
+            MainGame.isInfiniteAmmoMode = infiniteAmmoModeOn;
+            MainGame.isInfiniteFoodMode = infiniteFoodModeOn;
         }
 
         public bool isOver()

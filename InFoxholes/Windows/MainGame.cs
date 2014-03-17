@@ -14,7 +14,7 @@ namespace GameName1
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Game
+    public class MainGame : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -60,7 +60,7 @@ namespace GameName1
         int windowHeight = 482;
         int numStartingLives = 4;
 
-        public Game1()
+        public MainGame()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);

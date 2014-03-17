@@ -112,7 +112,7 @@ namespace GameName1
                     }
                     else //Otherwise, game over
                     {
-                        Game1.gameOver = true;
+                        MainGame.gameOver = true;
                     }
                 }
                 else

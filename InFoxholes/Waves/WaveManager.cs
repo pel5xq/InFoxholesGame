@@ -74,7 +74,7 @@ namespace GameName1
                 if (overStartButton(Mouse.GetState().X, Mouse.GetState().Y))
                 {
                     hoverFlag = true;
-                    if (Mouse.GetState().LeftButton == ButtonState.Pressed && Game1.previousMouseState.LeftButton != ButtonState.Pressed)
+                    if (Mouse.GetState().LeftButton == ButtonState.Pressed && MainGame.previousMouseState.LeftButton != ButtonState.Pressed)
                     {
                         State = 1;
                     }
@@ -103,7 +103,7 @@ namespace GameName1
                     scavengerManager.returnToTrench();
                     nextWave();
                     State = 0;
-                    Game1.resetScavengeCommand();
+                    MainGame.resetScavengeCommand();
                     scavengerManager.cleanUpBodies();
                 }
             }
@@ -119,8 +119,8 @@ namespace GameName1
             if (State == 0)
             {
                 spriteBatch.Draw(blankScreen, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(Game1.font, buttonText, startTextPosition, Color.White);
-                spriteBatch.DrawString(Game1.font, getWave().openingText, mainTextPosition, Color.White);
+                spriteBatch.DrawString(MainGame.font, buttonText, startTextPosition, Color.White);
+                spriteBatch.DrawString(MainGame.font, getWave().openingText, mainTextPosition, Color.White);
                 if (hoverFlag)
                 {
                     spriteBatch.Draw(pixel, topleft, null, Color.White, 0, Vector2.Zero, new Vector2(125, lineThickness),
@@ -140,7 +140,7 @@ namespace GameName1
             else if (State == 2)
             {
                 getWave().Draw(spriteBatch);
-                spriteBatch.DrawString(Game1.font, countdownText + secondsLeft, countdownPosition, Color.Black);
+                spriteBatch.DrawString(MainGame.font, countdownText + secondsLeft, countdownPosition, Color.Black);
             }
         }
 

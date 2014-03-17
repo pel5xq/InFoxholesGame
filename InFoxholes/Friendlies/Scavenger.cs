@@ -240,7 +240,7 @@ namespace GameName1
                         {
                             Position = scavengerIdle;
                             action = 0;
-                            Game1.scavengerAddToSupply(this);
+                            MainGame.scavengerAddToSupply(this);
                         }
                         else
                         {
@@ -316,7 +316,7 @@ namespace GameName1
         {
             Position = scavengerIdle;
             action = 0; 
-            Game1.scavengerAddToSupply(this);
+            MainGame.scavengerAddToSupply(this);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace GameName1
                 hoverFlag = true;
                  if(Mouse.GetState().LeftButton == ButtonState.Pressed)
                  {
-                     Game1.isInMenu = false;
+                     MainGame.isInMenu = false;
                  }
             }
             else {

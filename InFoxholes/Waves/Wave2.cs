@@ -48,7 +48,7 @@ namespace GameName1
 
         override public void applyModes()
         {
-            Game1.initializeAmmo();
+            MainGame.initializeAmmo();
             base.applyModes();
         }
     }

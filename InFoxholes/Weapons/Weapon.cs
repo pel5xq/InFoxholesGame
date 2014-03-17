@@ -99,14 +99,14 @@ namespace GameName1
                     null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
             //Don't draw supply in infinite ammo mode
-            if (!Game1.isInfiniteAmmoMode)
+            if (!MainGame.isInfiniteAmmoMode)
             {
                 /*for (int i = clipSize; i < ammoSupply + clipSize; i++)
                 {
                     spriteBatch.Draw(bullet, new Vector2(hudPosition.X + hudPadding * 2 + WeaponTexture.Width + (i + 2) * bullet.Width, hudPosition.Y),
                         null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                 }*/
-                spriteBatch.DrawString(Game1.font, "| "+ammoSupply, new Vector2(hudPosition.X + hudPadding * 2 + WeaponTexture.Width + (clipSize + 2) * bullet.Width, hudPosition.Y), Color.Black);
+                spriteBatch.DrawString(MainGame.font, "| "+ammoSupply, new Vector2(hudPosition.X + hudPadding * 2 + WeaponTexture.Width + (clipSize + 2) * bullet.Width, hudPosition.Y), Color.Black);
             }
         }
 
@@ -136,7 +136,7 @@ namespace GameName1
 
         public void reload(GameTime currentTime)
         {
-            if (Game1.isInfiniteAmmoMode && clipSupply != clipSize)
+            if (MainGame.isInfiniteAmmoMode && clipSupply != clipSize)
             {
                 clipSupply = clipSize;
                 reloadMilli = currentTime.TotalGameTime.TotalMilliseconds;

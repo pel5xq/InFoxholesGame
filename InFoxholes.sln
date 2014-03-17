@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TakeAimGame", "GameName1\TakeAimGame.csproj", "{BDE4BFE8-01A8-4BE6-A909-4E519BE24AC1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InFoxholes", "InFoxholes\InFoxholes.csproj", "{BDE4BFE8-01A8-4BE6-A909-4E519BE24AC1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38E84467-9AB2-4256-841D-3484F7A4A3F7}"
 EndProject

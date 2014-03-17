@@ -52,10 +52,10 @@ namespace GameName1
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(PlayerTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            if (!Game1.isInfiniteFoodMode)
+            if (!MainGame.isInfiniteFoodMode)
             {
                 spriteBatch.Draw(foodTexture, hudPosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(Game1.font, "x "+foodSupply, Vector2.Add(hudPosition, 
+                spriteBatch.DrawString(MainGame.font, "x "+foodSupply, Vector2.Add(hudPosition, 
                     new Vector2(foodBuffer + foodTexture.Width, 0)), Color.Black);
             }
         }
