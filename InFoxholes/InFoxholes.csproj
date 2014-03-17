@@ -57,9 +57,9 @@
     <Compile Include="Friendlies\ScavengerManager.cs" />
     <Compile Include="Util\AnimatedSprite.cs" />
     <Compile Include="Waves\Wave2.cs" />
-    <Compile Include="Loot\FoodLoot.cs" />
-    <Compile Include="Loot\Loot.cs" />
-    <Compile Include="Loot\MachineGunAmmoLoot.cs" />
+    <Compile Include="Looting\FoodLoot.cs" />
+    <Compile Include="Looting\Loot.cs" />
+    <Compile Include="Looting\MachineGunAmmoLoot.cs" />
     <Compile Include="Waves\WaveManager.cs" />
     <Compile Include="Windows\Menu.cs" />
     <Compile Include="Friendlies\Scavenger.cs" />
@@ -67,7 +67,7 @@
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\Enemy1.cs" />
     <Compile Include="Weapons\MachineGun.cs" />
-    <Compile Include="Loot\SniperAmmoLoot.cs" />
+    <Compile Include="Looting\SniperAmmoLoot.cs" />
     <Compile Include="Targeting\Targetable.cs" />
     <Compile Include="Waves\Wave1.cs" />
     <Compile Include="Waves\Wave.cs" />

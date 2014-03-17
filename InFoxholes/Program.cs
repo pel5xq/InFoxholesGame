@@ -10,7 +10,17 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 #endregion
 
-namespace GameName1
+using InFoxholes;
+using InFoxholes.Enemies;
+using InFoxholes.Friendlies;
+using InFoxholes.Looting;
+using InFoxholes.Targeting;
+using InFoxholes.Util;
+using InFoxholes.Waves;
+using InFoxholes.Weapons;
+using InFoxholes.Windows;
+
+namespace InFoxholes
 {
 //#if WINDOWS || LINUX
     /// <summary>
