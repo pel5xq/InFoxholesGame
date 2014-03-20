@@ -17,8 +17,8 @@ namespace InFoxholes.Enemies
         public AnimatedSprite EnemyTextureMap;
         public Texture2D EnemyDeathTexture;
         public Texture2D FiringTexture;
-        double firingAnimationRate;
-        double beginFiringTime;
+        public double firingAnimationRate;
+        public double beginFiringTime;
         public Vector2 Position;
         public float speed;
         public bool Alive;
@@ -28,13 +28,13 @@ namespace InFoxholes.Enemies
         public Vector2 toShoot;
 
         /* Magic Number */
-        float firinganimationrate = 300;
-        int ladderCheckX = 122;
-        Vector2 gunPoint = new Vector2(122, 211);
-        Vector2 adjustShot = new Vector2(25, 7);
-        float lineThickness = 2f;
-        float angleAdjust = .25f;
-        float distanceAdjust = -15f;
+        public float firinganimationrate = 300;
+        public int ladderCheckX = 122;
+        public Vector2 gunPoint = new Vector2(122, 211);
+        public Vector2 adjustShot = new Vector2(25, 7);
+        public float lineThickness = 2f;
+        public float angleAdjust = .25f;
+        public float distanceAdjust = -15f;
 
         public int Width
         {
@@ -73,7 +73,7 @@ namespace InFoxholes.Enemies
             return false;
         }
 
-        public void Update(GameTime gametime, ScavengerManager scavengerManager)
+        virtual public void Update(GameTime gametime, ScavengerManager scavengerManager)
         {
 
             if (Alive && scavengerManager.getActiveScavenger().Alive)
@@ -123,7 +123,7 @@ namespace InFoxholes.Enemies
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        virtual public void Draw(SpriteBatch spriteBatch)
         {
             if (Alive)
             {
