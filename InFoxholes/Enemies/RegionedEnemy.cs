@@ -4,7 +4,6 @@ using InFoxholes.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System; 
 
 
 namespace InFoxholes.Enemies
@@ -19,13 +18,9 @@ namespace InFoxholes.Enemies
      * 
      * This is done by overriding the isHit method.
      * The player shot is divided over the enemy height. This is 
-     * the "region" fraction. This region fraction is compared against
-     * of region fractions to damage. This dictionary must be implemented
-     * by the enemy child class. 
-     * 
-     * So, the additions needed to use the RegionedEnemy in a new enemy
-     * are health and a dictionary of region fraction doubles to damage
-     * ints. 
+     * the "region" fraction. This region fraction is compared against 
+     * a regions list. This regions list has an accompanying damages list.
+     * Both lists along with an enemy health must be declared in child classes.
      * 
      * How to use regions list: 
      * The list should start with the first region, and end with 1
@@ -65,7 +60,6 @@ namespace InFoxholes.Enemies
                         shotDamage = damages[i]; 
                     }
                 }
-                Console.WriteLine("Shot in region " + shotRegion + " and damage of " + shotDamage); 
                 health -= shotDamage; 
                 if (health <= 0)
                 {
