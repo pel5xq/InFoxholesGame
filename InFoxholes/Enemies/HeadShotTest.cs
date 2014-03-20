@@ -22,8 +22,8 @@ namespace InFoxholes.Enemies
         int numMapColumns = 4;
 
         /* Regioned Enemy fields */
-        List<double> testHSRegions = new List<double> { .5, 1 };
-        List<int> testHSDamages = new List<int> { 2, 1 };
+        List<double> testHSRegions = new List<double> { 0, .2, 1 };
+        List<int> testHSDamages = new List<int> { 2, 1, 1 };
         int testHSHealth = 2; 
 
         override public void Initialize(ContentManager content, Vector2 position, Loot theLoot)

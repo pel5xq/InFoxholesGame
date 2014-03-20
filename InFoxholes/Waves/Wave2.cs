@@ -25,7 +25,8 @@ namespace InFoxholes.Waves
             lootList = new List<Loot>(waveSize);
             for (int i = 0; i < waveSize; i++)
             {
-                enemiesToSpawn.Insert(i, new Enemy1());
+                if (i % 4 == 0) enemiesToSpawn.Insert(i, new HeadShotTest());
+                else enemiesToSpawn.Insert(i, new Enemy1());
                 spawnTimings.Insert(i, baseTime + i * interval);
             }
             lootList.Add(new SniperAmmoLoot(2, content));

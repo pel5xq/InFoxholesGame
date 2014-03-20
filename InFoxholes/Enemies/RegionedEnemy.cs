@@ -50,14 +50,16 @@ namespace InFoxholes.Enemies
                 truePosition.X <= EnemyTexture.Width &&
                 truePosition.Y <= EnemyTexture.Height)
             {
-                double shotRegion = truePosition.Y / EnemyTexture.Height; 
+                double shotRegion = truePosition.Y / EnemyTexture.Height;
                 int shotDamage = 0; 
                 for(int i=0; i < regions.Count; i++) {
                     if(i == regions.Count-1) {
-                        shotDamage = damages[i]; 
+                        shotDamage = damages[i];
+                        break;
                     }
                     else if (regions[i+1] > shotRegion) {
-                        shotDamage = damages[i]; 
+                        shotDamage = damages[i];
+                        break;
                     }
                 }
                 health -= shotDamage; 
