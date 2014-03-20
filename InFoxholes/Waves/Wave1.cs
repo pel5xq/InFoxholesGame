@@ -22,11 +22,13 @@ namespace InFoxholes.Waves
             spawnTimings = new List<double>(waveSize);
             enemiesToSpawn = new List<Enemy>(waveSize);
             lootList = new List<Loot>(waveSize);
-            for (int i = 0; i < waveSize; i++)
+            for (int i = 0; i < waveSize-1; i++)
             {
                 enemiesToSpawn.Insert(i, new Enemy1());
                 spawnTimings.Insert(i, baseTime + i * interval);
             }
+            enemiesToSpawn.Insert(waveSize-1, new HeadShotTest());
+            spawnTimings.Insert(waveSize - 1, baseTime + (waveSize - 1) * interval);
             lootList.Add(new SniperAmmoLoot(2, content));
             lootList.Add(new FoodLoot(1, content));
             lootList.Add(new MachineGunAmmoLoot(10, content));
