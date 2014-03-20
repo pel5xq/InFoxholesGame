@@ -54,6 +54,8 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Enemies\HeadShotTest.cs" />
+    <Compile Include="Enemies\RegionedEnemy.cs" />
     <Compile Include="Friendlies\ScavengerManager.cs" />
     <Compile Include="Util\AnimatedSprite.cs" />
     <Compile Include="Waves\Wave2.cs" />

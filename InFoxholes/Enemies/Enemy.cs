@@ -58,7 +58,7 @@ namespace InFoxholes.Enemies
             toShoot = Vector2.Zero;
         }
 
-        public bool isHit(Vector2 crosshairPosition)
+        virtual public bool isHit(Vector2 crosshairPosition)
         {
             Vector2 truePosition = Vector2.Subtract(crosshairPosition, Position);
             if (Alive &&
