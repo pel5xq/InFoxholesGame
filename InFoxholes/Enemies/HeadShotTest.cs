@@ -21,6 +21,7 @@ namespace InFoxholes.Enemies
         int animationSpeed = 10;
         int numMapRows = 1;
         int numMapColumns = 4;
+        Vector2 gunpointOffset = new Vector2(5, 30);
 
         /* Regioned Enemy fields */
         List<double> testHSRegions = new List<double> { 0, .2, 1 };
@@ -73,12 +74,13 @@ namespace InFoxholes.Enemies
                 spriteBatch.Draw(EnemyDeathTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                 if (!toShoot.Equals(Vector2.Zero))
                 {
+                    Vector2 gunPoint = Vector2.Add(Position, gunpointOffset);
                     float distance = Vector2.Distance(toShoot, gunPoint);
                     float angle = (float)Math.Atan2(gunPoint.Y - toShoot.Y, gunPoint.X - toShoot.X);
                     spriteBatch.Draw(Weapon.pixel, toShoot, null, Color.Black, angle, Vector2.Zero, new Vector2(distance, lineThickness),
                                  SpriteEffects.None, 0);
-                    spriteBatch.Draw(Weapon.pixel, Vector2.Add(toShoot, adjustShot), null, Color.Black, angle + angleAdjust,
-                        Vector2.Zero, new Vector2(distance + distanceAdjust, lineThickness), SpriteEffects.None, 0);
+                    spriteBatch.Draw(Weapon.pixel, Vector2.Add(toShoot, adjustShot), null, Color.Black, angle + wave.layout.angleAdjust,
+                        Vector2.Zero, new Vector2(distance + wave.layout.distanceAdjust, lineThickness), SpriteEffects.None, 0);
                     toShoot = Vector2.Zero;
                 }
             }

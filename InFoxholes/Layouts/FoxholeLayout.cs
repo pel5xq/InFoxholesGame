@@ -30,6 +30,8 @@ namespace InFoxholes.Layouts
         Vector2 weapongunpoint = new Vector2(272, 361);
         Vector2 weaponposition = new Vector2(187, 356);
         Vector2 scavengerspawnposition = new Vector2(140, 180);
+        float angleadjust = .25f;
+        float distanceadjust = -15f;
 
         public FoxholeLayout()
         {
@@ -40,6 +42,8 @@ namespace InFoxholes.Layouts
             weaponPosition = weaponposition;
             weaponGunpoint = weapongunpoint;
             scavengerSpawnPosition = scavengerspawnposition;
+            angleAdjust = angleadjust;
+            distanceAdjust = distanceadjust;
         }
 
         public override void Initialize(ContentManager Content)

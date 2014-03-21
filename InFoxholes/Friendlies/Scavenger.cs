@@ -44,7 +44,6 @@ namespace InFoxholes.Friendlies
         int animationSpeed = 10;
         int numMapRows = 1;
         int numMapColumns = 4;
-        int ladderDetectX = 122;
         double timeToScavenge = 3000;
         int lootBuffer = 5;
 
@@ -98,7 +97,7 @@ namespace InFoxholes.Friendlies
             
         }
 
-        public void Update(int command, GameTime gameTime, Wave wave,ScavengerManager manager)
+        public void Update(int command, GameTime gameTime, Wave wave, ScavengerManager manager)
         {
             Vector2 scavengerSpawn = scavengerManager.waveManager.getWave().layout.scavengerSpawnPosition;
             Vector2 scavengerIdle = scavengerManager.waveManager.getWave().layout.getScavengerTrenchPlacement(positionNumber);
@@ -118,7 +117,7 @@ namespace InFoxholes.Friendlies
                     //If command is to come back, turn around
                     if (command == 0)
                     {
-                        if (Position.X <= ladderDetectX)
+                        if (scavengerManager.waveManager.getWave().layout.pather.atTrenchEntrance(Position, Width, Height))
                         {
                             Position = scavengerIdle;
                             action = 0;
@@ -241,7 +240,7 @@ namespace InFoxholes.Friendlies
                     }
                     else
                     {
-                        if (Position.X <= ladderDetectX)
+                        if (scavengerManager.waveManager.getWave().layout.pather.atTrenchEntrance(Position, Width, Height))
                         {
                             Position = scavengerIdle;
                             action = 0;
