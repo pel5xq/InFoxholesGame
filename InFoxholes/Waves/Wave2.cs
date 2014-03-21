@@ -1,4 +1,5 @@
 ﻿using InFoxholes.Enemies;
+using InFoxholes.Layouts;
 using InFoxholes.Looting;
 using InFoxholes.Windows;
 using Microsoft.Xna.Framework;
@@ -15,7 +16,7 @@ namespace InFoxholes.Waves
         double baseTime = 1000;
         double interval = 6500;
 
-        override public void Initialize(ContentManager content, Vector2 position)
+        override public void Initialize(ContentManager content, WaveManager manager)
         {
             infiniteAmmoModeOn = false;
             infiniteFoodModeOn = false;
@@ -40,7 +41,8 @@ namespace InFoxholes.Waves
             lootList.Add(new SniperAmmoLoot(3, content));
             lootList.Add(new SniperAmmoLoot(1, content));
             openingTextFilename = "Content//Text//Wave2Open.txt";
-            base.Initialize(content, position);
+            layout = new FoxholeLayout();
+            base.Initialize(content, manager);
         }
 
         override public void applyModes()

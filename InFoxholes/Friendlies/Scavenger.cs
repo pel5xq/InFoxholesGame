@@ -1,5 +1,6 @@
 ﻿using InFoxholes.Enemies;
 using InFoxholes.Looting;
+using InFoxholes.Layouts;
 using InFoxholes.Targeting;
 using InFoxholes.Util;
 using InFoxholes.Waves;
@@ -27,16 +28,16 @@ namespace InFoxholes.Friendlies
         public Texture2D sentOutHudTexture;
         public Texture2D sentBackHudTexture;
         public Texture2D notSentHudTexture;
-        public Vector2 hudPosition;
+        public int hudSeat;
         public int action; //0 means unsent, 1 means sent out, 2 means sent back, 3 means actively scavenging
         public List<Loot> scavengedLoot;
         double whenScavengeBegan;
         int actionToReturnTo;
-        Vector2 scavengerSpawn;
-        Vector2 scavengerIdle;
         List<Loot> lootToLoot;
         public bool Active;
         public bool isLooted;
+        public ScavengerManager scavengerManager;
+        public int positionNumber;
 
         /* Magic Numbers*/
         float speedValue = .8f;
@@ -72,7 +73,7 @@ namespace InFoxholes.Friendlies
             get { return activeTexture.Texture.Height / activeTexture.Rows; }
         }
 
-        virtual public void Initialize(ContentManager content, Vector2 position, Vector2 spawnPosition, Vector2 HUDPosition, bool activeNow)
+        virtual public void Initialize(ContentManager content, int scavPositionNumber, int HUDPosition, bool activeNow, ScavengerManager manager)
         {
             idleTexture = content.Load<Texture2D>("Graphics\\TrooperIdle");
             deathTexture = content.Load<Texture2D>("Graphics\\TrooperDead");
@@ -84,20 +85,23 @@ namespace InFoxholes.Friendlies
             sentBackHudTexture = content.Load<Texture2D>("Graphics\\SendBackIcon");
             notSentHudTexture = content.Load<Texture2D>("Graphics\\NotSentIcon");
             speed = speedValue;
-            Position = position;
-            scavengerSpawn = spawnPosition;
-            scavengerIdle = position;
-            hudPosition = HUDPosition;
+            positionNumber = scavPositionNumber;
+            scavengerManager = manager;
+            Position = scavengerManager.waveManager.getWave().layout.getScavengerTrenchPlacement(positionNumber);
+            hudSeat = HUDPosition;
             Alive = true;
             isLooted = false;
             action = 0;
             scavengedLoot = new List<Loot>();
             whenScavengeBegan = 0;
             Active = activeNow;
+            
         }
 
         public void Update(int command, GameTime gameTime, Wave wave,ScavengerManager manager)
         {
+            Vector2 scavengerSpawn = scavengerManager.waveManager.getWave().layout.scavengerSpawnPosition;
+            Vector2 scavengerIdle = scavengerManager.waveManager.getWave().layout.getScavengerTrenchPlacement(positionNumber);
             if (Alive)
             {
                 if (action == 0) //Idling
@@ -121,7 +125,7 @@ namespace InFoxholes.Friendlies
                         }
                         else 
                         {
-                            Position = Pather.Move(Position, true, speed);
+                            Position = scavengerManager.waveManager.getWave().layout.pather.Move(Position, true, speed);
                             reverseTexture.Update();
                             action = 2;
                         }
@@ -132,7 +136,7 @@ namespace InFoxholes.Friendlies
                         //If no lootable things, just move forward
                         if (wave.enemiesOnScreen.Count + lootableScavengers.Count == 0)
                         {
-                            Position = Pather.Move(Position, false, speed);
+                            Position = scavengerManager.waveManager.getWave().layout.pather.Move(Position, false, speed);
                             activeTexture.Update();
                         }
                         else
@@ -209,19 +213,19 @@ namespace InFoxholes.Friendlies
                                 {
                                     if (enemyL > myL) //Move right
                                     {
-                                        Position = Pather.Move(Position, false, speed);
+                                        Position = scavengerManager.waveManager.getWave().layout.pather.Move(Position, false, speed);
                                         activeTexture.Update();
                                     }
                                     else //Move left 
                                     {
-                                        Position = Pather.Move(Position, true, speed);
+                                        Position = scavengerManager.waveManager.getWave().layout.pather.Move(Position, true, speed);
                                         reverseTexture.Update();
                                     }
                                 }
                             }
                             else //Shouldn't happen
                             {
-                                Position = Pather.Move(Position, false, speed);
+                                Position = scavengerManager.waveManager.getWave().layout.pather.Move(Position, false, speed);
                                 activeTexture.Update();
                             }
                         }
@@ -231,7 +235,7 @@ namespace InFoxholes.Friendlies
                 {
                     if (command == 1)
                     {
-                        Position = Pather.Move(Position, false, speed);
+                        Position = scavengerManager.waveManager.getWave().layout.pather.Move(Position, false, speed);
                         activeTexture.Update();
                         action = 1;
                     }
@@ -245,7 +249,7 @@ namespace InFoxholes.Friendlies
                         }
                         else
                         {
-                            Position = Pather.Move(Position, true, speed);
+                            Position = scavengerManager.waveManager.getWave().layout.pather.Move(Position, true, speed);
                             reverseTexture.Update();
                         }
                     }
@@ -309,13 +313,14 @@ namespace InFoxholes.Friendlies
                     if (actionToReturnTo == 1) textureToDraw = sentOutHudTexture;
                     else if (actionToReturnTo == 2) textureToDraw = sentBackHudTexture;
                 }
-                spriteBatch.Draw(textureToDraw, hudPosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(textureToDraw, scavengerManager.waveManager.getWave().layout.getHUDPlacement(hudSeat), 
+                    null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
         }
 
         public void returnToTrench()
         {
-            Position = scavengerIdle;
+            Position = scavengerManager.waveManager.getWave().layout.getScavengerTrenchPlacement(positionNumber);
             action = 0; 
             MainGame.scavengerAddToSupply(this);
         }

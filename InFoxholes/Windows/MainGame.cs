@@ -32,8 +32,6 @@ namespace InFoxholes.Windows
         ScavengerManager scavengerManager;
         static int currentScavengeCommand; //0 = come back, 1 = scavenge, -1 for no change
         public static bool gameOver;
-        public Texture2D gameOverTexture;
-        public Vector2 playerPosition;
         public static bool isInMenu;
         Menu menu;
         public static bool isInfiniteAmmoMode;
@@ -44,19 +42,6 @@ namespace InFoxholes.Windows
         private static int startingSniperAmmo = 10;
         private static int startingMachinegunAmmo = 50;
         private static int startingFood = 1;
-        private int trenchOffsetX = 272;
-        private int trenchOffsetY = 120;
-        private int gunOffsetX = 187;
-        private int gunOffsetY = 115;
-        private Vector2 firstHudPosition = new Vector2(10, 10);
-        private Vector2 secondHudPosition = new Vector2(10, 50);
-        private Vector2 thirdHudPosition = new Vector2(10, 100);
-        private Vector2 fourthHudPosition = new Vector2(10, 150);
-        private int enemySpawnXoffset = -100;
-        private int enemySpawnYoffset = 200;
-        Vector2 scavengerSpawn = new Vector2(140, 180);
-        Vector2 scavengerIdle = new Vector2(30, 300);
-        Vector2 gameOverPositionOffset = new Vector2(0, 225);
         int windowWidth = 800;
         int windowHeight = 482;
         int numStartingLives = 4;
@@ -95,7 +80,6 @@ namespace InFoxholes.Windows
             waveManager = new WaveManager();
             scavengerManager = new ScavengerManager();
             currentScavengeCommand = 0;
-            gameOverTexture = Content.Load<Texture2D>("Graphics\\TrenchGameOver");
             base.Initialize();
         }
 
@@ -107,15 +91,12 @@ namespace InFoxholes.Windows
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             menu = new Menu(Content, spriteBatch);
-            playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            player.Initialize(Content, playerPosition, startingFood, thirdHudPosition);
             crosshair.Initialize(Content);
-            sniperRifle.Initialize(Content, spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y),
-                new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y), firstHudPosition, startingSniperAmmo);
-            machineGun.Initialize(Content, spriteBatch, new Vector2(trenchOffsetX + playerPosition.X, trenchOffsetY + playerPosition.Y),
-                new Vector2(gunOffsetX + playerPosition.X, gunOffsetY + playerPosition.Y), secondHudPosition, startingMachinegunAmmo);
-            scavengerManager.Initialize(Content, scavengerSpawn, fourthHudPosition, numStartingLives);
-            waveManager.Initialize(Content, new Vector2(GraphicsDevice.Viewport.Width - enemySpawnXoffset, GraphicsDevice.Viewport.Height - enemySpawnYoffset));
+            waveManager.Initialize(Content);
+            sniperRifle.Initialize(Content, spriteBatch, 0, startingSniperAmmo, waveManager);
+            machineGun.Initialize(Content, spriteBatch, 1, startingMachinegunAmmo, waveManager);
+            scavengerManager.Initialize(Content, 3, numStartingLives, waveManager);
+            player.Initialize(Content, startingFood, 2, waveManager);
 
         }
 
@@ -219,7 +200,7 @@ namespace InFoxholes.Windows
                 }
                 else
                 {
-                    spriteBatch.Draw(gameOverTexture, Vector2.Subtract(playerPosition, gameOverPositionOffset), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    waveManager.getWave().layout.DrawGameOver(spriteBatch);
                 }
             }
             spriteBatch.End();

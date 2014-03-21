@@ -1,4 +1,5 @@
 ﻿using InFoxholes.Enemies;
+using InFoxholes.Layouts;
 using InFoxholes.Looting;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -14,7 +15,7 @@ namespace InFoxholes.Waves
         double baseTime = 1500;
         double interval = 8000;
 
-        override public void Initialize(ContentManager content, Vector2 position)
+        override public void Initialize(ContentManager content, WaveManager manager)
         {
             infiniteAmmoModeOn = true;
             infiniteFoodModeOn = true;
@@ -33,7 +34,8 @@ namespace InFoxholes.Waves
             lootList.Add(new FoodLoot(1, content));
             lootList.Add(new MachineGunAmmoLoot(10, content));
             openingTextFilename = "Content//Text//Wave1Open.txt";
-            base.Initialize(content, position);
+            layout = new FoxholeLayout();
+            base.Initialize(content, manager);
         }
     }
 }

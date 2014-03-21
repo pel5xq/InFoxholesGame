@@ -68,8 +68,8 @@ namespace InFoxholes.Targeting
                 //Also confirm that vector is going in logical direction
                 if (currentMouseState.RightButton == ButtonState.Pressed)
                 {
-                    float aimX = weapon.GunPoint.X;
-                    float aimY = weapon.GunPoint.Y - Height / 2;
+                    float aimX = weapon.waveManager.getWave().layout.weaponGunpoint.X;
+                    float aimY = weapon.waveManager.getWave().layout.weaponGunpoint.Y - Height / 2;
                     aimingVector.X = currentMouseState.X - aimX;
                     aimingVector.Y = currentMouseState.Y - aimY;
                     aimingVector.Normalize();
@@ -115,8 +115,8 @@ namespace InFoxholes.Targeting
                             }
                             else
                             {
-                                weapon.ShotPoint.X = weapon.GunPoint.X + aimingVector.X * graphicsDevice.Viewport.Width;
-                                weapon.ShotPoint.Y = weapon.GunPoint.Y + aimingVector.Y * graphicsDevice.Viewport.Width;
+                                weapon.ShotPoint.X = weapon.waveManager.getWave().layout.weaponGunpoint.X + aimingVector.X * graphicsDevice.Viewport.Width;
+                                weapon.ShotPoint.Y = weapon.waveManager.getWave().layout.weaponGunpoint.Y + aimingVector.Y * graphicsDevice.Viewport.Width;
                             }
                             weapon.startShotCooldown(gameTime);
                         }

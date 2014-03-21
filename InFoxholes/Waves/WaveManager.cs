@@ -1,4 +1,5 @@
 ﻿using InFoxholes.Friendlies;
+using InFoxholes.Layouts;
 using InFoxholes.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 
 namespace InFoxholes.Waves
 {
-    class WaveManager
+    public class WaveManager
     {
         public List<Wave> waves;
         public int currentWave;
@@ -38,10 +39,9 @@ namespace InFoxholes.Waves
         Vector2 startTextPosition = new Vector2(395f, 425f);
         String buttonText = "OK";
         Vector2 mainTextPosition = new Vector2(190f, 100f);
-        Vector2 countdownPosition = new Vector2(300f, 130f);
         String countdownText = "End of Day in: ";
 
-        public void Initialize(ContentManager content, Vector2 position)
+        public void Initialize(ContentManager content)
         {
             waves = new List<Wave>();
             currentWave = 0;
@@ -50,7 +50,7 @@ namespace InFoxholes.Waves
             waves.Add(new Wave2());
             for (int i = 0; i < waves.Count; i++)
             {
-                waves[i].Initialize(content, position);
+                waves[i].Initialize(content, this);
             }
             blankScreen = content.Load<Texture2D>("Graphics\\BlackScreen");
             topleft = new Vector2(startButtonLX, startButtonLY);
@@ -138,7 +138,7 @@ namespace InFoxholes.Waves
             else if (State == 2)
             {
                 getWave().Draw(spriteBatch);
-                spriteBatch.DrawString(MainGame.font, countdownText + secondsLeft, countdownPosition, Color.Black);
+                spriteBatch.DrawString(MainGame.font, countdownText + secondsLeft, getWave().layout.countdownPosition, Color.Black);
             }
         }
 

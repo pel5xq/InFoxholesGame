@@ -1,4 +1,5 @@
 ﻿using InFoxholes.Windows;
+using InFoxholes.Waves;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,35 +8,20 @@ namespace InFoxholes.Friendlies
 {
     public class Player
     {
-
-        public Texture2D PlayerTexture;
-        public Vector2 Position;
-        public Vector2 hudPosition;
-        public static Texture2D foodTexture;
-        public bool Active;
+        public Texture2D foodTexture;
         public int foodSupply;
+        public WaveManager waveManager;
+        public int hudSeat;
 
         /* Magic Numbers */
         int foodBuffer = 5;
 
-        public int Width
+        public void Initialize(ContentManager Content, int startingFood, int HUDPosition, WaveManager manager)
         {
-            get { return PlayerTexture.Width; }
-        }
-
-        public int Height
-        {
-            get { return PlayerTexture.Height; }
-        }
-
-        public void Initialize(ContentManager Content, Vector2 position, int startingFood, Vector2 HUDPosition)
-        {
-            PlayerTexture = Content.Load<Texture2D>("Graphics\\Trench");
-            Position = position;
-            Active = true;
             foodSupply = startingFood;
-            hudPosition = HUDPosition;
+            hudSeat = HUDPosition;
             foodTexture = Content.Load<Texture2D>("Graphics\\Food");
+            waveManager = manager;
         }
 
         public void Update()
@@ -45,11 +31,10 @@ namespace InFoxholes.Friendlies
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(PlayerTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             if (!MainGame.isInfiniteFoodMode)
             {
-                spriteBatch.Draw(foodTexture, hudPosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(MainGame.font, "x "+foodSupply, Vector2.Add(hudPosition, 
+                spriteBatch.Draw(foodTexture, waveManager.getWave().layout.getHUDPlacement(hudSeat), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(MainGame.font, "x " + foodSupply, Vector2.Add(waveManager.getWave().layout.getHUDPlacement(hudSeat), 
                     new Vector2(foodBuffer + foodTexture.Width, 0)), Color.Black);
             }
         }

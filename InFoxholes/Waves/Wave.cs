@@ -1,5 +1,6 @@
 ﻿using InFoxholes.Enemies;
 using InFoxholes.Friendlies;
+using InFoxholes.Layouts;
 using InFoxholes.Looting;
 using InFoxholes.Windows;
 using Microsoft.Xna.Framework;
@@ -18,21 +19,24 @@ namespace InFoxholes.Waves
         public List<Enemy> enemiesOnScreen;
         public List<Loot> lootList;
         public int waveSize;
-        Vector2 spawnPoint;
         ContentManager contentManager;
         double waveStartTime;
         public bool infiniteAmmoModeOn;
         public bool infiniteFoodModeOn;
         public String openingText;
         public String openingTextFilename;
+        public WaveManager waveManager;
+        public Layout layout;
 
-        virtual public void Initialize(ContentManager content, Vector2 position)
+
+        virtual public void Initialize(ContentManager content, WaveManager manager)
         {
             enemiesOnScreen = new List<Enemy>(waveSize);
-            spawnPoint = position;
             contentManager = content;
             waveStartTime = 0;
             openingText = getTextFromFile(openingTextFilename);
+            waveManager = manager;
+            layout.Initialize(content);
         }
 
         public bool isHit(Vector2 crosshairPosition)
@@ -50,7 +54,7 @@ namespace InFoxholes.Waves
             if (waveStartTime == 0) waveStartTime = gametime.TotalGameTime.TotalMilliseconds;
             else if ((spawnTimings.Count > 0) && spawnTimings[0] <= gametime.TotalGameTime.TotalMilliseconds - waveStartTime)
             {
-                enemiesToSpawn[0].Initialize(contentManager, spawnPoint, lootList[0]);
+                enemiesToSpawn[0].Initialize(contentManager, layout.enemySpawnPoint, lootList[0], this);
                 enemiesOnScreen.Add(enemiesToSpawn[0]);
                 enemiesToSpawn.RemoveAt(0);
                 spawnTimings.RemoveAt(0);
@@ -64,6 +68,7 @@ namespace InFoxholes.Waves
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            layout.Draw(spriteBatch);
             for (int i = 0; i < enemiesOnScreen.Count; i++)
             {
                 enemiesOnScreen[i].Draw(spriteBatch);

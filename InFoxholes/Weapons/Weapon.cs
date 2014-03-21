@@ -3,20 +3,18 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using InFoxholes.Waves;
 
 namespace InFoxholes.Weapons
 {
     public abstract class Weapon
     {
         public Texture2D WeaponTexture;
-        public Vector2 Position;
         public Vector2 ShotPoint;
         public static Texture2D pixel;
         public Texture2D burst;
         public Texture2D bullet;
-        public Vector2 burstPoint;
-        public Vector2 GunPoint;
-        public Vector2 hudPosition;
+        public int hudSeat;
         public double lastShotMilli;
         public double milliCooldown;
         public double reloadMilli;
@@ -25,25 +23,23 @@ namespace InFoxholes.Weapons
         public int clipSize;
         public int clipSupply;
         public int ammoSupply;
+        public WaveManager waveManager;
 
         /* Magic Numbers */
         private int hudPadding = 5;
         private float lineThickness = 2f;
         private float halfPi = (float)(Math.PI / 2);
 
-        virtual public void Initialize(ContentManager Content, SpriteBatch spriteBatch, Vector2 gunPoint, Vector2 position, Vector2 HUDPosition, int ammosupply)
+        virtual public void Initialize(ContentManager Content, SpriteBatch spriteBatch, int HUDPosition, int ammosupply, WaveManager manager)
         {
             pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             burst = Content.Load<Texture2D>("Graphics\\rifleBurst");
             pixel.SetData(new[] { Color.White });
-            GunPoint = gunPoint;
-            burstPoint = new Vector2(GunPoint.X - burst.Width / 2, GunPoint.Y - burst.Height / 2);
             ShotPoint = Vector2.Zero;
             lastShotMilli = 0;
             reloadMilli = 0;
-            
-            Position = position;
-            hudPosition = HUDPosition;
+            waveManager = manager;
+            hudSeat = HUDPosition;
             ammoSupply = ammosupply - clipSize;
         }
 
@@ -59,6 +55,9 @@ namespace InFoxholes.Weapons
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            Vector2 Position = waveManager.getWave().layout.weaponPosition;
+            Vector2 GunPoint = waveManager.getWave().layout.weaponGunpoint;
+            Vector2 burstPoint = new Vector2(GunPoint.X - burst.Width / 2, GunPoint.Y - burst.Height / 2);
             spriteBatch.Draw(WeaponTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             if (!ShotPoint.Equals(Vector2.Zero))
             {
@@ -73,6 +72,7 @@ namespace InFoxholes.Weapons
 
         virtual public void DrawHUD(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            Vector2 hudPosition = waveManager.getWave().layout.getHUDPlacement(hudSeat);
             //Draw rectangle around if selected
             if (isSelected)
             {
@@ -96,11 +96,6 @@ namespace InFoxholes.Weapons
             //Don't draw supply in infinite ammo mode
             if (!MainGame.isInfiniteAmmoMode)
             {
-                /*for (int i = clipSize; i < ammoSupply + clipSize; i++)
-                {
-                    spriteBatch.Draw(bullet, new Vector2(hudPosition.X + hudPadding * 2 + WeaponTexture.Width + (i + 2) * bullet.Width, hudPosition.Y),
-                        null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                }*/
                 spriteBatch.DrawString(MainGame.font, "| "+ammoSupply, new Vector2(hudPosition.X + hudPadding * 2 + WeaponTexture.Width + (clipSize + 2) * bullet.Width, hudPosition.Y), Color.Black);
             }
         }
