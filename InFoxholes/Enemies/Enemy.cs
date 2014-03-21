@@ -32,12 +32,9 @@ namespace InFoxholes.Enemies
 
         /* Magic Number */
         public float firinganimationrate = 300;
-        public int ladderCheckX = 122;
-        public Vector2 gunPoint = new Vector2(122, 211);
         public Vector2 adjustShot = new Vector2(25, 7);
         public float lineThickness = 2f;
-        public float angleAdjust = .25f;
-        public float distanceAdjust = -15f;
+        Vector2 gunpointOffset = new Vector2(5, 30);
 
         public int Width
         {
@@ -102,7 +99,7 @@ namespace InFoxholes.Enemies
             if (Alive && !isFiring)
             {
                 //Check if at trench
-                if (Position.X <= ladderCheckX)
+                if (wave.layout.pather.atTrenchEntrance(Position, Width, Height))
                 {
                     //If the scavenger is there, kill both
                     if (scavengerManager.getActiveScavenger().Alive && scavengerManager.getActiveScavenger().action == 0)
@@ -142,12 +139,13 @@ namespace InFoxholes.Enemies
                 spriteBatch.Draw(EnemyDeathTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                 if (!toShoot.Equals(Vector2.Zero))
                 {
+                    Vector2 gunPoint = Vector2.Add(Position, gunpointOffset);
                     float distance = Vector2.Distance(toShoot, gunPoint);
                     float angle = (float)Math.Atan2(gunPoint.Y - toShoot.Y, gunPoint.X - toShoot.X);
                     spriteBatch.Draw(Weapon.pixel, toShoot, null, Color.Black, angle, Vector2.Zero, new Vector2(distance, lineThickness),
                                  SpriteEffects.None, 0);
-                    spriteBatch.Draw(Weapon.pixel, Vector2.Add(toShoot, adjustShot), null, Color.Black, angle + angleAdjust, 
-                        Vector2.Zero, new Vector2(distance + distanceAdjust, lineThickness), SpriteEffects.None, 0);
+                    spriteBatch.Draw(Weapon.pixel, Vector2.Add(toShoot, adjustShot), null, Color.Black, angle + wave.layout.angleAdjust, 
+                        Vector2.Zero, new Vector2(distance + wave.layout.distanceAdjust, lineThickness), SpriteEffects.None, 0);
                     toShoot = Vector2.Zero;
                 }
             }
