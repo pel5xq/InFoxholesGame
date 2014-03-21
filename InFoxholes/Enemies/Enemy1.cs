@@ -1,5 +1,6 @@
 ﻿using InFoxholes.Looting;
 using InFoxholes.Util;
+using InFoxholes.Waves;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,14 +15,14 @@ namespace InFoxholes.Enemies
         int numMapRows = 1;
         int numMapColumns = 4;
 
-        override public void Initialize(ContentManager content, Vector2 position, Loot theLoot)
+        override public void Initialize(ContentManager content, Vector2 position, Loot theLoot, Wave theWave)
         {
             EnemyTexture = content.Load<Texture2D>("Graphics\\Enemy1");
             EnemyDeathTexture = content.Load<Texture2D>("Graphics\\Enemy1Dead");
             FiringTexture = content.Load<Texture2D>("Graphics\\Enemy1Firing");
             EnemyTextureMap = new AnimatedSprite(content.Load<Texture2D>("Graphics\\Enemy1Map"), numMapRows, numMapColumns, animationSpeed);
             speed = E1Speed;
-            base.Initialize(content, position, theLoot);   
+            base.Initialize(content, position, theLoot, theWave);   
         }
     }
 }

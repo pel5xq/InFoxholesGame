@@ -1,7 +1,9 @@
 ﻿using InFoxholes.Friendlies;
+using InFoxholes.Layouts;
 using InFoxholes.Looting;
 using InFoxholes.Targeting;
 using InFoxholes.Util;
+using InFoxholes.Waves;
 using InFoxholes.Weapons;
 using InFoxholes.Windows;
 using Microsoft.Xna.Framework;
@@ -26,6 +28,7 @@ namespace InFoxholes.Enemies
         public Loot loot;
         public bool isLooted;
         public Vector2 toShoot;
+        public Wave wave;
 
         /* Magic Number */
         public float firinganimationrate = 300;
@@ -46,7 +49,7 @@ namespace InFoxholes.Enemies
             get { return EnemyTexture.Height; }
         }
 
-        virtual public void Initialize(ContentManager content, Vector2 position, Loot theLoot)
+        virtual public void Initialize(ContentManager content, Vector2 position, Loot theLoot, Wave theWave)
         {
             Position = position;
             Alive = true;
@@ -56,6 +59,7 @@ namespace InFoxholes.Enemies
             loot = theLoot;
             isLooted = false;
             toShoot = Vector2.Zero;
+            wave = theWave;
         }
 
         virtual public bool isHit(Vector2 crosshairPosition)
@@ -117,7 +121,7 @@ namespace InFoxholes.Enemies
                 }
                 else
                 {
-                    Position = Pather.Move(Position, true, speed);
+                    Position = wave.layout.pather.Move(Position, true, speed);
                     EnemyTextureMap.Update();
                 }
             }

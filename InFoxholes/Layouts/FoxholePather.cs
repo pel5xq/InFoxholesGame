@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
 
-namespace InFoxholes.Util
+namespace InFoxholes.Layouts
 {
-    public class Pather
+    public class FoxholePather : Pather
     {
         /* Magic numbers */
         static int startY = 150;
@@ -16,7 +16,7 @@ namespace InFoxholes.Util
         static float slope = (hillTopY - hillBottomY)/(hillTopX - hillBottomX);
 
 
-        public static Vector2 Move(Vector2 unitPosition, bool isTowardsTrench, float speed)
+        public override Vector2 Move(Vector2 unitPosition, bool isTowardsTrench, float speed)
         {
             Vector2 result = new Vector2();
             float correctedSpeed;

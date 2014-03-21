@@ -57,6 +57,9 @@
     <Compile Include="Enemies\HeadShotTest.cs" />
     <Compile Include="Enemies\RegionedEnemy.cs" />
     <Compile Include="Friendlies\ScavengerManager.cs" />
+    <Compile Include="Layouts\FoxholeLayout.cs" />
+    <Compile Include="Layouts\FoxholePather.cs" />
+    <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Util\AnimatedSprite.cs" />
     <Compile Include="Waves\Wave2.cs" />
     <Compile Include="Looting\FoodLoot.cs" />
@@ -65,7 +68,7 @@
     <Compile Include="Waves\WaveManager.cs" />
     <Compile Include="Windows\Menu.cs" />
     <Compile Include="Friendlies\Scavenger.cs" />
-    <Compile Include="Util\Pather.cs" />
+    <Compile Include="Layouts\Pather.cs" />
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\Enemy1.cs" />
     <Compile Include="Weapons\MachineGun.cs" />
@@ -127,6 +130,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\Food.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\FoxholeBackdrop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\FoxholeBackdropGameOver.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\LeeEnfield.png">

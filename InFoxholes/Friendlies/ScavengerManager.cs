@@ -11,16 +11,9 @@ namespace InFoxholes.Friendlies
     public class ScavengerManager
     {
         List<Scavenger> scavengers;
-        List<Vector2> positions;
         int activeScavenger;
-
-        /* Magic Numbers */
-        Vector2 firstIdlePosition = new Vector2(30, 300);
-        Vector2 secondIdlePosition = new Vector2(30, 350);
-        Vector2 thirdIdlePosition = new Vector2(0, 320);
-        Vector2 fourthIdlePosition = new Vector2(70, 350);
-        //Trench must be bigger for more scavengers
-        Vector2 offscreenPosition = new Vector2(-150, -150);
+        public WaveManager waveManager;
+        public int hudSeat;
 
         public Scavenger getActiveScavenger()
         {
@@ -30,22 +23,18 @@ namespace InFoxholes.Friendlies
         {
             return getActiveScavenger().isHit(crosshairPosition);
         }
-        virtual public void Initialize(ContentManager content, Vector2 spawnPosition, Vector2 HUDPosition, int numLives)
+        virtual public void Initialize(ContentManager content, int HUDPosition, int numLives, WaveManager manager)
         {
-            positions = new List<Vector2>();
-            positions.Add(firstIdlePosition);
-            positions.Add(secondIdlePosition);
-            positions.Add(thirdIdlePosition);
-            positions.Add(fourthIdlePosition);
-
+            waveManager = manager;
+            hudSeat = HUDPosition;
             scavengers = new List<Scavenger>(numLives);
             scavengers.Insert(0, new Scavenger());
-            scavengers[0].Initialize(content, positions[0], spawnPosition, HUDPosition, true);
+            scavengers[0].Initialize(content, 0,  hudSeat, true, this);
             activeScavenger = 0;
             for (int i = 1; i < numLives; i++)
             {
                 scavengers.Insert(i, new Scavenger());
-                scavengers[i].Initialize(content, positions[i], spawnPosition, HUDPosition, false);
+                scavengers[i].Initialize(content, i, hudSeat, false, this);
             }
         }
         public void Update(int command, GameTime gameTime, Wave wave)
@@ -92,7 +81,7 @@ namespace InFoxholes.Friendlies
             {
                 if (!scavengers[i].Alive)
                 {
-                    scavengers[i].Position = offscreenPosition;
+                    scavengers[i].Position = waveManager.getWave().layout.offscreenPosition;
                 }
             }
         }

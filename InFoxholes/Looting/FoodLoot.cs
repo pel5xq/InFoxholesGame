@@ -1,6 +1,7 @@
 ﻿using InFoxholes.Friendlies;
 using InFoxholes.Weapons;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace InFoxholes.Looting
 {
@@ -9,7 +10,7 @@ namespace InFoxholes.Looting
          public FoodLoot(int lootAmount, ContentManager Content)
              : base(lootAmount, Content)
             {
-                texture = Player.foodTexture;
+                texture = Content.Load<Texture2D>("Graphics\\Food");
             }
             override public void addLoot(SniperRifle sniper, MachineGun mg, Player player)
             {

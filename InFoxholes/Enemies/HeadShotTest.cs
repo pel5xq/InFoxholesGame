@@ -1,5 +1,6 @@
 ﻿using InFoxholes.Looting;
 using InFoxholes.Util;
+using InFoxholes.Waves;
 using InFoxholes.Weapons;
 using InFoxholes.Friendlies;
 using Microsoft.Xna.Framework;
@@ -24,9 +25,9 @@ namespace InFoxholes.Enemies
         /* Regioned Enemy fields */
         List<double> testHSRegions = new List<double> { 0, .2, 1 };
         List<int> testHSDamages = new List<int> { 2, 1, 1 };
-        int testHSHealth = 2; 
+        int testHSHealth = 2;
 
-        override public void Initialize(ContentManager content, Vector2 position, Loot theLoot)
+        override public void Initialize(ContentManager content, Vector2 position, Loot theLoot, Wave theWave)
         {
             EnemyTexture = content.Load<Texture2D>("Graphics\\Enemy1");
             EnemyDeathTexture = content.Load<Texture2D>("Graphics\\Enemy1Dead");
@@ -37,7 +38,7 @@ namespace InFoxholes.Enemies
             regions = testHSRegions;
             damages = testHSDamages;
             health = testHSHealth; 
-            base.Initialize(content, position, theLoot);
+            base.Initialize(content, position, theLoot, theWave);
         }
 
         override public void Update(GameTime gametime, ScavengerManager scavengerManager)
