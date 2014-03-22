@@ -46,7 +46,7 @@ namespace InFoxholes.Waves
             waves = new List<Wave>();
             currentWave = 0;
             State = 0;
-            waves.Add(new Wave1());
+            //waves.Add(new Wave1());
             waves.Add(new Wave2());
             for (int i = 0; i < waves.Count; i++)
             {
@@ -98,8 +98,8 @@ namespace InFoxholes.Waves
                 secondsLeft = (int)((endGracePeriod - gametime.TotalGameTime.TotalMilliseconds) / 1000);
                 if (gametime.TotalGameTime.TotalMilliseconds > endGracePeriod)
                 {
-                    scavengerManager.returnToTrench();
                     nextWave();
+                    scavengerManager.returnToTrench();
                     State = 0;
                     MainGame.resetScavengeCommand();
                     scavengerManager.cleanUpBodies();

@@ -166,31 +166,33 @@ namespace InFoxholes.Friendlies
                                     closestScavengerDistance = scavengerDistance;
                                 }
                             }
-                            float myR = Width + Position.X;
-                            float myL = Position.X;
-                            float enemyR = 0;
-                            float enemyL = 0;
+                            Vector2 enemyPosition = Vector2.Zero;
+                            int enemyWidth = 0;
+                            int enemyHeight = 0;
+
                             bool isScavenger = false;
 
                             if ((closestEnemy == null && closestScavenger != null)
                                 || (closestEnemy != null && closestScavenger != null && closestScavengerDistance <= closestDistance))
                             {
-                                enemyR = closestScavenger.Width + closestScavenger.Position.X;
-                                enemyL = closestScavenger.Position.X;
+                                enemyPosition = closestScavenger.Position;
+                                enemyWidth = closestScavenger.Width;
+                                enemyHeight = closestScavenger.Height;
                                 isScavenger = true;
                             }
                             else if ((closestEnemy != null && closestScavenger == null)
                                 || (closestEnemy != null && closestScavenger != null && closestScavengerDistance > closestDistance))
                             {
-                                enemyR = closestEnemy.Width + closestEnemy.Position.X;
-                                enemyL = closestEnemy.Position.X;
+                                enemyPosition = closestEnemy.Position;
+                                enemyWidth = closestEnemy.Width;
+                                enemyHeight = closestEnemy.Height;
                                 isScavenger = false;
                             }
 
-                            if (enemyR != 0 && enemyL != 0)
+                            if (enemyWidth != 0 && enemyHeight != 0) //&& enemyPosition not Vector.Zero?
                             {
                                 //If it is close enough to scavenge, do so
-                                if ((myR >= enemyL && myR <= enemyR) || (myL >= enemyL && myL <= enemyR))
+                                if (scavengerManager.waveManager.getWave().layout.pather.intersectsWith(Position, Width, Height, enemyPosition, enemyWidth, enemyHeight))
                                 {
                                     if (isScavenger)
                                     {
@@ -327,7 +329,7 @@ namespace InFoxholes.Friendlies
         {
             Position = scavengerManager.waveManager.getWave().layout.getScavengerTrenchPlacement(positionNumber);
             action = 0; 
-            MainGame.scavengerAddToSupply(this);
+            if (Active) MainGame.scavengerAddToSupply(this);
         }
     }
 }

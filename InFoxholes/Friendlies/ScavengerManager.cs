@@ -73,7 +73,10 @@ namespace InFoxholes.Friendlies
         }
         public void returnToTrench()
         {
-            getActiveScavenger().returnToTrench();
+            for (int i = 0; i < scavengers.Count; i++)
+            {
+                scavengers[i].returnToTrench();
+            }
         }
         public void cleanUpBodies()
         {
