@@ -9,7 +9,10 @@ namespace InFoxholes.Layouts
         {
             return Vector2.Zero;
         }
-
+        public virtual bool isForward(Vector2 unitPosition, bool isTowardsTrench, float speed)
+        {
+            return true;
+        }
         public virtual bool atTrenchEntrance(Vector2 unitPosition, int unitWidth, int unitHeight)
         {
             return false;

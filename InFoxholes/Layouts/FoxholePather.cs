@@ -41,7 +41,10 @@ namespace InFoxholes.Layouts
             }
             return result;
         }
-
+        public override bool isForward(Vector2 unitPosition, bool isTowardsTrench, float speed)
+        {
+            return !isTowardsTrench;
+        }
         public override bool atTrenchEntrance(Vector2 unitPosition, int unitWidth, int unitHeight)
         {
             return unitPosition.X <= ladderTopX;

@@ -37,13 +37,13 @@ namespace InFoxholes.Layouts
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             layoutBackdrop.Update();
-            layoutBackdrop.Draw(spriteBatch, Vector2.Zero, 1.0f);
+            layoutBackdrop.Draw(spriteBatch, Vector2.Zero, 1.0f, SpriteEffects.None);
         }
 
         public virtual void DrawGameOver(SpriteBatch spriteBatch)
         {
             gameOverSprite.Update();
-            gameOverSprite.Draw(spriteBatch, Vector2.Zero, 1.0f);
+            gameOverSprite.Draw(spriteBatch, Vector2.Zero, 1.0f, SpriteEffects.None);
         }
 
         public virtual void Initialize(ContentManager Content)
