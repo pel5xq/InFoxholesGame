@@ -15,7 +15,6 @@ namespace InFoxholes.Enemies
 {
     public class Enemy : Targetable
     {
-        public Texture2D EnemyTexture;
         public AnimatedSprite EnemyTextureMap;
         public Texture2D EnemyDeathTexture;
         public Texture2D FiringTexture;
@@ -38,12 +37,12 @@ namespace InFoxholes.Enemies
 
         public int Width
         {
-            get { return EnemyTexture.Width; }
+            get { return EnemyTextureMap.Texture.Width / EnemyTextureMap.Columns; }
         }
 
         public int Height
         {
-            get { return EnemyTexture.Height; }
+            get { return EnemyTextureMap.Texture.Height / EnemyTextureMap.Rows; }
         }
 
         virtual public void Initialize(ContentManager content, Vector2 position, Loot theLoot, Wave theWave)
@@ -65,8 +64,8 @@ namespace InFoxholes.Enemies
             if (Alive &&
                 truePosition.X >= 0 &&
                 truePosition.Y >= 0 &&
-                truePosition.X <= EnemyTexture.Width &&
-                truePosition.Y <= EnemyTexture.Height)
+                truePosition.X <= Width &&
+                truePosition.Y <= Height)
             {
                 Alive = false;
                 return true;
