@@ -12,7 +12,6 @@ namespace InFoxholes.Layouts
     public class Layout
     {
         public Pather pather;
-        public Vector2 enemySpawnPoint;
         public Vector2 offscreenPosition;
         public AnimatedSprite layoutBackdrop;
         public Vector2 countdownPosition;
@@ -31,7 +30,10 @@ namespace InFoxholes.Layouts
         {
             return Vector2.Zero;
         }
-
+        public virtual Vector2 enemySpawnPoint()
+        {
+            return Vector2.Zero;
+        }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             layoutBackdrop.Update();
@@ -49,7 +51,10 @@ namespace InFoxholes.Layouts
             
         }
 
-        // Next thing: Get trench detectin moved to layout/pather
+        public virtual bool checkAimingVector(Vector2 aimingVector)
+        {
+            return true;
+        }
         
     }
 }

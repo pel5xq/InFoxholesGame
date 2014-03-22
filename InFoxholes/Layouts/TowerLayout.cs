@@ -9,7 +9,7 @@ using InFoxholes.Util;
 
 namespace InFoxholes.Layouts
 {
-    public class FoxholeLayout : Layout
+    public class TowerLayout : Layout
     {
 
         /* Magic Numbers */
@@ -33,7 +33,7 @@ namespace InFoxholes.Layouts
         float angleadjust = .25f;
         float distanceadjust = -15f;
 
-        public FoxholeLayout()
+        public TowerLayout()
         {
             pather = new FoxholePather();
             offscreenPosition = offscreenposition;

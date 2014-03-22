@@ -91,8 +91,8 @@ namespace InFoxholes.Windows
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             menu = new Menu(Content, spriteBatch);
-            crosshair.Initialize(Content);
             waveManager.Initialize(Content);
+            crosshair.Initialize(Content, waveManager);
             sniperRifle.Initialize(Content, spriteBatch, 0, startingSniperAmmo, waveManager);
             machineGun.Initialize(Content, spriteBatch, 1, startingMachinegunAmmo, waveManager);
             scavengerManager.Initialize(Content, 3, numStartingLives, waveManager);

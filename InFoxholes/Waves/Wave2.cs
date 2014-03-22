@@ -41,7 +41,7 @@ namespace InFoxholes.Waves
             lootList.Add(new SniperAmmoLoot(3, content));
             lootList.Add(new SniperAmmoLoot(1, content));
             openingTextFilename = "Content//Text//Wave2Open.txt";
-            layout = new FoxholeLayout();
+            layout = new TowerLayout();
             base.Initialize(content, manager);
         }
 
