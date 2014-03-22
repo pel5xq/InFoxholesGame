@@ -41,7 +41,7 @@ namespace InFoxholes.Util
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 location, float alpha)
+        public void Draw(SpriteBatch spriteBatch, Vector2 location, float alpha, SpriteEffects effect)
         {
             int width = Texture.Width / Columns;
             int height = Texture.Height / Rows;
@@ -51,7 +51,7 @@ namespace InFoxholes.Util
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
             Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, width, height);
 
-            spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White * alpha);
+            spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White * alpha, 0f, Vector2.Zero, effect, 0f);
         }
     }
 }

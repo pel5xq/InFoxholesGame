@@ -128,11 +128,23 @@ namespace InFoxholes.Enemies
         {
             if (Alive)
             {
+                SpriteEffects effect;
+                if (wave.layout.pather.isForward(Position, true, speed))
+                {
+                    effect = SpriteEffects.FlipHorizontally;
+                }
+                else
+                {
+                    effect = SpriteEffects.None;
+                }
                 if (isFiring)
                 {
-                    spriteBatch.Draw(FiringTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(FiringTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
                 }
-                else EnemyTextureMap.Draw(spriteBatch, Position, 1f);
+                else
+                {
+                    EnemyTextureMap.Draw(spriteBatch, Position, 1f, effect);
+                }
             }
             else
             {
