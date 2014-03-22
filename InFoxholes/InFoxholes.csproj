@@ -57,6 +57,8 @@
     <Compile Include="Enemies\HeadShotTest.cs" />
     <Compile Include="Enemies\RegionedEnemy.cs" />
     <Compile Include="Friendlies\ScavengerManager.cs" />
+    <Compile Include="Layouts\TowerLayout.cs" />
+    <Compile Include="Layouts\TowerPather.cs" />
     <Compile Include="Layouts\FoxholeLayout.cs" />
     <Compile Include="Layouts\FoxholePather.cs" />
     <Compile Include="Layouts\Layout.cs" />

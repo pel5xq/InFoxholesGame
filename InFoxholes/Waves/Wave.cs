@@ -54,7 +54,7 @@ namespace InFoxholes.Waves
             if (waveStartTime == 0) waveStartTime = gametime.TotalGameTime.TotalMilliseconds;
             else if ((spawnTimings.Count > 0) && spawnTimings[0] <= gametime.TotalGameTime.TotalMilliseconds - waveStartTime)
             {
-                enemiesToSpawn[0].Initialize(contentManager, layout.enemySpawnPoint, lootList[0], this);
+                enemiesToSpawn[0].Initialize(contentManager, layout.enemySpawnPoint(), lootList[0], this);
                 enemiesOnScreen.Add(enemiesToSpawn[0]);
                 enemiesToSpawn.RemoveAt(0);
                 spawnTimings.RemoveAt(0);

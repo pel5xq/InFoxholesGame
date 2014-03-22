@@ -19,6 +19,7 @@ namespace InFoxholes.Targeting
         //1 means currently being fired, listening for firing sequence 
         Vector2 aimingVector;
         TimeSpan aimingTimestamp;
+        public WaveManager waveManager;
         
 
         public int Width
@@ -31,11 +32,12 @@ namespace InFoxholes.Targeting
             get { return CrosshairTexture.Height; }
         }
 
-        public void Initialize(ContentManager Content)
+        public void Initialize(ContentManager Content, WaveManager manager)
         {
             CrosshairTexture = Content.Load<Texture2D>("Graphics\\Crosshair");
             Position = new Vector2(-1*CrosshairTexture.Width, -1*CrosshairTexture.Height);
             State = 0;
+            waveManager = manager;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -73,7 +75,7 @@ namespace InFoxholes.Targeting
                     aimingVector.X = currentMouseState.X - aimX;
                     aimingVector.Y = currentMouseState.Y - aimY;
                     aimingVector.Normalize();
-                    if (aimingVector.X > 0)
+                    if (waveManager.getWave().layout.checkAimingVector(aimingVector))
                     {
                         aimingTimestamp = gameTime.TotalGameTime;
                         Position.X = aimX;
