@@ -37,7 +37,6 @@ namespace InFoxholes.Layouts
                 rightMid1.X <= obj2Position.X + obj2Width &&
                 rightMid1.Y <= obj2Position.Y + obj2Height)
             {
-                //System.Diagnostics.Debug.WriteLine("Case RightMid");
                 return true;
             }
             if (leftMid1.X >= obj2Position.X &&
@@ -45,7 +44,6 @@ namespace InFoxholes.Layouts
                 leftMid1.X <= obj2Position.X + obj2Width &&
                 leftMid1.Y <= obj2Position.Y + obj2Height)
             {
-                //System.Diagnostics.Debug.WriteLine("Case LeftMid");
                 return true;
             }
             return false;

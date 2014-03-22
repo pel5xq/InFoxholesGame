@@ -46,7 +46,7 @@ namespace InFoxholes.Waves
             waves = new List<Wave>();
             currentWave = 0;
             State = 0;
-            //waves.Add(new Wave1());
+            waves.Add(new Wave1());
             waves.Add(new Wave2());
             for (int i = 0; i < waves.Count; i++)
             {

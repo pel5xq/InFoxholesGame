@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 
 namespace InFoxholes.Layouts
@@ -6,19 +7,14 @@ namespace InFoxholes.Layouts
     public class TowerPather : Pather
     {
         /* Magic numbers */
-        /*static int startY = 150;
-        static int hillBottomX = 270;
-        static int hillTopX = 210;
-        static int ladderTopX = 122;
-        static int hillBottomY = 145 + startY;
-        static int hillTopY = 15 + startY;
-        static int ladderTopY = 15 + startY;
-        static float slope = (hillTopY - hillBottomY)/(hillTopX - hillBottomX);*/
-
-        static int halfwayX = 320;
-        Vector2 trenchentranceposition = new Vector2(320, 165);
-        int trenchentrancewidth = 75;
+        static int halfwayX = 335;
+        Vector2 trenchentranceposition = new Vector2(280, 165);
+        int trenchentrancewidth = 115;
         int trenchentranceheight = 60;
+        Vector2 columnPosition = new Vector2(265, 115);
+        int columnWidth = 70;
+        int columnHeight = 300;
+        int endOfRoadY = 410;
 
         public override void Initialize()
         {
@@ -29,34 +25,47 @@ namespace InFoxholes.Layouts
         }
         public override Vector2 Move(Vector2 unitPosition, bool isTowardsTrench, float speed)
         {
-            /*Vector2 result = new Vector2();
-            float correctedSpeed;
-            if (isTowardsTrench) correctedSpeed = -1 * speed;
-            else correctedSpeed = speed;
-            result.X = unitPosition.X + correctedSpeed;
-            if (unitPosition.X > hillBottomX)
+            Vector2 result = new Vector2();
+            if (intersectsWith(unitPosition, 1, 1, columnPosition, columnWidth, columnHeight))
             {
-                result.Y = unitPosition.Y;
-            }
-            else if (unitPosition.X > hillTopX)
-            {
-                result.Y = hillTopY + slope * (result.X - hillTopX);
-            }
-            else if (unitPosition.X > ladderTopX)
-            {
-                result.Y = unitPosition.Y;
+                result.X = unitPosition.X;
+                if (isTowardsTrench) result.Y = unitPosition.Y - speed;
+                else result.Y = unitPosition.Y + speed;
             }
             else
             {
-                result = unitPosition;
+                result.Y = unitPosition.Y;
+                if (unitPosition.Y >= endOfRoadY)
+                {
+                    result.X = unitPosition.X;
+                    if (isTowardsTrench)
+                    {
+                        result.Y = unitPosition.Y - speed;
+                    }
+                }
+                else if (isTowardsTrench)
+                {
+                    if (isForward(unitPosition, isTowardsTrench, speed)) 
+                    {
+                        result.X = unitPosition.X + speed;
+                    }
+                    else 
+                    {
+                        result.X = unitPosition.X - speed;
+                    }
+                }
+                else
+                {
+                    if (isForward(unitPosition, isTowardsTrench, speed))
+                    {
+                        result.X = unitPosition.X - speed;
+                    }
+                    else
+                    {
+                        result.X = unitPosition.X + speed;
+                    }
+                }
             }
-            return result;*/
-            Vector2 result = new Vector2();
-            float correctedSpeed;
-            if (isForward(unitPosition, isTowardsTrench, speed)) correctedSpeed = speed;
-            else correctedSpeed = -1 * speed;
-            result.X = unitPosition.X + correctedSpeed;
-            result.Y = unitPosition.Y;
             return result;
         }
         public override bool isForward(Vector2 unitPosition, bool isTowardsTrench, float speed)
