@@ -47,10 +47,10 @@ namespace InFoxholes.Enemies
             if (Alive &&
                 truePosition.X >= 0 &&
                 truePosition.Y >= 0 &&
-                truePosition.X <= EnemyTexture.Width &&
-                truePosition.Y <= EnemyTexture.Height)
+                truePosition.X <= Width &&
+                truePosition.Y <= Height)
             {
-                double shotRegion = truePosition.Y / EnemyTexture.Height;
+                double shotRegion = truePosition.Y / Height;
                 int shotDamage = 0; 
                 for(int i=0; i < regions.Count; i++) {
                     if(i == regions.Count-1) {
