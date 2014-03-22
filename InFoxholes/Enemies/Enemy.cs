@@ -78,12 +78,8 @@ namespace InFoxholes.Enemies
 
             if (Alive && scavengerManager.getActiveScavenger().Alive)
             {
-                float scavR = scavengerManager.getActiveScavenger().Width 
-                    + scavengerManager.getActiveScavenger().Position.X;
-                float scavL = scavengerManager.getActiveScavenger().Position.X;
-                float myR = Width + Position.X;
-                float myL = Position.X;
-                if ((scavR >= myL && scavR <= myR) || (scavL >= myL && scavL <= myR))
+                if (wave.layout.pather.intersectsWith(Position, Width, Height, scavengerManager.getActiveScavenger().Position, 
+                    scavengerManager.getActiveScavenger().Width, scavengerManager.getActiveScavenger().Height))
                 {
                     isFiring = true;
                     scavengerManager.getActiveScavenger().Alive = false;

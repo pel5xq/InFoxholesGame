@@ -70,8 +70,10 @@ namespace InFoxholes.Targeting
                 //Also confirm that vector is going in logical direction
                 if (currentMouseState.RightButton == ButtonState.Pressed)
                 {
-                    float aimX = weapon.waveManager.getWave().layout.weaponGunpoint.X;
-                    float aimY = weapon.waveManager.getWave().layout.weaponGunpoint.Y - Height / 2;
+                    float aimX = weapon.waveManager.getWave().layout.weaponGunpoint.X
+                        + weapon.waveManager.getWave().layout.crosshairAdjustX;
+                    float aimY = weapon.waveManager.getWave().layout.weaponGunpoint.Y
+                        + weapon.waveManager.getWave().layout.crosshairAdjustY;
                     aimingVector.X = currentMouseState.X - aimX;
                     aimingVector.Y = currentMouseState.Y - aimY;
                     aimingVector.Normalize();
@@ -109,8 +111,8 @@ namespace InFoxholes.Targeting
                         {
                             //Update game world here and inform weapon to draw
                             //shot, but can't draw yet
-
-                            if (wave.isHit(Position) || scavenger.isHit(Position))
+                            //Make scavengers in trench safe, but not others
+                            if (wave.isHit(Position) || (scavenger.action != 0 && scavenger.isHit(Position)))
                             {
                                 weapon.ShotPoint.X = Position.X + Width / 2;
                                 weapon.ShotPoint.Y = Position.Y + Height / 2;

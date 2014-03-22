@@ -32,6 +32,10 @@ namespace InFoxholes.Layouts
         Vector2 scavengerspawnposition = new Vector2(140, 180);
         float angleadjust = .25f;
         float distanceadjust = -15f;
+        float burstadjustX = -5;
+        float burstadjustY = -5;
+        float crosshairadjustX = 0;
+        float crosshairadjustY = -15;
 
         public FoxholeLayout()
         {
@@ -43,6 +47,10 @@ namespace InFoxholes.Layouts
             scavengerSpawnPosition = scavengerspawnposition;
             angleAdjust = angleadjust;
             distanceAdjust = distanceadjust;
+            burstAdjustX = burstadjustX;
+            burstAdjustY = burstadjustY;
+            crosshairAdjustX = crosshairadjustX;
+            crosshairAdjustY = crosshairadjustY;
         }
         public override void Initialize(ContentManager Content)
         {

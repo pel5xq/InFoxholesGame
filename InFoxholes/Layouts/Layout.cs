@@ -21,6 +21,10 @@ namespace InFoxholes.Layouts
         public Vector2 scavengerSpawnPosition;
         public float angleAdjust = .25f; // for life lost pair of shots
         public float distanceAdjust = -15f;
+        public float burstAdjustX;
+        public float burstAdjustY;
+        public float crosshairAdjustX;
+        public float crosshairAdjustY;
 
         public virtual Vector2 getScavengerTrenchPlacement(int seat)
         {
@@ -48,7 +52,7 @@ namespace InFoxholes.Layouts
 
         public virtual void Initialize(ContentManager Content)
         {
-            
+            pather.Initialize();
         }
 
         public virtual bool checkAimingVector(Vector2 aimingVector)

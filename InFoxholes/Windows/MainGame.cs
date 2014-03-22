@@ -38,6 +38,8 @@ namespace InFoxholes.Windows
         public static bool isInfiniteFoodMode;
         public static SpriteFont font;
 
+        //How to Write to Console: System.Diagnostics.Debug.WriteLine();
+
         /* Magic Numbers */
         private static int startingSniperAmmo = 10;
         private static int startingMachinegunAmmo = 50;

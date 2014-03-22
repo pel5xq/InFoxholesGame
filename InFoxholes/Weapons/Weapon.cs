@@ -57,7 +57,7 @@ namespace InFoxholes.Weapons
         {
             Vector2 Position = waveManager.getWave().layout.weaponPosition;
             Vector2 GunPoint = waveManager.getWave().layout.weaponGunpoint;
-            Vector2 burstPoint = new Vector2(GunPoint.X - burst.Width / 2, GunPoint.Y - burst.Height / 2);
+            Vector2 burstPoint = new Vector2(GunPoint.X + waveManager.getWave().layout.burstAdjustX, GunPoint.Y + waveManager.getWave().layout.burstAdjustY);
             spriteBatch.Draw(WeaponTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             if (!ShotPoint.Equals(Vector2.Zero))
             {
