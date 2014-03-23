@@ -10,10 +10,12 @@ namespace InFoxholes.Windows
     class Menu
     {
         public Texture2D menuTexture;
+        public Texture2D controllerMenuTexture;
         Vector2 topleft;
         Vector2 botright;
         public Texture2D pixel;
         bool hoverFlag = false;
+        bool controllerFlag = false;
 
         /* Magic Numbers */
         static int startButtonLX = 345;
@@ -29,27 +31,44 @@ namespace InFoxholes.Windows
         public Menu(ContentManager Content, SpriteBatch spriteBatch)
         {
             menuTexture = Content.Load<Texture2D>("Graphics\\Menu");
+            controllerMenuTexture = Content.Load<Texture2D>("Graphics\\ControllerMenu");
             topleft = new Vector2(startButtonLX, startButtonLY);
             botright = new Vector2(startButtonRX, startButtonRY);
             pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             pixel.SetData(new[] { Color.White });
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, GamePadState gamepadState)
         {
-            if (overStartButton(Mouse.GetState().X, Mouse.GetState().Y)) {
-                hoverFlag = true;
-                 if(Mouse.GetState().LeftButton == ButtonState.Pressed)
-                 {
-                     MainGame.isInMenu = false;
-                 }
+            if (gamepadState.IsConnected)
+            {
+                controllerFlag = true;
+                if (gamepadState.Buttons.A == ButtonState.Pressed)
+                {
+                    MainGame.isInMenu = false;
+                }
             }
-            else {
+            else
+            {
+                controllerFlag = false;
+            }
+
+            if (overStartButton(Mouse.GetState().X, Mouse.GetState().Y))
+            {
+                hoverFlag = true;
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                {
+                    MainGame.isInMenu = false;
+                }
+            }
+            else
+            {
                 hoverFlag = false;
             }
         }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(menuTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            if (controllerFlag) spriteBatch.Draw(controllerMenuTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            else spriteBatch.Draw(menuTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             if (hoverFlag)
             {
                 spriteBatch.Draw(pixel, topleft, null, Color.Black, 0, Vector2.Zero, new Vector2(125, lineThickness),

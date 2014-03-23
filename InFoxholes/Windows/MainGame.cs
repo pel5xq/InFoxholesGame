@@ -24,6 +24,8 @@ namespace InFoxholes.Windows
         public static KeyboardState previousKeyboardState;
         public static MouseState currentMouseState;
         public static MouseState previousMouseState;
+        public static GamePadState currentGamepadState;
+        public static GamePadState previousGamepadState;
         Crosshair crosshair;
         Weapon weapon;
         static SniperRifle sniperRifle;
@@ -47,6 +49,7 @@ namespace InFoxholes.Windows
         int windowWidth = 800;
         int windowHeight = 482;
         int numStartingLives = 4;
+        public static float triggerThreshold = .8f;
 
         public MainGame()
             : base()
@@ -122,21 +125,24 @@ namespace InFoxholes.Windows
             previousMouseState = currentMouseState;
             currentKeyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();
+            previousGamepadState = currentGamepadState;
+            currentGamepadState = GamePad.GetState(PlayerIndex.One);
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (currentGamepadState.Buttons.Back == ButtonState.Pressed || currentKeyboardState.IsKeyDown(Keys.Escape))
                 Exit();
 
             if (isInMenu)
             {
-                menu.Update(gameTime);
+                menu.Update(gameTime, currentGamepadState);
             }
             else
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.R))
+                if (waveManager.State != 0 && (Keyboard.GetState().IsKeyDown(Keys.R) || currentGamepadState.Buttons.X == ButtonState.Pressed))
                 {
                     weapon.reload(gameTime);
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Q) && !previousKeyboardState.IsKeyDown(Keys.Q))
+                if (waveManager.State != 0 && (Keyboard.GetState().IsKeyDown(Keys.Q) && !previousKeyboardState.IsKeyDown(Keys.Q)
+                    || (currentGamepadState.Buttons.Y == ButtonState.Pressed && !(previousGamepadState.Buttons.Y == ButtonState.Pressed))))
                 {
                     if (sniperRifle.isSelected)
                     {
@@ -153,7 +159,8 @@ namespace InFoxholes.Windows
                     crosshair.interruptAiming();
                 }
                 int scavengeCommand = -1;
-                if (Keyboard.GetState().IsKeyDown(Keys.W) && !previousKeyboardState.IsKeyDown(Keys.W))
+                if (waveManager.State != 0 && (Keyboard.GetState().IsKeyDown(Keys.W) && !previousKeyboardState.IsKeyDown(Keys.W)
+                    || (currentGamepadState.Buttons.A == ButtonState.Pressed && !(previousGamepadState.Buttons.A == ButtonState.Pressed))))
                 {
                     if (currentScavengeCommand == 0)
                     {
