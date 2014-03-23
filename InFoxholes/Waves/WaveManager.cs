@@ -69,10 +69,16 @@ namespace InFoxholes.Waves
         {
             if (State == 0)
             {
+                if (MainGame.currentGamepadState.Buttons.A == ButtonState.Pressed && 
+                    !(MainGame.previousGamepadState.Buttons.A == ButtonState.Pressed))
+                {
+                    State = 1;
+                }
                 if (overStartButton(Mouse.GetState().X, Mouse.GetState().Y))
                 {
                     hoverFlag = true;
-                    if (Mouse.GetState().LeftButton == ButtonState.Pressed && MainGame.previousMouseState.LeftButton != ButtonState.Pressed)
+                    if (Mouse.GetState().LeftButton == ButtonState.Pressed 
+                        && MainGame.previousMouseState.LeftButton != ButtonState.Pressed)
                     {
                         State = 1;
                     }
