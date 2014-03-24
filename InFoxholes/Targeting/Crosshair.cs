@@ -112,7 +112,7 @@ namespace InFoxholes.Targeting
                     //Also confirm that vector is going in logical direction
                     if (currentMouseState.RightButton == ButtonState.Pressed
                          || (MainGame.currentGamepadState.Buttons.LeftShoulder == ButtonState.Pressed))
-                    // || (MainGame.currentGamepadState.Triggers.Left >= MainGame.triggerThreshold)) //is what we want
+                     // || (MainGame.currentGamepadState.Triggers.Left >= MainGame.triggerThreshold)) //is what we want
                     {
 
                         if (waveManager.getWave().layout.checkAimingVector(aimingVector))

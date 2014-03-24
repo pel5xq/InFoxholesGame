@@ -27,7 +27,6 @@ namespace InFoxholes.Waves
 
         /* Magic Numbers */
         double gracePeriodLength = 15000;
-        int numberOfImplementedWaves = 2;
         static int startButtonLX = 345;
         static int startButtonLY = 415;
         static int startButtonRX = 470;
@@ -155,7 +154,7 @@ namespace InFoxholes.Waves
 
         public void nextWave()
         {
-            if (currentWave + 1 < numberOfImplementedWaves)
+            if (currentWave + 1 < waves.Count)
             {
                 currentWave++;
                 getWave().applyModes();
