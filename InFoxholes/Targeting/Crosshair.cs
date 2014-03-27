@@ -91,16 +91,19 @@ namespace InFoxholes.Targeting
                             aimingAngle = -100;
                         }
                     }
-                    if (aimingAngle == -100)
+                    else
                     {
-                        aimingVector.X = currentMouseState.X - aimX;
-                        aimingVector.Y = currentMouseState.Y - aimY;
-                        aimingVector.Normalize();
-
-                        aimingAngle = (float)Math.Atan2(aimingVector.Y, aimingVector.X);
-                        if (!waveManager.getWave().layout.checkAimingVector(aimingVector))
+                        if (aimingAngle == -100)
                         {
-                            aimingAngle = -100;
+                            aimingVector.X = currentMouseState.X - aimX;
+                            aimingVector.Y = currentMouseState.Y - aimY;
+                            aimingVector.Normalize();
+
+                            aimingAngle = (float)Math.Atan2(aimingVector.Y, aimingVector.X);
+                            if (!waveManager.getWave().layout.checkAimingVector(aimingVector))
+                            {
+                                aimingAngle = -100;
+                            }
                         }
                     }
 
