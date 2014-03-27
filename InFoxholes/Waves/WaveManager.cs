@@ -71,14 +71,17 @@ namespace InFoxholes.Waves
                 if (MainGame.currentGamepadState.Buttons.A == ButtonState.Pressed && 
                     !(MainGame.previousGamepadState.Buttons.A == ButtonState.Pressed))
                 {
+                    Menu.confirmClickEffectInstance.Play();
                     State = 1;
                 }
                 if (overStartButton(Mouse.GetState().X, Mouse.GetState().Y))
                 {
+                    if (hoverFlag == false) Menu.scrollClickEffectInstance.Play();
                     hoverFlag = true;
                     if (Mouse.GetState().LeftButton == ButtonState.Pressed 
                         && MainGame.previousMouseState.LeftButton != ButtonState.Pressed)
                     {
+                        Menu.confirmClickEffectInstance.Play();
                         State = 1;
                     }
                 }
