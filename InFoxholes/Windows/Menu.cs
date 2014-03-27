@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using System;
 using InFoxholes.Util;
 
@@ -21,6 +23,11 @@ namespace InFoxholes.Windows
         public static bool isInControllerMenu;
         public ControllerMenu controllerMenu;
         int selectedButton;
+        public Song menuBgm;
+        public SoundEffect windEffect;
+        public SoundEffect flagEffect;
+        public SoundEffectInstance windEffectInstance;
+        public SoundEffectInstance flagEffectInstance;
 
         /* Magic Numbers */
         static int startButtonLX = 30;
@@ -37,13 +44,15 @@ namespace InFoxholes.Windows
         int controlsButtonHeight = controlsButtonRY - controlsButtonLY;
         private float lineThickness = 4f;
         private float halfPi = (float)(Math.PI / 2);
-        int animationSpeed = 100;
+        int animationSpeed = 30;
         float thresholdLength = .8f;
+        float flagVolume = .7f;
+        float windVolume = .7f;
                 
 
         public Menu(ContentManager Content, SpriteBatch spriteBatch)
         {
-            menuTexture = new AnimatedSprite(Content.Load<Texture2D>("Graphics\\MainMenu"), 2, 2, animationSpeed);
+            menuTexture = new AnimatedSprite(Content.Load<Texture2D>("Graphics\\MainMenu"), 3, 2, animationSpeed);
             topleft = new Vector2(startButtonLX, startButtonLY);
             botright = new Vector2(startButtonRX, startButtonRY);
             topleftControls = new Vector2(controlsButtonLX, controlsButtonLY);
@@ -53,6 +62,17 @@ namespace InFoxholes.Windows
             isInControllerMenu = false;
             controllerMenu = new ControllerMenu(Content, spriteBatch);
             selectedButton = 0;
+            menuBgm = Content.Load<Song>("Music\\Cylinder_Eight.wav");
+            windEffect = Content.Load<SoundEffect>("Music\\Wind.wav");
+            flagEffect = Content.Load<SoundEffect>("Music\\Flag.wav");
+            windEffectInstance = windEffect.CreateInstance();
+            flagEffectInstance = flagEffect.CreateInstance();
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(menuBgm);
+            windEffectInstance.Volume = windVolume;
+            flagEffectInstance.Volume = flagVolume;
+            windEffectInstance.Play();
+            flagEffectInstance.Play();
         }
         public void Update(GameTime gameTime, GamePadState gamepadState)
         {
@@ -71,6 +91,9 @@ namespace InFoxholes.Windows
                         if (gamepadState.Buttons.A == ButtonState.Pressed && MainGame.previousGamepadState.Buttons.A != ButtonState.Pressed)
                         {
                             MainGame.isInMenu = false;
+                            MediaPlayer.Stop();
+                            windEffectInstance.Stop();
+                            flagEffectInstance.Stop();
                         }
                         if (gamepadState.DPad.Down == ButtonState.Pressed  && MainGame.previousGamepadState.DPad.Down != ButtonState.Pressed ||
                             gamepadState.DPad.Up == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Up != ButtonState.Pressed ||
@@ -107,6 +130,9 @@ namespace InFoxholes.Windows
                         if (Mouse.GetState().LeftButton == ButtonState.Pressed && MainGame.previousMouseState.LeftButton != ButtonState.Pressed)
                         {
                             MainGame.isInMenu = false;
+                            MediaPlayer.Stop();
+                            windEffectInstance.Stop();
+                            flagEffectInstance.Stop();
                         }
                     }
                     else
