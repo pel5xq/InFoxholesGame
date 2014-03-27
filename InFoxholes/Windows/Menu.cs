@@ -24,10 +24,10 @@ namespace InFoxholes.Windows
         public ControllerMenu controllerMenu;
         int selectedButton;
         public Song menuBgm;
-        public SoundEffect windEffect;
-        public SoundEffect flagEffect;
-        public SoundEffectInstance windEffectInstance;
-        public SoundEffectInstance flagEffectInstance;
+        public static SoundEffectInstance windEffectInstance;
+        public static SoundEffectInstance flagEffectInstance;
+        public static SoundEffectInstance scrollClickEffectInstance;
+        public static SoundEffectInstance confirmClickEffectInstance;
 
         /* Magic Numbers */
         static int startButtonLX = 30;
@@ -48,6 +48,7 @@ namespace InFoxholes.Windows
         float thresholdLength = .8f;
         float flagVolume = .7f;
         float windVolume = .7f;
+        float clickVolume = 1.0f;
                 
 
         public Menu(ContentManager Content, SpriteBatch spriteBatch)
@@ -63,14 +64,16 @@ namespace InFoxholes.Windows
             controllerMenu = new ControllerMenu(Content, spriteBatch);
             selectedButton = 0;
             menuBgm = Content.Load<Song>("Music\\Cylinder_Eight.wav");
-            windEffect = Content.Load<SoundEffect>("Music\\Wind.wav");
-            flagEffect = Content.Load<SoundEffect>("Music\\Flag.wav");
-            windEffectInstance = windEffect.CreateInstance();
-            flagEffectInstance = flagEffect.CreateInstance();
+            windEffectInstance = (Content.Load<SoundEffect>("Music\\Wind.wav")).CreateInstance();
+            flagEffectInstance = (Content.Load<SoundEffect>("Music\\Flag.wav")).CreateInstance();
+            scrollClickEffectInstance = (Content.Load<SoundEffect>("Music\\Click.wav")).CreateInstance();
+            confirmClickEffectInstance = (Content.Load<SoundEffect>("Music\\Click2.wav")).CreateInstance();
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(menuBgm);
             windEffectInstance.Volume = windVolume;
             flagEffectInstance.Volume = flagVolume;
+            scrollClickEffectInstance.Volume = clickVolume;
+            confirmClickEffectInstance.Volume = clickVolume;
             windEffectInstance.Play();
             flagEffectInstance.Play();
         }
@@ -90,6 +93,7 @@ namespace InFoxholes.Windows
                         hoverFlagControls = false;
                         if (gamepadState.Buttons.A == ButtonState.Pressed && MainGame.previousGamepadState.Buttons.A != ButtonState.Pressed)
                         {
+                            confirmClickEffectInstance.Play();
                             MainGame.isInMenu = false;
                             MediaPlayer.Stop();
                             windEffectInstance.Stop();
@@ -101,6 +105,7 @@ namespace InFoxholes.Windows
                             gamepadState.DPad.Right == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Right != ButtonState.Pressed ||
                             gamepadState.ThumbSticks.Left.Length() > thresholdLength && !(MainGame.previousGamepadState.ThumbSticks.Left.Length() > thresholdLength))
                         {
+                            scrollClickEffectInstance.Play();
                             selectedButton = 1;
                         }
                     }
@@ -110,6 +115,7 @@ namespace InFoxholes.Windows
                         hoverFlagControls = true;
                         if (gamepadState.Buttons.A == ButtonState.Pressed && MainGame.previousGamepadState.Buttons.A != ButtonState.Pressed)
                         {
+                            confirmClickEffectInstance.Play();
                             isInControllerMenu = true;
                         }
                         if (gamepadState.DPad.Down == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Down != ButtonState.Pressed ||
@@ -118,6 +124,7 @@ namespace InFoxholes.Windows
                             gamepadState.DPad.Right == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Right != ButtonState.Pressed ||
                             gamepadState.ThumbSticks.Left.Length() > thresholdLength && !(MainGame.previousGamepadState.ThumbSticks.Left.Length() > thresholdLength))
                         {
+                            scrollClickEffectInstance.Play();
                             selectedButton = 0;
                         }
                     }
@@ -126,9 +133,11 @@ namespace InFoxholes.Windows
                 {
                     if (overStartButton(Mouse.GetState().X, Mouse.GetState().Y))
                     {
+                        if (hoverFlag == false) scrollClickEffectInstance.Play();
                         hoverFlag = true;
                         if (Mouse.GetState().LeftButton == ButtonState.Pressed && MainGame.previousMouseState.LeftButton != ButtonState.Pressed)
                         {
+                            confirmClickEffectInstance.Play();
                             MainGame.isInMenu = false;
                             MediaPlayer.Stop();
                             windEffectInstance.Stop();
@@ -141,9 +150,11 @@ namespace InFoxholes.Windows
                     }
                     if (overControlsButton(Mouse.GetState().X, Mouse.GetState().Y))
                     {
+                        if (hoverFlagControls == false) scrollClickEffectInstance.Play();
                         hoverFlagControls = true;
                         if (Mouse.GetState().LeftButton == ButtonState.Pressed && MainGame.previousMouseState.LeftButton != ButtonState.Pressed)
                         {
+                            confirmClickEffectInstance.Play();
                             isInControllerMenu = true;
                         }
                     }
