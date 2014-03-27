@@ -68,6 +68,7 @@
     <Compile Include="Looting\Loot.cs" />
     <Compile Include="Looting\MachineGunAmmoLoot.cs" />
     <Compile Include="Waves\WaveManager.cs" />
+    <Compile Include="Windows\ControllerMenu.cs" />
     <Compile Include="Windows\Menu.cs" />
     <Compile Include="Friendlies\Scavenger.cs" />
     <Compile Include="Layouts\Pather.cs" />
@@ -147,6 +148,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\LeeEnfieldAmmo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\MainMenu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\Menu.png">

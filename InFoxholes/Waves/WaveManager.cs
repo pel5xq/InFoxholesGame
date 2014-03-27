@@ -84,7 +84,8 @@ namespace InFoxholes.Waves
                 }
                 else
                 {
-                    hoverFlag = false;
+                    if (MainGame.currentGamepadState.IsConnected) hoverFlag = true;
+                    else hoverFlag = false;
                 }
             }
             else if (State == 1)
