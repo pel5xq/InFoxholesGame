@@ -76,5 +76,9 @@ namespace InFoxholes.Layouts
         {
             return enemySpawn;
         }
+        public override bool isOnGround(Vector2 position, int width, int height)
+        {
+            return position.Y + height >= enemySpawn.Y;
+        }
     }
 }

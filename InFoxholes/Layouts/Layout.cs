@@ -59,6 +59,10 @@ namespace InFoxholes.Layouts
         {
             return true;
         }
-        
+
+        public virtual bool isOnGround(Vector2 position, int width, int height)
+        {
+            return false;
+        }
     }
 }
