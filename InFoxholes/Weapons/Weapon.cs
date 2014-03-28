@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using InFoxholes.Waves;
 
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
+
 namespace InFoxholes.Weapons
 {
     public abstract class Weapon
@@ -24,6 +27,8 @@ namespace InFoxholes.Weapons
         public int clipSupply;
         public int ammoSupply;
         public WaveManager waveManager;
+        public SoundEffect shotSound;
+        public SoundEffectInstance emptyClipSound;
 
         /* Magic Numbers */
         private int hudPadding = 5;
@@ -41,6 +46,7 @@ namespace InFoxholes.Weapons
             waveManager = manager;
             hudSeat = HUDPosition;
             ammoSupply = ammosupply - clipSize;
+            emptyClipSound = (Content.Load<SoundEffect>("Music\\Click2.wav")).CreateInstance();
         }
 
         public int Width
@@ -157,6 +163,13 @@ namespace InFoxholes.Weapons
         public bool isFireable(GameTime currentTime)
         {
             return cooldownOver(currentTime) && reloadOver(currentTime) && clipSupply > 0;
+        }
+
+        public virtual void playShot(GameTime currentTime)
+        {
+            if (clipSupply == 0 && ammoSupply == 0) emptyClipSound.Play();
+            else if (!reloadOver(currentTime)) emptyClipSound.Play();
+            else shotSound.Play();
         }
 
         abstract public float GetCrosshairVelocity(double timeElapsed);

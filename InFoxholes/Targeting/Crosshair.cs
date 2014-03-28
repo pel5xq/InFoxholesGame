@@ -148,12 +148,13 @@ namespace InFoxholes.Targeting
                     else
                     {
                         //Need to take firing cooldown/reload into consideration
-                        if (weapon.isFireable(gameTime))
+                        
+                        if (currentMouseState.LeftButton == ButtonState.Pressed
+                            || MainGame.currentGamepadState.Triggers.Right >= MainGame.triggerThreshold) //implied state==1
                         {
-                            if (currentMouseState.LeftButton == ButtonState.Pressed
-                                || MainGame.currentGamepadState.Triggers.Right >= MainGame.triggerThreshold) //implied state==1
+                            weapon.playShot(gameTime);
+                            if (weapon.isFireable(gameTime))
                             {
-
                                 //Update game world here and inform weapon to draw
                                 //shot, but can't draw yet
                                 //Make scavengers in trench safe, but not others
@@ -170,6 +171,7 @@ namespace InFoxholes.Targeting
                                 weapon.startShotCooldown(gameTime);
                             }
                         }
+                        
                         float velocity = weapon.GetCrosshairVelocity((gameTime.TotalGameTime.Subtract(aimingTimestamp)).TotalMilliseconds);
                         Position.X = aimingVector.X * velocity + Position.X;
                         Position.Y = aimingVector.Y * velocity + Position.Y;

@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using InFoxholes.Waves;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace InFoxholes.Weapons
 {
@@ -25,6 +27,7 @@ namespace InFoxholes.Weapons
             reloadCooldown = reloadLength;
             WeaponTexture = Content.Load<Texture2D>("Graphics\\BAR");
             bullet = Content.Load<Texture2D>("Graphics\\BARAmmo");
+            shotSound = Content.Load<SoundEffect>("Music\\ak47.wav");
             base.Initialize(Content, spriteBatch, HUDPosition, ammosupply, manager);
         }
         override public void DrawHUD(SpriteBatch spriteBatch, GameTime gameTime)
