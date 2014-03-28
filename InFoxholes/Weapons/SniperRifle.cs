@@ -20,7 +20,8 @@ namespace InFoxholes.Weapons
 
         override public float GetCrosshairVelocity(double timeElapsed)
         {
-            return  (float)(2 - 2.6 * timeElapsed + 1.7 * Math.Pow(timeElapsed, 2)) / 30000;
+            return  (float)(2 - 2.6 * timeElapsed + 1.7 * Math.Pow(timeElapsed, 2)) / 60000;
+            //Classic: (float)(2 - 2.6 * timeElapsed + 1.7 * Math.Pow(timeElapsed, 2)) / 30000;
         }
         override public void Initialize(ContentManager Content, SpriteBatch spriteBatch, int HUDPosition, int ammosupply, WaveManager manager)
         {
