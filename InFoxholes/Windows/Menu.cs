@@ -13,10 +13,8 @@ namespace InFoxholes.Windows
     public class Menu
     {
         public AnimatedSprite menuTexture;
-        Vector2 topleft;
-        Vector2 botright;
-        Vector2 topleftControls;
-        Vector2 botrightControls;
+        Button startButton;
+        Button controlsButton;
         public Texture2D pixel;
         bool hoverFlag = false;
         bool hoverFlagControls = false;
@@ -38,12 +36,7 @@ namespace InFoxholes.Windows
         static int controlsButtonLY = 205;
         static int controlsButtonRX = 180;
         static int controlsButtonRY = 240;
-        int startButtonWidth = startButtonRX - startButtonLX;
-        int startButtonHeight = startButtonRY - startButtonLY;
-        int controlsButtonWidth = controlsButtonRX - controlsButtonLX;
-        int controlsButtonHeight = controlsButtonRY - controlsButtonLY;
-        private float lineThickness = 4f;
-        private float halfPi = (float)(Math.PI / 2);
+
         int animationSpeed = 30;
         float thresholdLength = .8f;
         float flagVolume = .7f;
@@ -54,10 +47,10 @@ namespace InFoxholes.Windows
         public Menu(ContentManager Content, SpriteBatch spriteBatch)
         {
             menuTexture = new AnimatedSprite(Content.Load<Texture2D>("Graphics\\MainMenu"), 3, 2, animationSpeed);
-            topleft = new Vector2(startButtonLX, startButtonLY);
-            botright = new Vector2(startButtonRX, startButtonRY);
-            topleftControls = new Vector2(controlsButtonLX, controlsButtonLY);
-            botrightControls = new Vector2(controlsButtonRX, controlsButtonRY);
+            startButton = new Button(new Vector2(startButtonLX, startButtonLY), 
+                new Vector2(startButtonRX, startButtonRY), "", Vector2.Zero);
+            controlsButton = new Button(new Vector2(controlsButtonLX, controlsButtonLY),
+                new Vector2(controlsButtonRX, controlsButtonRY), "", Vector2.Zero);
             pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             pixel.SetData(new[] { Color.White });
             isInControllerMenu = false;
@@ -131,7 +124,7 @@ namespace InFoxholes.Windows
                 }
                 else
                 {
-                    if (overStartButton(Mouse.GetState().X, Mouse.GetState().Y))
+                    if (startButton.mouseIsOverButton(Mouse.GetState().X, Mouse.GetState().Y))
                     {
                         if (hoverFlag == false) scrollClickEffectInstance.Play();
                         hoverFlag = true;
@@ -148,7 +141,7 @@ namespace InFoxholes.Windows
                     {
                         hoverFlag = false;
                     }
-                    if (overControlsButton(Mouse.GetState().X, Mouse.GetState().Y))
+                    if (controlsButton.mouseIsOverButton(Mouse.GetState().X, Mouse.GetState().Y))
                     {
                         if (hoverFlagControls == false) scrollClickEffectInstance.Play();
                         hoverFlagControls = true;
@@ -176,47 +169,9 @@ namespace InFoxholes.Windows
             {
                 menuTexture.Update();
                 menuTexture.Draw(spriteBatch, Vector2.Zero,  1f, SpriteEffects.None);
-                if (hoverFlag)
-                {
-                    spriteBatch.Draw(pixel, topleft, null, Color.Black, 0, Vector2.Zero, new Vector2(startButtonWidth, lineThickness),
-                        SpriteEffects.None, 0);
-                    spriteBatch.Draw(pixel, topleft, null, Color.Black, halfPi, Vector2.Zero, new Vector2(startButtonHeight, lineThickness),
-                        SpriteEffects.None, 0);
-                    spriteBatch.Draw(pixel, botright, null, Color.Black, 2 * halfPi, Vector2.Zero, new Vector2(startButtonWidth, lineThickness),
-                        SpriteEffects.None, 0);
-                    spriteBatch.Draw(pixel, botright, null, Color.Black, -1 * halfPi, Vector2.Zero, new Vector2(startButtonHeight, lineThickness),
-                        SpriteEffects.None, 0);
-                }
-                if (hoverFlagControls)
-                {
-                    spriteBatch.Draw(pixel, topleftControls, null, Color.Black, 0, Vector2.Zero, new Vector2(controlsButtonWidth, lineThickness),
-                        SpriteEffects.None, 0);
-                    spriteBatch.Draw(pixel, topleftControls, null, Color.Black, halfPi, Vector2.Zero, new Vector2(controlsButtonHeight, lineThickness),
-                        SpriteEffects.None, 0);
-                    spriteBatch.Draw(pixel, botrightControls, null, Color.Black, 2 * halfPi, Vector2.Zero, new Vector2(controlsButtonWidth, lineThickness),
-                        SpriteEffects.None, 0);
-                    spriteBatch.Draw(pixel, botrightControls, null, Color.Black, -1 * halfPi, Vector2.Zero, new Vector2(controlsButtonHeight, lineThickness),
-                        SpriteEffects.None, 0);
-                }
+                startButton.Draw(spriteBatch, pixel, hoverFlag, Color.Black);
+                controlsButton.Draw(spriteBatch, pixel, hoverFlagControls, Color.Black);
             }
-        }
-        private bool overStartButton(int mouseX, int mouseY)
-        {
-            if (mouseX <= startButtonRX && mouseX >= startButtonLX
-                && mouseY <= startButtonRY && mouseY >= startButtonLY)
-            {
-                return true;
-            }
-            return false;
-        }
-        private bool overControlsButton(int mouseX, int mouseY)
-        {
-            if (mouseX <= controlsButtonRX && mouseX >= controlsButtonLX
-                && mouseY <= controlsButtonRY && mouseY >= controlsButtonLY)
-            {
-                return true;
-            }
-            return false;
         }
     }
 }

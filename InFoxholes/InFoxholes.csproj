@@ -54,6 +54,7 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Conversations\ConversationManager.cs" />
     <Compile Include="Enemies\HeadShotTest.cs" />
     <Compile Include="Enemies\RegionedEnemy.cs" />
     <Compile Include="Friendlies\ScavengerManager.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Layouts\FoxholePather.cs" />
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Util\AnimatedSprite.cs" />
+    <Compile Include="Util\Button.cs" />
     <Compile Include="Waves\Wave2.cs" />
     <Compile Include="Looting\FoodLoot.cs" />
     <Compile Include="Looting\Loot.cs" />
