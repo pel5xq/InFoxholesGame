@@ -1,6 +1,7 @@
 ﻿using InFoxholes.Friendlies;
 using InFoxholes.Layouts;
 using InFoxholes.Windows;
+using InFoxholes.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,8 +19,7 @@ namespace InFoxholes.Waves
         // 0 = Wave Introduction, 1 = Wave Day
         // 2 = End of Day Countdown, 3 = Wave Conclusion
         public Texture2D blankScreen;
-        Vector2 topleft;
-        Vector2 botright;
+        Button continueButton;
         public Texture2D pixel;
         bool hoverFlag = false;
         double endGracePeriod;
@@ -31,11 +31,7 @@ namespace InFoxholes.Waves
         static int startButtonLY = 415;
         static int startButtonRX = 470;
         static int startButtonRY = 465;
-        int startButtonWidth = startButtonRX - startButtonLX;
-        int startButtonHeight = startButtonRY - startButtonLY;
-        private float lineThickness = 4f;
-        private float halfPi = (float)(Math.PI / 2);
-        Vector2 startTextPosition = new Vector2(395f, 425f);
+        Vector2 continueTextOffset = new Vector2(50f, 10f);
         String buttonText = "OK";
         Vector2 mainTextPosition = new Vector2(190f, 100f);
         String countdownText = "End of Day in: ";
@@ -52,8 +48,8 @@ namespace InFoxholes.Waves
                 waves[i].Initialize(content, this);
             }
             blankScreen = content.Load<Texture2D>("Graphics\\BlackScreen");
-            topleft = new Vector2(startButtonLX, startButtonLY);
-            botright = new Vector2(startButtonRX, startButtonRY);
+            continueButton = new Button(new Vector2(startButtonLX, startButtonLY), 
+                new Vector2(startButtonRX, startButtonRY), buttonText, continueTextOffset);
             endGracePeriod = 0;
             secondsLeft = (int) (gracePeriodLength / 1000);
             getWave().applyModes();
@@ -74,7 +70,7 @@ namespace InFoxholes.Waves
                     Menu.confirmClickEffectInstance.Play();
                     State = 1;
                 }
-                if (overStartButton(Mouse.GetState().X, Mouse.GetState().Y))
+                if (continueButton.mouseIsOverButton(Mouse.GetState().X, Mouse.GetState().Y))
                 {
                     if (hoverFlag == false) Menu.scrollClickEffectInstance.Play();
                     hoverFlag = true;
@@ -126,19 +122,8 @@ namespace InFoxholes.Waves
             if (State == 0)
             {
                 spriteBatch.Draw(blankScreen, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(MainGame.font, buttonText, startTextPosition, Color.White);
                 spriteBatch.DrawString(MainGame.font, getWave().openingText, mainTextPosition, Color.White);
-                if (hoverFlag)
-                {
-                    spriteBatch.Draw(pixel, topleft, null, Color.White, 0, Vector2.Zero, new Vector2(125, lineThickness),
-                        SpriteEffects.None, 0);
-                    spriteBatch.Draw(pixel, topleft, null, Color.White, halfPi, Vector2.Zero, new Vector2(50, lineThickness),
-                        SpriteEffects.None, 0);
-                    spriteBatch.Draw(pixel, botright, null, Color.White, 2 * halfPi, Vector2.Zero, new Vector2(125, lineThickness),
-                        SpriteEffects.None, 0);
-                    spriteBatch.Draw(pixel, botright, null, Color.White, -1 * halfPi, Vector2.Zero, new Vector2(50, lineThickness),
-                        SpriteEffects.None, 0);
-                }
+                continueButton.Draw(spriteBatch, pixel, hoverFlag, Color.White);
             }
             else if (State == 1)
             {
@@ -163,15 +148,6 @@ namespace InFoxholes.Waves
                 currentWave++;
                 getWave().applyModes();
             }
-        }
-        private bool overStartButton(int mouseX, int mouseY)
-        {
-            if (mouseX <= startButtonRX && mouseX >= startButtonLX
-                && mouseY <= startButtonRY && mouseY >= startButtonLY)
-            {
-                return true;
-            }
-            return false;
         }
     }
 }
