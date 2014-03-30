@@ -2,6 +2,7 @@
 using InFoxholes.Layouts;
 using InFoxholes.Windows;
 using InFoxholes.Util;
+using InFoxholes.Conversations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,6 +25,8 @@ namespace InFoxholes.Waves
         bool hoverFlag = false;
         double endGracePeriod;
         int secondsLeft;
+        public ConversationManager conversationManager;
+        bool delegateToConvo;
 
         /* Magic Numbers */
         double gracePeriodLength = 15000;
@@ -38,6 +41,9 @@ namespace InFoxholes.Waves
 
         public void Initialize(ContentManager content)
         {
+            conversationManager = new ConversationManager();
+            conversationManager.Initialize(content, this);
+            delegateToConvo = false;
             waves = new List<Wave>();
             currentWave = 0;
             State = 0;
@@ -103,11 +109,22 @@ namespace InFoxholes.Waves
                 secondsLeft = (int)((endGracePeriod - gametime.TotalGameTime.TotalMilliseconds) / 1000);
                 if (gametime.TotalGameTime.TotalMilliseconds > endGracePeriod)
                 {
-                    nextWave();
-                    scavengerManager.returnToTrench();
-                    State = 0;
-                    MainGame.resetScavengeCommand();
-                    scavengerManager.cleanUpBodies();
+                    if (conversationManager.conversationIsFinished)
+                    {
+                        delegateToConvo = false;
+                        nextWave();
+                        scavengerManager.returnToTrench();
+                        State = 0;
+                        MainGame.resetScavengeCommand();
+                        scavengerManager.cleanUpBodies();
+                        conversationManager.conversationIsFinished = false;
+                        conversationManager.State = 0;
+                    }
+                    else
+                    {
+                        delegateToConvo = true;
+                        conversationManager.Update(gametime, scavengerManager);
+                    }
                 }
             }
         }
@@ -131,8 +148,15 @@ namespace InFoxholes.Waves
             }
             else if (State == 2)
             {
-                getWave().Draw(spriteBatch);
-                spriteBatch.DrawString(MainGame.font, countdownText + secondsLeft, getWave().layout.countdownPosition, Color.Black);
+                if (delegateToConvo)
+                {
+                    conversationManager.Draw(spriteBatch);
+                }
+                else
+                {
+                    getWave().Draw(spriteBatch);
+                    spriteBatch.DrawString(MainGame.font, countdownText + secondsLeft, getWave().layout.countdownPosition, Color.Black);
+                }
             }
         }
 

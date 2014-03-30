@@ -15,7 +15,7 @@ namespace InFoxholes.Windows
         public AnimatedSprite menuTexture;
         Button startButton;
         Button controlsButton;
-        public Texture2D pixel;
+        public static Texture2D pixel;
         bool hoverFlag = false;
         bool hoverFlagControls = false;
         public static bool isInControllerMenu;

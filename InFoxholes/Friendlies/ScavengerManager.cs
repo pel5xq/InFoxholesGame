@@ -100,5 +100,14 @@ namespace InFoxholes.Friendlies
             }
             return lootableScavs;
         }
+        public int numberOfLiveScavengers()
+        {
+            int count = 0;
+            for (int i = 0; i < scavengers.Count; i++)
+            {
+                if (scavengers[i].Alive) count++;
+            }
+            return count;
+        }
     }
 }

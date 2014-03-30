@@ -50,7 +50,7 @@ namespace InFoxholes.Windows
         private static int startingFood = 1;
         int windowWidth = 800;
         int windowHeight = 482;
-        int numStartingLives = 4;
+        public static int numStartingLives = 4;
         public static float triggerThreshold = .8f;
 
         public MainGame()
