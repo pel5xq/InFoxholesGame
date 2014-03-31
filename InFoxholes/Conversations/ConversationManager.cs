@@ -53,13 +53,25 @@ namespace InFoxholes.Conversations
             "\"I just hope I have a home to return to\n when all of this is over.\"",
             "\"Not an hour goes by that I don't think\n about it. You never really \nappreciate something great until it's gone.\"",
             "\"I don't want to talk about it. \nI came here to escape that place. \nMy mistake, I guess.\"" };
+        String warQuestion = "the war.";
+        List<String> warResponses = new List<String>(){
+            "\"We're on the right side of this, don't\nyou think? I'm not here just for duty,\nI'm fighting for good.\"",
+            "\"It's an evil, no question about it.\nLet's hope it's just a lesser evil.\"",
+            "\"I could see the justification for it\nwhen it was an idea. Reality is never\nas kind.\"",
+            "\"Well, we're fighting it. No amount of\n thinking about it will change that.\""};
+        String killingQuestion = "killing.";
+        List<String> killingResponses = new List<String>(){
+            "\"There's a reason I give you most of my bullets.\nI'd defend my life if one of them walked right\nthrough the door, but beyond that . . .\"",
+            "\"Having second thoughts about being our \npoint man? We all know you are the best shot\nhere, and we trust you with our lives.\nThink on that.\"",
+            "\"The killing I can stomach. It's sitting\nin foxholes that's hell. You have a\nweapon, a way to fight fate. But how\ncan I stop the end from coming?\"",
+            "\"You seem to like it. I won't stop you.\""};
         String startConversation = "Talk to:";
         Vector2 startConversationPosition = new Vector2(300, 20);
         String dismissQuestion = "Don't say anything.";
         String emptyQuestion = "None left to talk to.";
         String dismissResponse = "You try to sleep the day off instead.";
         String emptyResponse = "All you can do is remember them.";
-        Vector2 responsePosition = new Vector2(200, 100);
+        Vector2 responsePosition = new Vector2(300, 100);
         List<Vector2> namePositionsL = new List<Vector2>() { 
             new Vector2(300, 50),
             new Vector2(300, 150),
@@ -89,6 +101,8 @@ namespace InFoxholes.Conversations
         Vector2 endConversationR = new Vector2(470, 465);
         String endConversationText = "OK";
         Vector2 endConversationOffset = new Vector2(50f, 10f);
+        Vector2 portraitPosition = new Vector2(10, 50);
+        float portraitScale = .5f;
 
         public void Initialize(ContentManager content, WaveManager waveManager)
         {
@@ -248,6 +262,18 @@ namespace InFoxholes.Conversations
                     possibleResponses.Add(homeResponses[trueManBeingTalkedTo]);
                     questionPositionsCounter++;
                     talkAboutButtonsHover.Add(false);
+                    talkAboutButtons.Add(new Button(questionPositionsL[questionPositionsCounter],
+                            questionPositionsR[questionPositionsCounter], preQuestion
+                            + warQuestion, questionOffset));
+                    possibleResponses.Add(warResponses[trueManBeingTalkedTo]);
+                    questionPositionsCounter++;
+                    talkAboutButtonsHover.Add(false);
+                    talkAboutButtons.Add(new Button(questionPositionsL[questionPositionsCounter],
+                            questionPositionsR[questionPositionsCounter], preQuestion
+                            + killingQuestion, questionOffset));
+                    possibleResponses.Add(killingResponses[trueManBeingTalkedTo]);
+                    questionPositionsCounter++;
+                    talkAboutButtonsHover.Add(false);
                     //More questions here
                     
                 }
@@ -373,6 +399,10 @@ namespace InFoxholes.Conversations
                 for (int i = 0; i < talkToButtons.Count; i++)
                 {
                     talkToButtons[i].Draw(spriteBatch, Menu.pixel, talkToButtonsHover[i],Color.White);
+                    int trueManBeingTalkedTo = i + (MainGame.numStartingLives - lastNumScavengers);
+                    if (talkToButtonsHover[i] && trueManBeingTalkedTo < portraits.Count) 
+                        spriteBatch.Draw(portraits[trueManBeingTalkedTo], portraitPosition, null, Color.White, 0f, Vector2.Zero, portraitScale, SpriteEffects.None, 0f);
+            
                 }
             }
             else if (State == 2)
@@ -381,12 +411,18 @@ namespace InFoxholes.Conversations
                 {
                     talkAboutButtons[i].Draw(spriteBatch, Menu.pixel, talkAboutButtonsHover[i], Color.White);
                 }
+                int trueManBeingTalkedTo = manBeingTalkedTo + (MainGame.numStartingLives - lastNumScavengers);
+                if (trueManBeingTalkedTo < portraits.Count)
+                    spriteBatch.Draw(portraits[trueManBeingTalkedTo], portraitPosition, null, Color.White, 0f, Vector2.Zero, portraitScale, SpriteEffects.None, 0f);
             }
             //Draw portraits too
             else if (State == 3)
             {
                 spriteBatch.DrawString(MainGame.font, response, responsePosition, Color.White);
                 endConversationButton.Draw(spriteBatch, Menu.pixel, endConversationHover, Color.White);
+                int trueManBeingTalkedTo = manBeingTalkedTo + (MainGame.numStartingLives - lastNumScavengers);
+                if (trueManBeingTalkedTo < portraits.Count)
+                    spriteBatch.Draw(portraits[trueManBeingTalkedTo], portraitPosition, null, Color.White, 0f, Vector2.Zero, portraitScale, SpriteEffects.None, 0f);
             }
             
         }
