@@ -41,6 +41,7 @@ namespace InFoxholes.Windows
         public static bool isInfiniteAmmoMode;
         public static bool isInfiniteFoodMode;
         public static SpriteFont font;
+        public static bool skipTutorial;
 
         //How to Write to Console: System.Diagnostics.Debug.WriteLine();
 
@@ -60,6 +61,7 @@ namespace InFoxholes.Windows
             Content.RootDirectory = "Content";
             gameOver = false;
             isInMenu = true;
+            skipTutorial = false;
             isInfiniteAmmoMode = false;
             isInfiniteFoodMode = false;
             graphics.IsFullScreen = false;
@@ -103,6 +105,7 @@ namespace InFoxholes.Windows
             sniperRifle.Initialize(Content, spriteBatch, 0, startingSniperAmmo, waveManager);
             machineGun.Initialize(Content, spriteBatch, 1, startingMachinegunAmmo, waveManager);
             scavengerManager.Initialize(Content, 3, numStartingLives, waveManager);
+            waveManager.setScavengerManager(scavengerManager);
             player.Initialize(Content, startingFood, 2, waveManager);
 
         }
@@ -139,6 +142,11 @@ namespace InFoxholes.Windows
             }
             else
             {
+                if (skipTutorial)
+                {
+                    waveManager.skipTutorialWaves();
+                    skipTutorial = false;
+                }
                 if (waveManager.State != 0 && (Keyboard.GetState().IsKeyDown(Keys.R) || currentGamepadState.Buttons.X == ButtonState.Pressed))
                 {
                     weapon.reload(gameTime);
@@ -176,7 +184,7 @@ namespace InFoxholes.Windows
                     }
                 }
                 crosshair.Update(currentMouseState, weapon, gameTime, waveManager.getWave(), scavengerManager.getActiveScavenger(), GraphicsDevice);
-                waveManager.Update(gameTime, scavengerManager);
+                waveManager.Update(gameTime);
                 scavengerManager.Update(scavengeCommand, gameTime, waveManager.getWave());
 
             }
