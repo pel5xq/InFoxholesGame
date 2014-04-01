@@ -11,10 +11,6 @@ namespace InFoxholes.Enemies
     public class ParachuteEnemy : Enemy1
     {
         /* Magic Numbers*/
-        float E1Speed = .4f;
-        int animationSpeed = 10;
-        int numMapRows = 1;
-        int numMapColumns = 4;
         int counter = 0;
         bool inSky = true;
         int windSpeed = 0;

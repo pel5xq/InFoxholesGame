@@ -57,6 +57,7 @@
     <Compile Include="Conversations\ConversationManager.cs" />
     <Compile Include="Enemies\DeadEnemy1.cs" />
     <Compile Include="Enemies\HeadShotTest.cs" />
+    <Compile Include="Enemies\ParachuteEnemy.cs" />
     <Compile Include="Enemies\RegionedEnemy.cs" />
     <Compile Include="Friendlies\ScavengerManager.cs" />
     <Compile Include="Layouts\TowerLayout.cs" />
@@ -173,6 +174,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\NotSentIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\ParachuteEnemy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\Paul.png">
