@@ -48,9 +48,10 @@ namespace InFoxholes.Waves
             currentWave = 0;
             State = 0;
             waves.Add(new TutorialWave1());
+            waves.Add(new TutorialWave2());
             waves.Add(new TutorialWave3());
-            waves.Add(new Wave1());
-            waves.Add(new Wave2());
+            //waves.Add(new Wave1());
+            //waves.Add(new Wave2());
             for (int i = 0; i < waves.Count; i++)
             {
                 waves[i].Initialize(content, this);
@@ -98,7 +99,7 @@ namespace InFoxholes.Waves
             else if (State == 1)
             {
                 getWave().Update(gametime, scavengerManager);
-                if (getWave().isOver())
+                if (getWave().isOver(scavengerManager))
                 {
                     State = 2;
                     endGracePeriod = gametime.TotalGameTime.TotalMilliseconds + gracePeriodLength;
