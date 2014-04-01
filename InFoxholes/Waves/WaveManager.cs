@@ -50,15 +50,9 @@ namespace InFoxholes.Waves
             waves.Add(new TutorialWave1());
             waves.Add(new TutorialWave2());
             waves.Add(new TutorialWave3());
-<<<<<<< HEAD
             waves.Add(new OpeningWave());
-            waves.Add(new Wave1());
-            waves.Add(new Wave2());
-            
-=======
             //waves.Add(new Wave1());
             //waves.Add(new Wave2());
->>>>>>> 7bacd39ab17210639f885353957e31bce70c61d2
             for (int i = 0; i < waves.Count; i++)
             {
                 waves[i].Initialize(content, this);
