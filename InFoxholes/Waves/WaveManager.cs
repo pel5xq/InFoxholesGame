@@ -39,6 +39,7 @@ namespace InFoxholes.Waves
         String buttonText = "OK";
         Vector2 mainTextPosition = new Vector2(190f, 100f);
         String countdownText = "End of Day in: ";
+        Vector2 helpTexturePosition = new Vector2(50, 195);
 
         public void Initialize(ContentManager content)
         {
@@ -150,6 +151,12 @@ namespace InFoxholes.Waves
                 spriteBatch.Draw(blankScreen, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                 spriteBatch.DrawString(MainGame.font, getWave().openingText, mainTextPosition, Color.White);
                 continueButton.Draw(spriteBatch, pixel, hoverFlag, Color.White);
+                if (MainGame.currentGamepadState.IsConnected) { 
+                    if(null != getWave().helpTextureController)
+                        spriteBatch.Draw(getWave().helpTextureController, helpTexturePosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                }
+                else if (null != getWave().helpTexture) 
+                    spriteBatch.Draw(getWave().helpTexture, helpTexturePosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
             else if (State == 1)
             {

@@ -28,6 +28,8 @@ namespace InFoxholes.Waves
         public WaveManager waveManager;
         public Layout layout;
         public bool isTutorialWave;
+        public Texture2D helpTexture;
+        public Texture2D helpTextureController;
 
 
         virtual public void Initialize(ContentManager content, WaveManager manager)
