@@ -81,7 +81,7 @@ namespace InFoxholes.Waves
             MainGame.isInfiniteFoodMode = infiniteFoodModeOn;
         }
 
-        public bool isOver()
+        public virtual bool isOver(ScavengerManager scavengerManager)
         {
             if (enemiesToSpawn.Count == 0)
             {
