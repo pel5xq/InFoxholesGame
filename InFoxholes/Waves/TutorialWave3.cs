@@ -3,6 +3,7 @@ using InFoxholes.Layouts;
 using InFoxholes.Looting;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace InFoxholes.Waves
@@ -54,6 +55,8 @@ namespace InFoxholes.Waves
             lootList.Add(new MachineGunAmmoLoot(10, content));
             openingTextFilename = "Content//Text//TutorialWave3Open.txt";
             layout = new FoxholeLayout();
+            helpTexture = content.Load<Texture2D>("Graphics\\Tutorial3Help");
+            helpTextureController = content.Load<Texture2D>("Graphics\\Tutorial3HelpController");
             base.Initialize(content, manager);
         }
     }

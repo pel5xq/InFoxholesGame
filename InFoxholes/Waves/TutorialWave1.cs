@@ -41,6 +41,7 @@ namespace InFoxholes.Waves
             openingTextFilename = "Content//Text//TutorialWave1Open.txt";
             layout = new FoxholeLayout();
             helpTexture = content.Load<Texture2D>("Graphics\\Tutorial1Help");
+            helpTextureController = content.Load<Texture2D>("Graphics\\Tutorial1HelpController");
             base.Initialize(content, manager);
         }
     }

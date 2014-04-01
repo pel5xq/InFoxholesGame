@@ -5,6 +5,7 @@ using InFoxholes.Looting;
 using InFoxholes.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace InFoxholes.Waves
@@ -25,6 +26,8 @@ namespace InFoxholes.Waves
             lootList.Add(new SniperAmmoLoot(2, content));
             openingTextFilename = "Content//Text//TutorialWave2Open.txt";
             layout = new FoxholeLayout();
+            helpTexture = content.Load<Texture2D>("Graphics\\Tutorial2Help");
+            helpTextureController = content.Load<Texture2D>("Graphics\\Tutorial2HelpController");
             base.Initialize(content, manager);
         }
 
