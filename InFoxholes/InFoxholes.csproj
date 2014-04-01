@@ -55,6 +55,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Conversations\ConversationManager.cs" />
+    <Compile Include="Enemies\DeadEnemy1.cs" />
     <Compile Include="Enemies\HeadShotTest.cs" />
     <Compile Include="Enemies\RegionedEnemy.cs" />
     <Compile Include="Friendlies\ScavengerManager.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Util\Button.cs" />
     <Compile Include="Waves\OpeningWave.cs" />
     <Compile Include="Waves\TutorialWave1.cs" />
+    <Compile Include="Waves\TutorialWave2.cs" />
     <Compile Include="Waves\TutorialWave3.cs" />
     <Compile Include="Waves\Wave2.cs" />
     <Compile Include="Looting\FoodLoot.cs" />
@@ -237,9 +239,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Text\TutorialWave3Open.txt">
+    <Content Include="Content\Text\TutorialWave1Open.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Text\TutorialWave1Open.txt">
+    <Content Include="Content\Text\TutorialWave2Open.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Text\TutorialWave3Open.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Text\Wave2Open.txt">
@@ -248,7 +254,9 @@
     <Content Include="Content\Text\Wave1Open.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Icon.ico" />
+    <Content Include="Icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\Font.xnb">
