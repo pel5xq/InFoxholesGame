@@ -28,6 +28,7 @@ namespace InFoxholes.Weapons
             WeaponTexture = Content.Load<Texture2D>("Graphics\\BAR");
             bullet = Content.Load<Texture2D>("Graphics\\BARAmmo");
             shotSound = Content.Load<SoundEffect>("Music\\ak47.wav");
+            reloadSound = Content.Load<SoundEffect>("Music\\Sniper_Fire_Reload.wav");
             base.Initialize(Content, spriteBatch, HUDPosition, ammosupply, manager);
         }
         override public void DrawHUD(SpriteBatch spriteBatch, GameTime gameTime)
