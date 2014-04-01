@@ -137,6 +137,7 @@ namespace InFoxholes.Weapons
             {
                 clipSupply = clipSize;
                 reloadMilli = currentTime.TotalGameTime.TotalMilliseconds;
+                reloadSound.Play();
             }
             else if (ammoSupply > 0 && clipSupply != clipSize)
             {
@@ -152,6 +153,7 @@ namespace InFoxholes.Weapons
                     ammoSupply = 0;
                 }
                 reloadMilli = currentTime.TotalGameTime.TotalMilliseconds;
+                reloadSound.Play();
             }
         }
 
