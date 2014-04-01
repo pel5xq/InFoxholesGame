@@ -65,6 +65,7 @@
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Util\AnimatedSprite.cs" />
     <Compile Include="Util\Button.cs" />
+    <Compile Include="Waves\OpeningWave.cs" />
     <Compile Include="Waves\TutorialWave1.cs" />
     <Compile Include="Waves\TutorialWave3.cs" />
     <Compile Include="Waves\Wave2.cs" />
@@ -230,6 +231,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Music\Wind.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Text\OpeningWaveOpen.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Text\TutorialWave3Open.txt">
