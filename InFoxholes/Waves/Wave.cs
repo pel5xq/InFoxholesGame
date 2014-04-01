@@ -27,6 +27,7 @@ namespace InFoxholes.Waves
         public String openingTextFilename;
         public WaveManager waveManager;
         public Layout layout;
+        public bool isTutorialWave;
 
 
         virtual public void Initialize(ContentManager content, WaveManager manager)

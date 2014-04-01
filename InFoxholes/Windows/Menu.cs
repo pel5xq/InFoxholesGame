@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using System;
+using System.Collections.Generic;
 using InFoxholes.Util;
 
 
@@ -14,10 +15,14 @@ namespace InFoxholes.Windows
     {
         public AnimatedSprite menuTexture;
         Button startButton;
+        Button skipButton;
         Button controlsButton;
+        List<Button> buttonList;
+        List<bool> buttonListHover;
         public static Texture2D pixel;
         bool hoverFlag = false;
         bool hoverFlagControls = false;
+        bool hoverFlagSkip = false;
         public static bool isInControllerMenu;
         public ControllerMenu controllerMenu;
         int selectedButton;
@@ -30,12 +35,18 @@ namespace InFoxholes.Windows
         /* Magic Numbers */
         static int startButtonLX = 30;
         static int startButtonLY = 135;
-        static int startButtonRX = 120;
-        static int startButtonRY = 175;
+        static int startButtonRX = 125;
+        static int startButtonRY = 180;
+
+        static int skipButtonLX = 30;
+        static int skipButtonLY = 195;
+        static int skipButtonRX = 250;
+        static int skipButtonRY = 240;
+
         static int controlsButtonLX = 30;
-        static int controlsButtonLY = 205;
+        static int controlsButtonLY = 260;
         static int controlsButtonRX = 180;
-        static int controlsButtonRY = 240;
+        static int controlsButtonRY = 305;
 
         int animationSpeed = 30;
         float thresholdLength = .8f;
@@ -51,6 +62,10 @@ namespace InFoxholes.Windows
                 new Vector2(startButtonRX, startButtonRY), "", Vector2.Zero);
             controlsButton = new Button(new Vector2(controlsButtonLX, controlsButtonLY),
                 new Vector2(controlsButtonRX, controlsButtonRY), "", Vector2.Zero);
+            skipButton = new Button(new Vector2(skipButtonLX, skipButtonLY),
+                new Vector2(skipButtonRX, skipButtonRY), "", Vector2.Zero);
+            buttonList = new List<Button>() { startButton, skipButton, controlsButton };
+            buttonListHover = new List<bool>() { hoverFlag, hoverFlagSkip, hoverFlagControls };
             pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             pixel.SetData(new[] { Color.White });
             isInControllerMenu = false;
@@ -78,47 +93,54 @@ namespace InFoxholes.Windows
             }
             else
             {
-                if (gamepadState.IsConnected)
+                if (MainGame.currentGamepadState.IsConnected)
                 {
-                    if (selectedButton == 0)
+                    if (MainGame.currentGamepadState.DPad.Up == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Up != ButtonState.Pressed ||
+                        MainGame.currentGamepadState.DPad.Left == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Left != ButtonState.Pressed ||
+                        (MainGame.currentGamepadState.ThumbSticks.Left.Length() > thresholdLength && !(MainGame.previousGamepadState.ThumbSticks.Left.Length() > thresholdLength)
+                        && MainGame.currentGamepadState.ThumbSticks.Left.Y > 0))
                     {
-                        hoverFlag = true;
-                        hoverFlagControls = false;
-                        if (gamepadState.Buttons.A == ButtonState.Pressed && MainGame.previousGamepadState.Buttons.A != ButtonState.Pressed)
+                        Menu.scrollClickEffectInstance.Play();
+                        if (selectedButton == 0) selectedButton = buttonList.Count - 1;
+                        else selectedButton--;
+                    }
+                    else if (MainGame.currentGamepadState.DPad.Down == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Down != ButtonState.Pressed ||
+                        MainGame.currentGamepadState.DPad.Right == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Right != ButtonState.Pressed ||
+                        (MainGame.currentGamepadState.ThumbSticks.Left.Length() > thresholdLength && !(MainGame.previousGamepadState.ThumbSticks.Left.Length() > thresholdLength)
+                        && MainGame.currentGamepadState.ThumbSticks.Left.Y < 0))
+                    {
+                        Menu.scrollClickEffectInstance.Play();
+                        if (selectedButton == buttonList.Count - 1) selectedButton = 0;
+                        else selectedButton++;
+                    }
+
+                    for (int i = 0; i < buttonList.Count; i++)
+                    {
+                        if (i == selectedButton) buttonListHover[i] = true;
+                        else buttonListHover[i] = false;
+                    }
+
+                    if (MainGame.currentGamepadState.Buttons.A == ButtonState.Pressed && MainGame.previousGamepadState.Buttons.A != ButtonState.Pressed)
+                    {
+                        Menu.confirmClickEffectInstance.Play();
+                        if (selectedButton == 0)
                         {
-                            confirmClickEffectInstance.Play();
                             MainGame.isInMenu = false;
                             MediaPlayer.Stop();
                             windEffectInstance.Stop();
                             flagEffectInstance.Stop();
                         }
-                        if (gamepadState.DPad.Down == ButtonState.Pressed  && MainGame.previousGamepadState.DPad.Down != ButtonState.Pressed ||
-                            gamepadState.DPad.Up == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Up != ButtonState.Pressed ||
-                            gamepadState.DPad.Left == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Left != ButtonState.Pressed ||
-                            gamepadState.DPad.Right == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Right != ButtonState.Pressed ||
-                            gamepadState.ThumbSticks.Left.Length() > thresholdLength && !(MainGame.previousGamepadState.ThumbSticks.Left.Length() > thresholdLength))
+                        else if (selectedButton == 1)
                         {
-                            scrollClickEffectInstance.Play();
-                            selectedButton = 1;
+                            MainGame.isInMenu = false;
+                            MainGame.skipTutorial = true;
+                            MediaPlayer.Stop();
+                            windEffectInstance.Stop();
+                            flagEffectInstance.Stop();
                         }
-                    }
-                    else if (selectedButton == 1)
-                    {
-                        hoverFlag = false;
-                        hoverFlagControls = true;
-                        if (gamepadState.Buttons.A == ButtonState.Pressed && MainGame.previousGamepadState.Buttons.A != ButtonState.Pressed)
+                        else if (selectedButton == 2)
                         {
-                            confirmClickEffectInstance.Play();
                             isInControllerMenu = true;
-                        }
-                        if (gamepadState.DPad.Down == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Down != ButtonState.Pressed ||
-                            gamepadState.DPad.Up == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Up != ButtonState.Pressed ||
-                            gamepadState.DPad.Left == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Left != ButtonState.Pressed ||
-                            gamepadState.DPad.Right == ButtonState.Pressed && MainGame.previousGamepadState.DPad.Right != ButtonState.Pressed ||
-                            gamepadState.ThumbSticks.Left.Length() > thresholdLength && !(MainGame.previousGamepadState.ThumbSticks.Left.Length() > thresholdLength))
-                        {
-                            scrollClickEffectInstance.Play();
-                            selectedButton = 0;
                         }
                     }
                 }
@@ -140,6 +162,24 @@ namespace InFoxholes.Windows
                     else
                     {
                         hoverFlag = false;
+                    }
+                    if (skipButton.mouseIsOverButton(Mouse.GetState().X, Mouse.GetState().Y))
+                    {
+                        if (hoverFlagSkip == false) scrollClickEffectInstance.Play();
+                        hoverFlagSkip = true;
+                        if (Mouse.GetState().LeftButton == ButtonState.Pressed && MainGame.previousMouseState.LeftButton != ButtonState.Pressed)
+                        {
+                            confirmClickEffectInstance.Play();
+                            MainGame.isInMenu = false;
+                            MainGame.skipTutorial = true;
+                            MediaPlayer.Stop();
+                            windEffectInstance.Stop();
+                            flagEffectInstance.Stop();
+                        }
+                    }
+                    else
+                    {
+                        hoverFlagSkip = false;
                     }
                     if (controlsButton.mouseIsOverButton(Mouse.GetState().X, Mouse.GetState().Y))
                     {
@@ -169,8 +209,18 @@ namespace InFoxholes.Windows
             {
                 menuTexture.Update();
                 menuTexture.Draw(spriteBatch, Vector2.Zero,  1f, SpriteEffects.None);
-                startButton.Draw(spriteBatch, pixel, hoverFlag, Color.Black);
-                controlsButton.Draw(spriteBatch, pixel, hoverFlagControls, Color.Black);
+
+                if (MainGame.currentGamepadState.IsConnected)
+                {
+                    for (int i = 0; i < buttonList.Count; i++)
+                        buttonList[i].Draw(spriteBatch, pixel, buttonListHover[i], Color.Black);
+                }
+                else
+                {
+                    startButton.Draw(spriteBatch, pixel, hoverFlag, Color.Black);
+                    controlsButton.Draw(spriteBatch, pixel, hoverFlagControls, Color.Black);
+                    skipButton.Draw(spriteBatch, pixel, hoverFlagSkip, Color.Black);
+                }
             }
         }
     }

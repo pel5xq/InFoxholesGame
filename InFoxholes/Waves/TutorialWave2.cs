@@ -15,6 +15,7 @@ namespace InFoxholes.Waves
         {
             infiniteAmmoModeOn = true;
             infiniteFoodModeOn = true;
+            isTutorialWave = true;
             spawnTimings = new List<double>(waveSize);
             enemiesToSpawn = new List<Enemy>(waveSize);
             lootList = new List<Loot>(waveSize);

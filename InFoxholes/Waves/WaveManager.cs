@@ -27,6 +27,7 @@ namespace InFoxholes.Waves
         int secondsLeft;
         public ConversationManager conversationManager;
         bool delegateToConvo;
+        ScavengerManager scavengerManager;
 
         /* Magic Numbers */
         double gracePeriodLength = 15000;
@@ -65,12 +66,16 @@ namespace InFoxholes.Waves
             getWave().applyModes();
         }
 
+        public void setScavengerManager(ScavengerManager scavengermanager) {
+            scavengerManager = scavengermanager;
+        }
+
         public bool isHit(Vector2 crosshairPosition)
         {
             return getWave().isHit(crosshairPosition);
         }
 
-        public void Update(GameTime gametime, ScavengerManager scavengerManager)
+        public void Update(GameTime gametime)
         {
             if (State == 0)
             {
@@ -175,6 +180,15 @@ namespace InFoxholes.Waves
             {
                 currentWave++;
                 getWave().applyModes();
+            }
+        }
+
+        public void skipTutorialWaves()
+        {
+            while (getWave().isTutorialWave)
+            {
+                nextWave();
+                scavengerManager.returnToTrench();
             }
         }
     }
