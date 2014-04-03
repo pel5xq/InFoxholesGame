@@ -28,7 +28,7 @@ namespace InFoxholes.Waves
         double endGracePeriod;
         int secondsLeft;
         public ConversationManager conversationManager;
-        bool delegateToConvo;
+        public bool delegateToConvo;
         ScavengerManager scavengerManager;
 
         /* Magic Numbers */
