@@ -73,7 +73,8 @@ namespace InFoxholes.Layouts
         }
         public override bool checkAimingVector(Vector2 aimingVector)
         {
-            return aimingVector.Y > 0;
+            //return aimingVector.Y > 0;
+            return true;
         }
         public override Vector2 enemySpawnPoint()
         {

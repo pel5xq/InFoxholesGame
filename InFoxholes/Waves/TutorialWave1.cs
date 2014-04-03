@@ -30,14 +30,15 @@ namespace InFoxholes.Waves
                 enemiesToSpawn.Insert(i, new Enemy1());
                 spawnTimings.Insert(i, baseTime + i * interval);
             }
-            enemiesToSpawn.Insert(waveSize - 1, new HeadShotTest());
+            //enemiesToSpawn.Insert(waveSize - 1, new HeadShotTest());
+            enemiesToSpawn.Insert(waveSize - 1, new ParachuteEnemy());
             spawnTimings.Insert(waveSize - 1, baseTime + (waveSize - 1) * interval);
             lootList.Add(new SniperAmmoLoot(2, content));
             lootList.Add(new SniperAmmoLoot(2, content));
             //lootList.Add(new FoodLoot(1, content));
-            lootList.Add(new MachineGunAmmoLoot(10, content));
+            lootList.Add(new MachineGunAmmoLoot(5, content));
             lootList.Add(new SniperAmmoLoot(2, content));
-            lootList.Add(new MachineGunAmmoLoot(10, content));
+            lootList.Add(new MachineGunAmmoLoot(5, content));
             openingTextFilename = "Content//Text//TutorialWave1Open.txt";
             layout = new FoxholeLayout();
             helpTexture = content.Load<Texture2D>("Graphics\\Tutorial1Help");
