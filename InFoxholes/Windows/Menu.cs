@@ -219,9 +219,9 @@ namespace InFoxholes.Windows
                 }
                 else
                 {
-                    startButton.Draw(spriteBatch, pixel, hoverFlag, Color.Black);
-                    controlsButton.Draw(spriteBatch, pixel, hoverFlagControls, Color.Black);
-                    skipButton.Draw(spriteBatch, pixel, hoverFlagSkip, Color.Black);
+                    startButton.Draw(spriteBatch, pixel, hoverFlag, Color.White);
+                    controlsButton.Draw(spriteBatch, pixel, hoverFlagControls, Color.White);
+                    skipButton.Draw(spriteBatch, pixel, hoverFlagSkip, Color.White);
                 }
             }
         }

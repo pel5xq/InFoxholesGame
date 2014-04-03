@@ -19,7 +19,7 @@ namespace InFoxholes.Waves
         override public void Initialize(ContentManager content, WaveManager manager)
         {
             infiniteAmmoModeOn = false;
-            infiniteFoodModeOn = false;
+            infiniteFoodModeOn = true;
             isTutorialWave = false;
             waveSize = wavesize;
             spawnTimings = new List<double>(waveSize);

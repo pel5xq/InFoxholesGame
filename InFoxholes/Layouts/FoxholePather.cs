@@ -6,15 +6,15 @@ namespace InFoxholes.Layouts
     public class FoxholePather : Pather
     {
         /* Magic numbers */
-        static int startY = 150;
+        /*static int startY = 150;
         static int hillBottomX = 270;
         static int hillTopX = 210;
         static int ladderTopX = 120;
         static int ladderTopY = 175;
         static int hillBottomY = 145 + startY;
         static int hillTopY = 15 + startY;
-        static float slope = (hillTopY - hillBottomY)/(hillTopX - hillBottomX);
-        Vector2 trenchentranceposition = new Vector2(ladderTopX, ladderTopY);
+        static float slope = (hillTopY - hillBottomY)/(hillTopX - hillBottomX);*/
+        Vector2 trenchentranceposition = new Vector2(225, 210);
         int trenchentrancewidth = 10;
         int trenchentranceheight= 100;
 
@@ -32,7 +32,7 @@ namespace InFoxholes.Layouts
             if (isTowardsTrench) correctedSpeed = -1 * speed;
             else correctedSpeed = speed;
             result.X = unitPosition.X + correctedSpeed;
-            if (unitPosition.X > hillBottomX)
+            /*if (unitPosition.X > hillBottomX)
             {
                 result.Y = unitPosition.Y;
             }
@@ -45,9 +45,9 @@ namespace InFoxholes.Layouts
                 result.Y = unitPosition.Y;
             }
             else
-            {
+            {*/
                 result.Y = unitPosition.Y;
-            }
+            //}
             return result;
         }
         public override bool isForward(Vector2 unitPosition, bool isTowardsTrench, float speed)
