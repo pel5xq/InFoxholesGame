@@ -209,13 +209,13 @@ namespace InFoxholes.Windows
             {
                 if (!gameOver)
                 {
+                    waveManager.Draw(spriteBatch);
                     player.Draw(spriteBatch);
                     crosshair.Draw(spriteBatch);
                     weapon.Draw(spriteBatch);
                     sniperRifle.DrawHUD(spriteBatch, gameTime);
                     machineGun.DrawHUD(spriteBatch, gameTime);
                     scavengerManager.Draw(spriteBatch);
-                    waveManager.Draw(spriteBatch);
                 }
                 else
                 {

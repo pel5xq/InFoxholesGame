@@ -13,7 +13,7 @@ namespace InFoxholes.Layouts
     {
 
         /* Magic Numbers */
-        Vector2 enemySpawn = new Vector2(900, 282);
+        Vector2 enemySpawn = new Vector2(900, 212);
         List<Vector2> scavengerSpawns = new List<Vector2>() { 
             new Vector2(30, 300), 
             new Vector2(30, 350), 
@@ -27,8 +27,8 @@ namespace InFoxholes.Layouts
             new Vector2(10, 150) };
         Vector2 offscreenposition = new Vector2(-150, -150);
         Vector2 countdownposition = new Vector2(300f, 115f);
-        Vector2 weapongunpoint = new Vector2(272, 361);
-        Vector2 weaponposition = new Vector2(187, 356);
+        Vector2 weapongunpoint = new Vector2(262, 287);
+        Vector2 weaponposition = new Vector2(177, 282);
         Vector2 scavengerspawnposition = new Vector2(140, 180);
         float angleadjust = .25f;
         float distanceadjust = -15f;
