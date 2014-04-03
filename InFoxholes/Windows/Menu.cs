@@ -26,7 +26,7 @@ namespace InFoxholes.Windows
         public static bool isInControllerMenu;
         public ControllerMenu controllerMenu;
         int selectedButton;
-        public Song menuBgm;
+        public static SoundEffectInstance menuBgm;
         public static SoundEffectInstance windEffectInstance;
         public static SoundEffectInstance flagEffectInstance;
         public static SoundEffectInstance scrollClickEffectInstance;
@@ -71,14 +71,16 @@ namespace InFoxholes.Windows
             isInControllerMenu = false;
             controllerMenu = new ControllerMenu(Content, spriteBatch);
             selectedButton = 0;
-            menuBgm = Content.Load<Song>("Music\\Cylinder_Eight.wav");
+            menuBgm = (Content.Load<SoundEffect>("Music\\Cylinder_Eight.wav")).CreateInstance();
             windEffectInstance = (Content.Load<SoundEffect>("Music\\Wind.wav")).CreateInstance();
             flagEffectInstance = (Content.Load<SoundEffect>("Music\\Flag.wav")).CreateInstance();
             scrollClickEffectInstance = (Content.Load<SoundEffect>("Music\\Click.wav")).CreateInstance();
             confirmClickEffectInstance = (Content.Load<SoundEffect>("Music\\Click2.wav")).CreateInstance();
-            MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(menuBgm);
+            menuBgm.IsLooped = true;
+            menuBgm.Play();
+            windEffectInstance.IsLooped = true;
             windEffectInstance.Volume = windVolume;
+            flagEffectInstance.IsLooped = true;
             flagEffectInstance.Volume = flagVolume;
             scrollClickEffectInstance.Volume = clickVolume;
             confirmClickEffectInstance.Volume = clickVolume;
@@ -126,7 +128,7 @@ namespace InFoxholes.Windows
                         if (selectedButton == 0)
                         {
                             MainGame.isInMenu = false;
-                            MediaPlayer.Stop();
+                            menuBgm.Stop();
                             windEffectInstance.Stop();
                             flagEffectInstance.Stop();
                         }
@@ -134,7 +136,7 @@ namespace InFoxholes.Windows
                         {
                             MainGame.isInMenu = false;
                             MainGame.skipTutorial = true;
-                            MediaPlayer.Stop();
+                            menuBgm.Stop();
                             windEffectInstance.Stop();
                             flagEffectInstance.Stop();
                         }
@@ -154,7 +156,7 @@ namespace InFoxholes.Windows
                         {
                             confirmClickEffectInstance.Play();
                             MainGame.isInMenu = false;
-                            MediaPlayer.Stop();
+                            menuBgm.Stop();
                             windEffectInstance.Stop();
                             flagEffectInstance.Stop();
                         }
@@ -172,7 +174,7 @@ namespace InFoxholes.Windows
                             confirmClickEffectInstance.Play();
                             MainGame.isInMenu = false;
                             MainGame.skipTutorial = true;
-                            MediaPlayer.Stop();
+                            menuBgm.Stop();
                             windEffectInstance.Stop();
                             flagEffectInstance.Stop();
                         }

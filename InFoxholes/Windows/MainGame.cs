@@ -42,6 +42,7 @@ namespace InFoxholes.Windows
         public static bool isInfiniteFoodMode;
         public static SpriteFont font;
         public static bool skipTutorial;
+        public static SoundEffectInstance backgroundMusic;
 
         //How to Write to Console: System.Diagnostics.Debug.WriteLine();
 
@@ -98,6 +99,8 @@ namespace InFoxholes.Windows
         /// </summary>
         protected override void LoadContent()
         {
+            backgroundMusic = (Content.Load<SoundEffect>("Music\\pheonton.wav")).CreateInstance();
+            backgroundMusic.IsLooped = true;
             spriteBatch = new SpriteBatch(GraphicsDevice);
             menu = new Menu(Content, spriteBatch);
             waveManager.Initialize(Content);

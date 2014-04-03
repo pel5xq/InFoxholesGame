@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 
@@ -80,6 +82,20 @@ namespace InFoxholes.Waves
         {
             if (State == 0)
             {
+                if (MainGame.backgroundMusic.State != SoundState.Playing)
+                {
+                    /*if (MainGame.backgroundMusic.State == SoundState.Paused) {
+                        MainGame.backgroundMusic.Resume();
+                        Menu.windEffectInstance.Resume();
+                    }
+                    else {
+                        MainGame.backgroundMusic.Play();
+                        Menu.windEffectInstance.Play();
+                    }*/
+
+                    MainGame.backgroundMusic.Play();
+                    Menu.windEffectInstance.Play();
+                }
                 if (MainGame.currentGamepadState.Buttons.A == ButtonState.Pressed && 
                     !(MainGame.previousGamepadState.Buttons.A == ButtonState.Pressed))
                 {
@@ -119,6 +135,11 @@ namespace InFoxholes.Waves
                 secondsLeft = (int)((endGracePeriod - gametime.TotalGameTime.TotalMilliseconds) / 1000);
                 if (gametime.TotalGameTime.TotalMilliseconds > endGracePeriod)
                 {
+                    /*if (MainGame.backgroundMusic.State == SoundState.Playing)
+                    {
+                        MainGame.backgroundMusic.Pause();
+                        Menu.windEffectInstance.Pause();
+                    }*/
                     if (conversationManager.conversationIsFinished)
                     {
                         delegateToConvo = false;
