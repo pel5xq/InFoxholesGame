@@ -20,6 +20,8 @@ namespace InFoxholes.Enemies
         int parachuteTopToBottom = 35;
         int parachuteBottomToHelmet = 70;
         bool isHitInParachute;
+        float fallingSpeedMultiplier = 6f;
+        int parachuteOffset = 70;
        
 
 
@@ -112,7 +114,7 @@ namespace InFoxholes.Enemies
                 {
 
                     isHitInParachute = true;
-                    Position.Y += 70;
+                    Position.Y += parachuteOffset;
                     return true;
                 }
 
@@ -145,7 +147,7 @@ namespace InFoxholes.Enemies
             {
                 if (isHitInParachute || !Alive)
                 {
-                    Position.Y += speed * 3;
+                    Position.Y += speed * fallingSpeedMultiplier;
 
                 }
                 bool hitground = false;
@@ -159,10 +161,10 @@ namespace InFoxholes.Enemies
                     }
                 }
                 else {
-                    if (wave.layout.isOnGround(new Vector2(Position.X, Position.Y + 70), Width, Height))
+                    if (wave.layout.isOnGround(new Vector2(Position.X, Position.Y + parachuteOffset), Width, Height))
                     {
                         if (Alive){
-                            Position.Y += 70;
+                            Position.Y += parachuteOffset;
                         }
                         base.Update(gametime, scavengerManager);
                         inSky = false;
