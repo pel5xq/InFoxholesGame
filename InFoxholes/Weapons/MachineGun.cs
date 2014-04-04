@@ -26,6 +26,7 @@ namespace InFoxholes.Weapons
             clipSupply = clipsize;
             reloadCooldown = reloadLength;
             WeaponTexture = Content.Load<Texture2D>("Graphics\\BAR");
+            WeaponTextureHud = Content.Load<Texture2D>("Graphics\\BARHud");
             bullet = Content.Load<Texture2D>("Graphics\\BARAmmo");
             shotSound = Content.Load<SoundEffect>("Music\\ak47.wav");
             reloadSound = Content.Load<SoundEffect>("Music\\Sniper_Fire_Reload.wav");
@@ -34,8 +35,8 @@ namespace InFoxholes.Weapons
         override public void DrawHUD(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Vector2 hudPosition = waveManager.getWave().layout.getHUDPlacement(hudSeat);
-            if (reloadOver(gameTime) && clipSupply > 0) spriteBatch.Draw(WeaponTexture, hudPosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            else spriteBatch.Draw(WeaponTexture, hudPosition, null, Color.White * disabledAlpha, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            if (reloadOver(gameTime) && clipSupply > 0) spriteBatch.Draw(WeaponTextureHud, hudPosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            else spriteBatch.Draw(WeaponTextureHud, hudPosition, null, Color.White * disabledAlpha, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             base.DrawHUD(spriteBatch, gameTime);
         }
     }
