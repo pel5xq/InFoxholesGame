@@ -192,7 +192,7 @@ namespace InFoxholes.Waves
                 else
                 {
                     getWave().Draw(spriteBatch);
-                    spriteBatch.DrawString(MainGame.font, countdownText + secondsLeft, getWave().layout.countdownPosition, Color.Black);
+                    spriteBatch.DrawString(MainGame.font, countdownText + secondsLeft, getWave().layout.countdownPosition, Color.White);
                 }
             }
         }

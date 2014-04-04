@@ -13,6 +13,7 @@ namespace InFoxholes.Weapons
     public abstract class Weapon
     {
         public Texture2D WeaponTexture;
+        public Texture2D WeaponTextureHud;
         public Vector2 ShotPoint;
         public static Texture2D pixel;
         public Texture2D burst;
@@ -85,13 +86,13 @@ namespace InFoxholes.Weapons
             {
                 Vector2 topleft = new Vector2(hudPosition.X - hudPadding, hudPosition.Y - hudPadding);
                 Vector2 botright = new Vector2(hudPosition.X + WeaponTexture.Width + hudPadding, hudPosition.Y + WeaponTexture.Height + hudPadding);
-                spriteBatch.Draw(pixel, topleft, null, Color.Black, 0, Vector2.Zero, new Vector2(WeaponTexture.Width+ 2 * hudPadding, lineThickness), 
+                spriteBatch.Draw(pixel, topleft, null, Color.White, 0, Vector2.Zero, new Vector2(WeaponTexture.Width+ 2 * hudPadding, lineThickness), 
                     SpriteEffects.None, 0);
-                spriteBatch.Draw(pixel, topleft, null, Color.Black, halfPi, Vector2.Zero, new Vector2(WeaponTexture.Height + 2 * hudPadding, lineThickness), 
+                spriteBatch.Draw(pixel, topleft, null, Color.White, halfPi, Vector2.Zero, new Vector2(WeaponTexture.Height + 2 * hudPadding, lineThickness), 
                     SpriteEffects.None, 0);
-                spriteBatch.Draw(pixel, botright, null, Color.Black, 2*halfPi, Vector2.Zero, new Vector2(WeaponTexture.Width + 2 * hudPadding, lineThickness), 
+                spriteBatch.Draw(pixel, botright, null, Color.White, 2*halfPi, Vector2.Zero, new Vector2(WeaponTexture.Width + 2 * hudPadding, lineThickness), 
                     SpriteEffects.None, 0);
-                spriteBatch.Draw(pixel, botright, null, Color.Black, -1*halfPi, Vector2.Zero, new Vector2(WeaponTexture.Height + 2 * hudPadding, lineThickness), 
+                spriteBatch.Draw(pixel, botright, null, Color.White, -1*halfPi, Vector2.Zero, new Vector2(WeaponTexture.Height + 2 * hudPadding, lineThickness), 
                     SpriteEffects.None, 0);
             }
             //Leave spaces for all shot bullets in clip, then bullets in clip, then a space and then bullets in supply
@@ -103,7 +104,7 @@ namespace InFoxholes.Weapons
             //Don't draw supply in infinite ammo mode
             if (!MainGame.isInfiniteAmmoMode)
             {
-                spriteBatch.DrawString(MainGame.font, "| "+ammoSupply, new Vector2(hudPosition.X + hudPadding * 2 + WeaponTexture.Width + (clipSize + 2) * bullet.Width, hudPosition.Y), Color.Black);
+                spriteBatch.DrawString(MainGame.font, "| "+ammoSupply, new Vector2(hudPosition.X + hudPadding * 2 + WeaponTexture.Width + (clipSize + 2) * bullet.Width, hudPosition.Y), Color.White);
             }
         }
 
