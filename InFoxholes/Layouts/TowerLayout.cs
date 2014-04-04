@@ -18,10 +18,10 @@ namespace InFoxholes.Layouts
             new Vector2(800, 380),
             new Vector2(-50, 380) };
         List<Vector2> scavengerSpawns = new List<Vector2>() { 
-            new Vector2(170, 187), 
-            new Vector2(505, 173), //225, 182
-            new Vector2(415, 175), 
-            new Vector2(470, 173) };
+            new Vector2(170, 193), 
+            new Vector2(505, 193), //225, 182
+            new Vector2(415, 193), 
+            new Vector2(470, 193) };
         List<Vector2> HUDPositions = new List<Vector2>() { 
             new Vector2(10, 10), 
             new Vector2(448, 10), 
@@ -29,8 +29,8 @@ namespace InFoxholes.Layouts
             new Vector2(10, 100) };
         Vector2 offscreenposition = new Vector2(-150, -150);
         Vector2 countdownposition = new Vector2(475f, 50f);
-        Vector2 weapongunpoint = new Vector2(390, 112);
-        Vector2 weaponposition = new Vector2(-150, -150);
+        Vector2 weapongunpoint = new Vector2(345, 82);
+        Vector2 weaponposition = new Vector2(-95, -180);
         Vector2 scavengerspawnposition = new Vector2(315, 180);
         float angleadjust = .25f;
         float distanceadjust = -15f;

@@ -18,6 +18,7 @@ namespace InFoxholes.Waves
 
         override public void Initialize(ContentManager content, WaveManager manager)
         {
+
             infiniteAmmoModeOn = true;
             infiniteFoodModeOn = true;
             isTutorialWave = true;
