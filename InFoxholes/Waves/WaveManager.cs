@@ -30,6 +30,9 @@ namespace InFoxholes.Waves
         public ConversationManager conversationManager;
         public bool delegateToConvo;
         ScavengerManager scavengerManager;
+        public static SoundEffectInstance scavengerShotSound;
+        public static SoundEffectInstance enemyShotSound;
+        public static SoundEffectInstance headshotSound;
 
         /* Magic Numbers */
         double gracePeriodLength = 15000;
@@ -45,6 +48,10 @@ namespace InFoxholes.Waves
 
         public void Initialize(ContentManager content)
         {
+            scavengerShotSound = (content.Load<SoundEffect>("Music\\shotWithGrunt.wav")).CreateInstance();
+            enemyShotSound = (content.Load<SoundEffect>("Music\\BulletBodyImpact.wav")).CreateInstance();
+            headshotSound = (content.Load<SoundEffect>("Music\\Headshotsound.wav")).CreateInstance();
+
             conversationManager = new ConversationManager();
             conversationManager.Initialize(content, this);
             delegateToConvo = false;

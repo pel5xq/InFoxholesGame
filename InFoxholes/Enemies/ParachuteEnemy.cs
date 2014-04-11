@@ -5,11 +5,15 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace InFoxholes.Enemies
 {
     public class ParachuteEnemy : Enemy1
     {
+        public SoundEffectInstance parachuteRip;
+
         /* Magic Numbers*/
         int counter = 0;
         bool inSky = true;
@@ -27,8 +31,8 @@ namespace InFoxholes.Enemies
 
         override public void Initialize(ContentManager content, Vector2 position, Loot theLoot, Wave theWave)
         {
-
-           FlyingTexture = content.Load<Texture2D>("Graphics\\ParachuteEnemy");
+            parachuteRip = (content.Load<SoundEffect>("Music\\Rip.wav")).CreateInstance();
+            FlyingTexture = content.Load<Texture2D>("Graphics\\ParachuteEnemy");
             /*
             EnemyDeathTexture = content.Load<Texture2D>("Graphics\\Enemy1Dead");
             FiringTexture = content.Load<Texture2D>("Graphics\\Enemy1Firing");
@@ -112,7 +116,7 @@ namespace InFoxholes.Enemies
                     truePosition.X <= Width &&
                     truePosition.Y <= parachuteTopToBottom)
                 {
-
+                    parachuteRip.Play();
                     isHitInParachute = true;
                     Position.Y += parachuteOffset;
                     return true;
@@ -124,7 +128,7 @@ namespace InFoxholes.Enemies
                    truePosition.X <= Width &&
                    truePosition.Y <= Height)
                 {
-                    
+                    WaveManager.enemyShotSound.Play();
                     Alive = false;
                     return true;
                 }
