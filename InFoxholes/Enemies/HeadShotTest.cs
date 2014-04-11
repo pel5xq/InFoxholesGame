@@ -30,10 +30,10 @@ namespace InFoxholes.Enemies
 
         override public void Initialize(ContentManager content, Vector2 position, Loot theLoot, Wave theWave)
         {
-            EnemyDeathTexture = content.Load<Texture2D>("Graphics\\Enemy1Dead");
-            FiringTexture = content.Load<Texture2D>("Graphics\\Enemy1Firing");
-            EnemyTextureMap = new AnimatedSprite(content.Load<Texture2D>("Graphics\\Enemy1Map"), numMapRows, numMapColumns, animationSpeed);
-            DamagedTextureMap = new AnimatedSprite(content.Load<Texture2D>("Graphics\\Enemy1DamagedMap"), numMapRows, numMapColumns, animationSpeed);
+            EnemyDeathTexture = content.Load<Texture2D>("Graphics\\EnemyFastDead");
+            FiringTexture = content.Load<Texture2D>("Graphics\\EnemyFastFiring");
+            EnemyTextureMap = new AnimatedSprite(content.Load<Texture2D>("Graphics\\EnemyFastMap"), numMapRows, numMapColumns, animationSpeed);
+            DamagedTextureMap = new AnimatedSprite(content.Load<Texture2D>("Graphics\\EnemyFastDamagedMap"), numMapRows, numMapColumns, animationSpeed);
             speed = E1Speed;
             regions = testHSRegions;
             damages = testHSDamages;
