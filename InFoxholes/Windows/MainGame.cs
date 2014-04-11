@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using System.Collections.Generic;
 
 #endregion
 
@@ -11,6 +12,7 @@ using InFoxholes.Friendlies;
 using InFoxholes.Targeting;
 using InFoxholes.Waves;
 using InFoxholes.Weapons;
+using InFoxholes.Util;
 
 namespace InFoxholes.Windows
 {
@@ -37,6 +39,8 @@ namespace InFoxholes.Windows
         static int currentScavengeCommand; //0 = come back, 1 = scavenge, -1 for no change
         public static bool gameOver;
         public static bool isInMenu;
+        public static bool victory;
+        public AnimatedSprite victoryTexture;
         Menu menu;
         public static bool isInfiniteAmmoMode;
         public static bool isInfiniteFoodMode;
@@ -54,6 +58,11 @@ namespace InFoxholes.Windows
         int windowHeight = 482;
         public static int numStartingLives = 4;
         public static float triggerThreshold = .8f;
+        int animationSpeed = 30;
+        Vector2 victoryTextPosition = new Vector2(50, 260);
+        string victoryDeathText = "In memory of:\n";
+        List<string> deathNames = new List<string> { 
+            "Andrew Headrick", "Evan Benton", "William Perry", "Paul Ford, Jr."};
 
         public MainGame()
             : base()
@@ -61,6 +70,7 @@ namespace InFoxholes.Windows
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             gameOver = false;
+            victory = false;
             isInMenu = true;
             skipTutorial = false;
             isInfiniteAmmoMode = false;
@@ -90,6 +100,7 @@ namespace InFoxholes.Windows
             waveManager = new WaveManager();
             scavengerManager = new ScavengerManager();
             currentScavengeCommand = 0;
+            victoryTexture = new AnimatedSprite(Content.Load<Texture2D>("Graphics\\Victory"), 3, 2, animationSpeed);
             base.Initialize();
         }
 
@@ -142,6 +153,9 @@ namespace InFoxholes.Windows
             if (isInMenu)
             {
                 menu.Update(gameTime, currentGamepadState);
+            }
+            else if (victory) {
+                victoryTexture.Update();
             }
             else
             {
@@ -207,6 +221,16 @@ namespace InFoxholes.Windows
             if (isInMenu)
             {
                 menu.Draw(spriteBatch, gameTime);
+            }
+            else if (victory) {
+                victoryTexture.Draw(spriteBatch, Vector2.Zero, 1f, SpriteEffects.None);
+                if (scavengerManager.numberOfLiveScavengers() < MainGame.numStartingLives)
+                {
+                    string drawVictoryText = victoryDeathText;
+                    for (int i = 0; i < numStartingLives - scavengerManager.numberOfLiveScavengers(); i++)
+                        drawVictoryText+=deathNames[i]+"\n";
+                    spriteBatch.DrawString(font, drawVictoryText, victoryTextPosition, Color.White);
+                }
             }
             else
             {
