@@ -40,7 +40,11 @@ namespace InFoxholes.Weapons
         {
             Vector2 hudPosition = waveManager.getWave().layout.getHUDPlacement(hudSeat);
             if (isFireable(gameTime)) spriteBatch.Draw(WeaponTextureHud, hudPosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            else spriteBatch.Draw(WeaponTextureHud, hudPosition, null, Color.White * disabledAlpha, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            else
+            {
+                if (!reloadOver(gameTime)) spriteBatch.Draw(WeaponTextureHud, hudPosition, null, Color.Red, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                else spriteBatch.Draw(WeaponTextureHud, hudPosition, null, Color.White * disabledAlpha, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            }
             base.DrawHUD(spriteBatch, gameTime);
         }
 

@@ -118,7 +118,8 @@ namespace InFoxholes.Targeting
                      // || (MainGame.currentGamepadState.Triggers.Left >= MainGame.triggerThreshold)) //is what we want
                     {
 
-                        if (waveManager.getWave().layout.checkAimingVector(aimingVector))
+                        if (waveManager.getWave().layout.checkAimingVector(aimingVector)
+                            && weapon.reloadOver(gameTime) && !(weapon.clipSupply == 0 && weapon.ammoSupply == 0))
                         {
                             aimingTimestamp = gameTime.TotalGameTime;
                             Position.X = aimX;
