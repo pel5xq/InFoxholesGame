@@ -37,6 +37,7 @@ namespace InFoxholes.Conversations
         List<String> possibleResponses;
         Button endConversationButton;
         bool endConversationHover;
+        List<Button> deadNames = new List<Button>();
 
         /* Magic Numbers */
         List<String> sampleNames = new List<String>() { "Andy", "Evan", "Bill", "Paul" };
@@ -103,6 +104,7 @@ namespace InFoxholes.Conversations
         Vector2 endConversationOffset = new Vector2(50f, 10f);
         Vector2 portraitPosition = new Vector2(10, 50);
         float portraitScale = .5f;
+        String deathAddition = " (Gone)";
 
         public void Initialize(ContentManager content, WaveManager waveManager)
         {
@@ -145,10 +147,18 @@ namespace InFoxholes.Conversations
                 {
                     talkToButtons.Add(new Button(namePositionsL[sampleNames.Count], namePositionsR[sampleNames.Count], emptyQuestion, nameOffset));
                     talkToButtonsHover.Add(false);
+                    for (int i = 0; i < MainGame.numStartingLives; i++)
+                    {
+                        deadNames.Add(new Button(namePositionsL[i], namePositionsR[i], sampleNames[i] + deathAddition, nameOffset));
+                    }
                 }
                 else
                 {
-                    //Don't display dead scavnger's names
+                    //Don't let dead scavnger's names be clickable
+                    for (int i = 0; i < MainGame.numStartingLives - lastNumScavengers; i++)
+                    {
+                        deadNames.Add(new Button(namePositionsL[i], namePositionsR[i], sampleNames[i]+deathAddition, nameOffset));   
+                    }
                     for (int i = MainGame.numStartingLives - lastNumScavengers; i < sampleNames.Count; i++)
                     {
                         talkToButtons.Add(new Button(namePositionsL[i], namePositionsR[i], sampleNames[i], nameOffset));
@@ -383,6 +393,7 @@ namespace InFoxholes.Conversations
                     talkAboutButtons.Clear();
                     talkAboutButtonsHover.Clear();
                     possibleResponses.Clear();
+                    deadNames.Clear();
                     manBeingTalkedTo = -1;
                     conversationIsFinished = true;
                 }
@@ -396,13 +407,18 @@ namespace InFoxholes.Conversations
             if (State == 1)
             {
                 spriteBatch.DrawString(MainGame.font, startConversation, startConversationPosition, Color.White);
+                for (int i = 0; i < deadNames.Count; i++)
+                {
+                    spriteBatch.DrawString(MainGame.font, deadNames[i].text, 
+                        Vector2.Add(deadNames[i].topLeft, deadNames[i].textOffset), Color.Red*.8f);
+                }
                 for (int i = 0; i < talkToButtons.Count; i++)
                 {
-                    talkToButtons[i].Draw(spriteBatch, Menu.pixel, talkToButtonsHover[i],Color.White);
+                    talkToButtons[i].Draw(spriteBatch, Menu.pixel, talkToButtonsHover[i], Color.White);
                     int trueManBeingTalkedTo = i + (MainGame.numStartingLives - lastNumScavengers);
-                    if (talkToButtonsHover[i] && trueManBeingTalkedTo < portraits.Count) 
+                    if (talkToButtonsHover[i] && trueManBeingTalkedTo < portraits.Count)
                         spriteBatch.Draw(portraits[trueManBeingTalkedTo], portraitPosition, null, Color.White, 0f, Vector2.Zero, portraitScale, SpriteEffects.None, 0f);
-            
+
                 }
             }
             else if (State == 2)
