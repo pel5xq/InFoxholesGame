@@ -6,6 +6,8 @@ using InFoxholes.Friendlies;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using System;
 
@@ -26,6 +28,8 @@ namespace InFoxholes.Enemies
         /* Regioned Enemy fields */
         List<double> testHSRegions = new List<double> { 0, .2, 1 };
         List<int> testHSDamages = new List<int> { 2, 1, 1 };
+        List<SoundEffectInstance> testSounds = new List<SoundEffectInstance> { 
+            WaveManager.headshotSound, WaveManager.enemyShotSound, WaveManager.enemyShotSound };
         int testHSHealth = 2;
 
         override public void Initialize(ContentManager content, Vector2 position, Loot theLoot, Wave theWave)
@@ -37,6 +41,7 @@ namespace InFoxholes.Enemies
             speed = E1Speed;
             regions = testHSRegions;
             damages = testHSDamages;
+            sounds = testSounds;
             health = testHSHealth; 
             base.Initialize(content, position, theLoot, theWave);
         }

@@ -56,6 +56,7 @@ namespace InFoxholes.Friendlies
                 truePosition.X <= Width &&
                 truePosition.Y <= Height)
             {
+                WaveManager.scavengerShotSound.Play();
                 Alive = false;
                 return true;
             }

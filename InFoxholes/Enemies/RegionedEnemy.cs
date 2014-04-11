@@ -4,6 +4,8 @@ using InFoxholes.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 
 namespace InFoxholes.Enemies
@@ -38,7 +40,8 @@ namespace InFoxholes.Enemies
     {
 
         public List<double> regions;
-        public List<int> damages; 
+        public List<int> damages;
+        public List<SoundEffectInstance> sounds;
         public int health;
 
         override public bool isHit(Vector2 crosshairPosition)
@@ -55,10 +58,12 @@ namespace InFoxholes.Enemies
                 for(int i=0; i < regions.Count; i++) {
                     if(i == regions.Count-1) {
                         shotDamage = damages[i];
+                        if (null != sounds[i]) sounds[i].Play();
                         break;
                     }
                     else if (regions[i+1] > shotRegion) {
                         shotDamage = damages[i];
+                        if (null != sounds[i]) sounds[i].Play();
                         break;
                     }
                 }

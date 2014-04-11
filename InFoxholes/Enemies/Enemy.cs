@@ -82,6 +82,7 @@ namespace InFoxholes.Enemies
                     scavengerManager.getActiveScavenger().Width, scavengerManager.getActiveScavenger().Height))
                 {
                     isFiring = true;
+                    WaveManager.scavengerShotSound.Play();
                     scavengerManager.getActiveScavenger().Alive = false;
                     beginFiringTime = gametime.TotalGameTime.TotalMilliseconds;
                 }
@@ -99,6 +100,7 @@ namespace InFoxholes.Enemies
                     //If the scavenger is there, kill both
                     if (scavengerManager.getActiveScavenger().Alive && scavengerManager.getActiveScavenger().action == 0)
                     {
+                        WaveManager.scavengerShotSound.Play();
                         scavengerManager.getActiveScavenger().Alive = false;
                         beginFiringTime = gametime.TotalGameTime.TotalMilliseconds;
                         Alive = false;
