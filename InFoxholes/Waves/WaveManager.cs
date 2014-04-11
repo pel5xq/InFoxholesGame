@@ -62,8 +62,6 @@ namespace InFoxholes.Waves
             waves.Add(new TutorialWave2());
             waves.Add(new TutorialWave3());
             waves.Add(new OpeningWave());
-            //waves.Add(new Wave1());
-            //waves.Add(new Wave2());
             for (int i = 0; i < waves.Count; i++)
             {
                 waves[i].Initialize(content, this);
@@ -215,6 +213,10 @@ namespace InFoxholes.Waves
             {
                 currentWave++;
                 getWave().applyModes();
+            }
+            else
+            {
+                MainGame.victory = true;
             }
         }
 
