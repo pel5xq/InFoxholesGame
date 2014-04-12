@@ -27,7 +27,7 @@ namespace InFoxholes.Waves
             lootList = new List<Loot>(waveSize);
             enemiesToSpawn.Insert(0, new HeadShotTest());
             spawnTimings.Insert(0, baseTime + 0 * interval);
-            enemiesToSpawn.Insert(1, new Enemy1());
+            enemiesToSpawn.Insert(1, new HumanShieldEnemy());
             spawnTimings.Insert(1, baseTime + 1 * interval);
             //enemiesToSpawn.Insert(2, new HeadShotTest());
             enemiesToSpawn.Insert(2, new ParachuteEnemy());
@@ -38,7 +38,7 @@ namespace InFoxholes.Waves
             spawnTimings.Insert(4, baseTime + 3 * interval);
             enemiesToSpawn.Insert(5, new Enemy1());
             spawnTimings.Insert(5, baseTime + 4 * interval);
-            enemiesToSpawn.Insert(6, new Enemy1());
+            enemiesToSpawn.Insert(6, new HumanShieldEnemy());
             spawnTimings.Insert(6, baseTime + 6 * interval);
             enemiesToSpawn.Insert(7, new Enemy1());
             spawnTimings.Insert(7, baseTime + 7 * interval);
@@ -52,13 +52,13 @@ namespace InFoxholes.Waves
             enemiesToSpawn.Insert(11, new HeadShotTest());
             spawnTimings.Insert(11, baseTime + 9 * interval);
             lootList.Add(new SniperAmmoLoot(2, content));
-            lootList.Add(new FoodLoot(1, content));
+            lootList.Add(new SniperAmmoLoot(2, content));
             lootList.Add(new MachineGunAmmoLoot(10, content));
-            lootList.Add(new FoodLoot(1, content));
+            lootList.Add(new SniperAmmoLoot(2, content));
             lootList.Add(new MachineGunAmmoLoot(4, content));
             lootList.Add(new SniperAmmoLoot(4, content));
             lootList.Add(new MachineGunAmmoLoot(6, content));
-            lootList.Add(new FoodLoot(1, content));
+            lootList.Add(new SniperAmmoLoot(2, content));
             lootList.Add(new SniperAmmoLoot(3, content));
             lootList.Add(new SniperAmmoLoot(1, content));
             lootList.Add(new MachineGunAmmoLoot(6, content));

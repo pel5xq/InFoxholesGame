@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 namespace InFoxholes.Enemies
 {
@@ -24,7 +25,7 @@ namespace InFoxholes.Enemies
         public float speed;
         public bool Alive;
         public bool isFiring;
-        public Loot loot;
+        public List<Loot> loot;
         public bool isLooted;
         public Vector2 toShoot;
         public Wave wave;
@@ -52,7 +53,8 @@ namespace InFoxholes.Enemies
             isFiring = false;
             firingAnimationRate = firinganimationrate;
             beginFiringTime = 0;
-            loot = theLoot;
+            loot = new List<Loot>();
+            loot.Add(theLoot);
             isLooted = false;
             toShoot = Vector2.Zero;
             wave = theWave;
