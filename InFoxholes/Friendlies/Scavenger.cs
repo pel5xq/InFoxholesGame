@@ -205,7 +205,7 @@ namespace InFoxholes.Friendlies
                                     {
                                         closestEnemy.isLooted = true;
                                         lootToLoot = new List<Loot>();
-                                        lootToLoot.Add(closestEnemy.loot);
+                                        lootToLoot.AddRange(closestEnemy.loot);
                                     }
                                     action = 3;
                                     whenScavengeBegan = gameTime.TotalGameTime.TotalMilliseconds;

@@ -80,6 +80,7 @@ namespace InFoxholes.Enemies
                         {
                             isHoldingShield = true;
                             wave.enemiesOnScreen[i].Position = wave.layout.offscreenPosition;
+                            loot.AddRange(wave.enemiesOnScreen[i].loot);
                             break;
                         }
                     }
