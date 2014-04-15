@@ -32,11 +32,11 @@ namespace InFoxholes.Waves
             //enemiesToSpawn.Insert(2, new HeadShotTest());
             enemiesToSpawn.Insert(2, new ParachuteEnemy());
             spawnTimings.Insert(2, baseTime + 2 * interval);
-            enemiesToSpawn.Insert(3, new Enemy1());
+            enemiesToSpawn.Insert(3, new DogEnemy());
             spawnTimings.Insert(3, baseTime + 2 * interval);
             enemiesToSpawn.Insert(4, new HeadShotTest());
             spawnTimings.Insert(4, baseTime + 3.5 * interval);
-            enemiesToSpawn.Insert(5, new Enemy1());
+            enemiesToSpawn.Insert(5, new DogEnemy());
             spawnTimings.Insert(5, baseTime + 5 * interval);
             enemiesToSpawn.Insert(6, new HumanShieldEnemy());
             spawnTimings.Insert(6, baseTime + 6 * interval);
