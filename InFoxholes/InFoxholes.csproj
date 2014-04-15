@@ -68,9 +68,14 @@
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Util\AnimatedSprite.cs" />
     <Compile Include="Util\Button.cs" />
-    <Compile Include="Waves\OpeningWave.cs" />
-    <Compile Include="Waves\OpeningWave2.cs" />
-    <Compile Include="Waves\OpeningWave3.cs" />
+    <Compile Include="Waves\FoxholeWave1.cs" />
+    <Compile Include="Waves\FoxholeWave2.cs" />
+    <Compile Include="Waves\FoxholeWave3.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Waves\TowerWave1.cs" />
+    <Compile Include="Waves\TowerWave2.cs" />
+    <Compile Include="Waves\TowerWave3.cs" />
     <Compile Include="Waves\TutorialWave1.cs" />
     <Compile Include="Waves\TutorialWave2.cs" />
     <Compile Include="Waves\TutorialWave3.cs" />
@@ -314,13 +319,22 @@
     <Content Include="Content\Music\Wind.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Text\OpeningWave2Open.txt">
+    <Content Include="Content\Text\FoxholeWave2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Text\OpeningWave3Open.txt">
+    <Content Include="Content\Text\FoxholeWave3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Text\OpeningWaveOpen.txt">
+    <Content Include="Content\Text\TowerWave3.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Text\FoxholeWave1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Text\TowerWave1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Text\TowerWave2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Text\TutorialWave1Open.txt">
