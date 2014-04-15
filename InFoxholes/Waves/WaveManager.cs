@@ -35,7 +35,7 @@ namespace InFoxholes.Waves
         public static SoundEffectInstance headshotSound;
 
         /* Magic Numbers */
-        double gracePeriodLength = 15000;
+        double gracePeriodLength = 6000;
         static int startButtonLX = 345;
         static int startButtonLY = 415;
         static int startButtonRX = 470;
@@ -62,6 +62,8 @@ namespace InFoxholes.Waves
             waves.Add(new TutorialWave2());
             waves.Add(new TutorialWave3());
             waves.Add(new OpeningWave());
+            waves.Add(new OpeningWave2());
+            waves.Add(new OpeningWave3());
             for (int i = 0; i < waves.Count; i++)
             {
                 waves[i].Initialize(content, this);
