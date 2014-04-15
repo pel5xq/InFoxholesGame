@@ -67,10 +67,5 @@ namespace InFoxholes.Waves
             base.Initialize(content, manager);
         }
 
-        override public void applyModes()
-        {
-            MainGame.initializeAmmo();
-            base.applyModes();
-        }
     }
 }

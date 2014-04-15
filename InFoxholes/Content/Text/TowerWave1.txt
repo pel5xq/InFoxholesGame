@@ -1,2 +1,4 @@
-﻿You are being overrun! This postion is compromised!
-Retreat! Retreat! Fall back to the tower!
+﻿"The enemy force is too strong -
+your position has been compromised!
+Your are to retreat to the tower.
+That's an order!"

@@ -33,7 +33,7 @@ namespace InFoxholes.Waves
             enemiesToSpawn.Insert(2, new Enemy1());
             spawnTimings.Insert(2, baseTime + 2.5 * interval);
             enemiesToSpawn.Insert(3, new Enemy1());
-            spawnTimings.Insert(3, baseTime + 2.5 * interval);
+            spawnTimings.Insert(3, baseTime + 2.5 * interval + 75);
             enemiesToSpawn.Insert(4, new HeadShotTest());
             spawnTimings.Insert(4, baseTime + 4 * interval);
             enemiesToSpawn.Insert(5, new Enemy1());
@@ -59,10 +59,5 @@ namespace InFoxholes.Waves
             base.Initialize(content, manager);
         }
 
-        override public void applyModes()
-        {
-            MainGame.initializeAmmo();
-            base.applyModes();
-        }
     }
 }
