@@ -26,14 +26,16 @@ namespace InFoxholes.Waves
             spawnTimings = new List<double>(waveSize);
             enemiesToSpawn = new List<Enemy>(waveSize);
             lootList = new List<Loot>(waveSize);
-            for (int i = 0; i < waveSize - 1; i++)
-            {
-                enemiesToSpawn.Insert(i, new Enemy1());
-                spawnTimings.Insert(i, baseTime + i * interval);
-            }
-            //enemiesToSpawn.Insert(waveSize - 1, new HeadShotTest());
-            enemiesToSpawn.Insert(waveSize - 1, new ParachuteEnemy());
-            spawnTimings.Insert(waveSize - 1, baseTime + (waveSize - 1) * interval);
+            enemiesToSpawn.Insert(0, new Enemy1());
+            spawnTimings.Insert(0, baseTime + 0 * interval);
+            enemiesToSpawn.Insert(1, new Enemy1());
+            spawnTimings.Insert(1, 2 * interval);
+            enemiesToSpawn.Insert(2, new Enemy1());
+            spawnTimings.Insert(2, 3.5 * interval);
+            enemiesToSpawn.Insert(3, new Enemy1());
+            spawnTimings.Insert(3, 5 * interval);
+            enemiesToSpawn.Insert(waveSize - 1, new HeadShotTest());
+            spawnTimings.Insert(waveSize - 1, baseTime + 6.5 * interval);
             lootList.Add(new SniperAmmoLoot(2, content));
             lootList.Add(new SniperAmmoLoot(2, content));
             //lootList.Add(new FoodLoot(1, content));
