@@ -61,9 +61,12 @@ namespace InFoxholes.Waves
             waves.Add(new TutorialWave1());
             waves.Add(new TutorialWave2());
             waves.Add(new TutorialWave3());
-            waves.Add(new OpeningWave());
-            waves.Add(new OpeningWave2());
-            waves.Add(new OpeningWave3());
+            waves.Add(new FoxholeWave1());
+            waves.Add(new FoxholeWave2());
+            waves.Add(new FoxholeWave3());
+            waves.Add(new TowerWave1());
+            waves.Add(new TowerWave2());
+            waves.Add(new TowerWave3());
             for (int i = 0; i < waves.Count; i++)
             {
                 waves[i].Initialize(content, this);
