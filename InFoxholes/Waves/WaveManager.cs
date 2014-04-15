@@ -33,6 +33,7 @@ namespace InFoxholes.Waves
         public static SoundEffectInstance scavengerShotSound;
         public static SoundEffectInstance enemyShotSound;
         public static SoundEffectInstance headshotSound;
+        public Texture2D radioTexture;
 
         /* Magic Numbers */
         double gracePeriodLength = 6000;
@@ -45,13 +46,14 @@ namespace InFoxholes.Waves
         Vector2 mainTextPosition = new Vector2(190f, 100f);
         String countdownText = "End of Day in: ";
         Vector2 helpTexturePosition = new Vector2(50, 195);
+        Vector2 radioPosition = new Vector2(0,0);
 
         public void Initialize(ContentManager content)
         {
             scavengerShotSound = (content.Load<SoundEffect>("Music\\shotWithGrunt.wav")).CreateInstance();
             enemyShotSound = (content.Load<SoundEffect>("Music\\BulletBodyImpact.wav")).CreateInstance();
             headshotSound = (content.Load<SoundEffect>("Music\\Headshotsound.wav")).CreateInstance();
-
+            radioTexture = content.Load<Texture2D>("Graphics\\radio");
             conversationManager = new ConversationManager();
             conversationManager.Initialize(content, this);
             delegateToConvo = false;
@@ -188,6 +190,7 @@ namespace InFoxholes.Waves
                 }
                 else if (null != getWave().helpTexture) 
                     spriteBatch.Draw(getWave().helpTexture, helpTexturePosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(radioTexture, radioPosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
             else if (State == 1)
             {

@@ -51,17 +51,17 @@ namespace InFoxholes.Enemies
 
         override public void Draw(SpriteBatch spriteBatch)
         {
+            SpriteEffects effect;
+            if (wave.layout.pather.isForward(Position, true, speed))
+            {
+                effect = SpriteEffects.FlipHorizontally;
+            }
+            else
+            {
+                effect = SpriteEffects.None;
+            }
             if (Alive)
             {
-                SpriteEffects effect;
-                if (wave.layout.pather.isForward(Position, true, speed))
-                {
-                    effect = SpriteEffects.FlipHorizontally;
-                }
-                else
-                {
-                    effect = SpriteEffects.None;
-                }
                 if (isFiring)
                 {
                     spriteBatch.Draw(FiringTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
@@ -73,7 +73,7 @@ namespace InFoxholes.Enemies
             }
             else
             {
-                spriteBatch.Draw(EnemyDeathTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(EnemyDeathTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
                 if (!toShoot.Equals(Vector2.Zero))
                 {
                     toShoot = Vector2.Zero;
