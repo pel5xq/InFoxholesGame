@@ -76,7 +76,7 @@ namespace InFoxholes.Enemies
                 {
                     if (wave.enemiesOnScreen[i] != this)
                     {
-                        if (!wave.enemiesOnScreen[i].Alive && intersectsLow(wave.enemiesOnScreen[i]))
+                        if (!wave.enemiesOnScreen[i].Alive && intersectsLow(wave.enemiesOnScreen[i]) && isPickupable(wave.enemiesOnScreen[i]))
                         {
                             isHoldingShield = true;
                             wave.enemiesOnScreen[i].Position = wave.layout.offscreenPosition;
@@ -102,6 +102,11 @@ namespace InFoxholes.Enemies
                 return true;
             }
             return false;
+        }
+
+        private bool isPickupable(Enemy e)
+        {
+            return !(e is DogEnemy);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
