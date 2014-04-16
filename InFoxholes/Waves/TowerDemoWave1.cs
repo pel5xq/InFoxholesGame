@@ -16,8 +16,6 @@ namespace InFoxholes.Waves
         double baseTime = 1500;
         double interval = 8000;
 
-        /*  */
-
         override public void Initialize(ContentManager content, WaveManager manager)
         {
             infiniteAmmoModeOn = false;
@@ -48,15 +46,15 @@ namespace InFoxholes.Waves
             spawnTimings.Insert(8, baseTime + 9.5 * interval);
             enemiesToSpawn.Insert(9, new HumanShieldEnemy());
             spawnTimings.Insert(9, baseTime + 10 * interval);
-            lootList.Add(new SniperAmmoLoot(2, content));
-            lootList.Add(new SniperAmmoLoot(2, content));
+            lootList.Add(new MachineGunAmmoLoot(12, content));
+            lootList.Add(new SniperAmmoLoot(5, content));
+            lootList.Add(new MachineGunAmmoLoot(14, content));
+            lootList.Add(new SniperAmmoLoot(3, content));
+            lootList.Add(new MachineGunAmmoLoot(1, content));
+            lootList.Add(new SniperAmmoLoot(5, content));
+            lootList.Add(new MachineGunAmmoLoot(7, content));
+            lootList.Add(new MachineGunAmmoLoot(12, content));
             lootList.Add(new MachineGunAmmoLoot(10, content));
-            lootList.Add(new SniperAmmoLoot(2, content));
-            lootList.Add(new MachineGunAmmoLoot(4, content));
-            lootList.Add(new SniperAmmoLoot(2, content));
-            lootList.Add(new MachineGunAmmoLoot(6, content));
-            lootList.Add(new SniperAmmoLoot(2, content));
-            lootList.Add(new MachineGunAmmoLoot(6, content));
             lootList.Add(new SniperAmmoLoot(2, content));
 
             openingTextFilename = "Content//Text//TowerDemoWave1.txt";
