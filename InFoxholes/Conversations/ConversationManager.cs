@@ -50,7 +50,7 @@ namespace InFoxholes.Conversations
             "\"Dust to dust. I try not to think about it.\"" };
         String homeQuestion = "'s home.";
         List<String> homeResponses = new List<String>() { 
-            "\"Home's in Montana. What I wouldn't give\n to be fly fishing right now with my brother . . .\"",
+            "\"Home's in Michigan. What I wouldn't give\n to be fly fishing right now with my brother . . .\"",
             "\"I just hope I have a home to return to\n when all of this is over.\"",
             "\"Not an hour goes by that I don't think\n about it. You never really \nappreciate something great until it's gone.\"",
             "\"I don't want to talk about it. \nI came here to escape that place. \nMy mistake, I guess.\"" };
