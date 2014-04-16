@@ -19,7 +19,7 @@ namespace InFoxholes.Layouts
             new Vector2(-50, 380) };
         List<Vector2> scavengerSpawns = new List<Vector2>() { 
             new Vector2(170, 193), 
-            new Vector2(505, 193), //225, 182
+            new Vector2(505, 193),
             new Vector2(415, 193), 
             new Vector2(470, 193) };
         List<Vector2> HUDPositions = new List<Vector2>() { 
@@ -31,7 +31,7 @@ namespace InFoxholes.Layouts
         Vector2 countdownposition = new Vector2(475f, 50f);
         Vector2 weapongunpoint = new Vector2(345, 82);
         Vector2 weaponposition = new Vector2(-95, -180);
-        Vector2 scavengerspawnposition = new Vector2(315, 180);
+        Vector2 scavengerspawnposition = new Vector2(335, 180);
         float angleadjust = .25f;
         float distanceadjust = -15f;
         float burstadjustX = -5;
@@ -73,7 +73,6 @@ namespace InFoxholes.Layouts
         }
         public override bool checkAimingVector(Vector2 aimingVector)
         {
-            //return aimingVector.Y > 0;
             return true;
         }
         public override Vector2 enemySpawnPoint()
