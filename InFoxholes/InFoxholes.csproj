@@ -71,6 +71,8 @@
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Util\AnimatedSprite.cs" />
     <Compile Include="Util\Button.cs" />
+    <Compile Include="Waves\LadderWave3.cs" />
+    <Compile Include="Waves\LadderWave2.cs" />
     <Compile Include="Waves\LadderWave1.cs" />
     <Compile Include="Waves\FoxholeWave1.cs" />
     <Compile Include="Waves\FoxholeWave2.cs" />
@@ -342,6 +344,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Music\Wind.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Text\LadderWave2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Text\LadderWave3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Text\FoxholeWave2.txt">
