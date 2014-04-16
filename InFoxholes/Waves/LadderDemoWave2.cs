@@ -31,7 +31,6 @@ namespace InFoxholes.Waves
             spawnTimings.Insert(0, baseTime + 0 * interval);
             enemiesToSpawn.Insert(1, new Enemy1());
             spawnTimings.Insert(1, baseTime + 1 * interval);
-            //enemiesToSpawn.Insert(2, new HeadShotTest());
             enemiesToSpawn.Insert(2, new DogEnemy());
             spawnTimings.Insert(2, baseTime + 2 * interval);
             enemiesToSpawn.Insert(3, new Enemy1());
@@ -53,7 +52,7 @@ namespace InFoxholes.Waves
             lootList.Add(new MachineGunAmmoLoot(6, content));
             lootList.Add(new SniperAmmoLoot(2, content));
 
-            openingTextFilename = "Content//Text//FoxholeDemoWave1.txt";
+            openingTextFilename = "Content//Text//LadderDemoWave2.txt";
             layout = new FoxholeLayout();
             base.Initialize(content, manager);
         }
