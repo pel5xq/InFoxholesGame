@@ -48,16 +48,16 @@ namespace InFoxholes.Waves
             spawnTimings.Insert(8, baseTime + 8 * interval);
             enemiesToSpawn.Insert(9, new HumanShieldEnemy());
             spawnTimings.Insert(9, baseTime + 8 * interval);
-            lootList.Add(new SniperAmmoLoot(2, content));
-            lootList.Add(new SniperAmmoLoot(2, content));
+            lootList.Add(new MachineGunAmmoLoot(12, content));
+            lootList.Add(new SniperAmmoLoot(3, content));
+            lootList.Add(new MachineGunAmmoLoot(15, content));
+            lootList.Add(new SniperAmmoLoot(3, content));
             lootList.Add(new MachineGunAmmoLoot(10, content));
-            lootList.Add(new SniperAmmoLoot(2, content));
-            lootList.Add(new MachineGunAmmoLoot(4, content));
             lootList.Add(new SniperAmmoLoot(4, content));
             lootList.Add(new MachineGunAmmoLoot(6, content));
-            lootList.Add(new SniperAmmoLoot(2, content));
+            lootList.Add(new SniperAmmoLoot(3, content));
             lootList.Add(new SniperAmmoLoot(4, content));
-            lootList.Add(new MachineGunAmmoLoot(10, content));
+            lootList.Add(new MachineGunAmmoLoot(14, content));
 
             openingTextFilename = "Content//Text//FoxholeDemoWave1.txt";
             layout = new TowerLayout();
