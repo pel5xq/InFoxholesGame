@@ -12,7 +12,7 @@ namespace InFoxholes.Waves
     {
 
         /* Magic Numbers */
-        int wavesize = 8;
+        int wavesize = 14;
         double baseTime = 1500;
         double interval = 8000;
 
@@ -27,23 +27,38 @@ namespace InFoxholes.Waves
             spawnTimings = new List<double>(waveSize);
             enemiesToSpawn = new List<Enemy>(waveSize);
             lootList = new List<Loot>(waveSize);
-            enemiesToSpawn.Insert(0, new Enemy1());
+            enemiesToSpawn.Insert(0, new HeadShotTest());
             spawnTimings.Insert(0, baseTime + 0 * interval);
-            enemiesToSpawn.Insert(1, new Enemy1());
+            enemiesToSpawn.Insert(1, new HeadShotTest());
             spawnTimings.Insert(1, baseTime + 1 * interval);
-            //enemiesToSpawn.Insert(2, new HeadShotTest());
+<<<<<<< HEAD
+            enemiesToSpawn.Insert(2, new HumanShieldEnemy());
+=======
             enemiesToSpawn.Insert(2, new DogEnemy());
+>>>>>>> b9d00c23889872aa2e839e7c35294805808d9bbb
             spawnTimings.Insert(2, baseTime + 2 * interval);
-            enemiesToSpawn.Insert(3, new Enemy1());
-            spawnTimings.Insert(3, baseTime + 3.5 * interval);
-            enemiesToSpawn.Insert(4, new HeadShotTest());
+            enemiesToSpawn.Insert(3, new HeadShotTest());
+            spawnTimings.Insert(3, baseTime + 4 * interval);
+            enemiesToSpawn.Insert(4, new Enemy1());
             spawnTimings.Insert(4, baseTime + 4.5 * interval);
-            enemiesToSpawn.Insert(5, new Enemy1());
+            enemiesToSpawn.Insert(5, new ParachuteEnemy());
             spawnTimings.Insert(5, baseTime + 6 * interval);
-            enemiesToSpawn.Insert(6, new Enemy1());
+            enemiesToSpawn.Insert(6, new HumanShieldEnemy());
             spawnTimings.Insert(6, baseTime + 7.5 * interval);
-            enemiesToSpawn.Insert(7, new DogEnemy());
+            enemiesToSpawn.Insert(7, new HeadShotTest());
             spawnTimings.Insert(7, baseTime + 8 * interval);
+            enemiesToSpawn.Insert(8, new ParachuteEnemy());
+            spawnTimings.Insert(8, baseTime + 9.5 * interval);
+            enemiesToSpawn.Insert(9, new ParachuteEnemy());
+            spawnTimings.Insert(9, baseTime + 10 * interval);
+            enemiesToSpawn.Insert(10, new ParachuteEnemy());
+            spawnTimings.Insert(10, baseTime + 10.5 * interval);
+            enemiesToSpawn.Insert(11, new HeadShotTest());
+            spawnTimings.Insert(11, baseTime + 11 * interval);
+            enemiesToSpawn.Insert(12, new ParachuteEnemy());
+            spawnTimings.Insert(12, baseTime + 11 * interval);
+            enemiesToSpawn.Insert(13, new ParachuteEnemy());
+            spawnTimings.Insert(13, baseTime + 11.5 * interval);
             lootList.Add(new SniperAmmoLoot(2, content));
             lootList.Add(new SniperAmmoLoot(2, content));
             lootList.Add(new MachineGunAmmoLoot(10, content));
@@ -52,9 +67,20 @@ namespace InFoxholes.Waves
             lootList.Add(new SniperAmmoLoot(4, content));
             lootList.Add(new MachineGunAmmoLoot(6, content));
             lootList.Add(new SniperAmmoLoot(2, content));
+            lootList.Add(new SniperAmmoLoot(2, content));
+            lootList.Add(new MachineGunAmmoLoot(10, content));
+            lootList.Add(new SniperAmmoLoot(2, content));
+            lootList.Add(new SniperAmmoLoot(4, content));
+            lootList.Add(new MachineGunAmmoLoot(6, content));
+            lootList.Add(new SniperAmmoLoot(2, content));
 
+<<<<<<< HEAD
             openingTextFilename = "Content//Text//FoxholeDemoWave1.txt";
+            layout = new LadderLayout();
+=======
+            openingTextFilename = "Content//Text//LadderDemoWave2.txt";
             layout = new FoxholeLayout();
+>>>>>>> b9d00c23889872aa2e839e7c35294805808d9bbb
             base.Initialize(content, manager);
         }
     }

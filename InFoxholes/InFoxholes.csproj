@@ -71,6 +71,10 @@
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Util\AnimatedSprite.cs" />
     <Compile Include="Util\Button.cs" />
+    <Compile Include="Waves\FoxholeDemoWave1.cs" />
+    <Compile Include="Waves\FoxholeDemoWave2.cs" />
+    <Compile Include="Waves\LadderDemoWave1.cs" />
+    <Compile Include="Waves\LadderDemoWave2.cs" />
     <Compile Include="Waves\LadderWave3.cs" />
     <Compile Include="Waves\LadderWave2.cs" />
     <Compile Include="Waves\LadderWave1.cs" />
@@ -79,6 +83,8 @@
     <Compile Include="Waves\FoxholeWave3.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Waves\TowerDemoWave1.cs" />
+    <Compile Include="Waves\TowerDemoWave2.cs" />
     <Compile Include="Waves\TowerWave1.cs" />
     <Compile Include="Waves\TowerWave2.cs" />
     <Compile Include="Waves\TowerWave3.cs" />
@@ -346,6 +352,18 @@
     <Content Include="Content\Music\Wind.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Text\FoxholeDemoWave1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Text\FoxholeDemoWave2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Text\LadderDemoWave1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Text\LadderDemoWave2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Text\LadderWave2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -359,6 +377,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Text\LadderWave1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Text\TowerDemoWave1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Text\TowerDemoWave2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Text\TowerWave3.txt">
