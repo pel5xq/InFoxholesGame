@@ -1,0 +1,4 @@
+"The enemy force is too strong -
+your position has been compromised!
+Your are to retreat to the tower.
+That's an order!"
