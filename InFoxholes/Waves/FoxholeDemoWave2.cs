@@ -16,8 +16,6 @@ namespace InFoxholes.Waves
         double baseTime = 1500;
         double interval = 8000;
 
-        /*  */
-
         override public void Initialize(ContentManager content, WaveManager manager)
         {
             infiniteAmmoModeOn = false;

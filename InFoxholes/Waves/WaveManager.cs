@@ -68,12 +68,7 @@ namespace InFoxholes.Waves
             waves.Add(new TowerDemoWave1());
             waves.Add(new TowerDemoWave2());
             waves.Add(new LadderDemoWave1());
-<<<<<<< HEAD
             waves.Add(new LadderDemoWave2()); 
-=======
-            waves.Add(new LadderDemoWave2());
-
->>>>>>> b9d00c23889872aa2e839e7c35294805808d9bbb
             //waves.Add(new LadderWave1());
             //waves.Add(new LadderWave2());
             //waves.Add(new LadderWave3());
