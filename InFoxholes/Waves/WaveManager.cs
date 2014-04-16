@@ -63,7 +63,12 @@ namespace InFoxholes.Waves
             waves.Add(new TutorialWave1());
             waves.Add(new TutorialWave2());
             waves.Add(new TutorialWave3());
-            waves.Add(new FoxholeDemoWave1()); 
+            waves.Add(new FoxholeDemoWave1());
+            waves.Add(new FoxholeDemoWave2());
+            waves.Add(new TowerDemoWave1());
+            waves.Add(new TowerDemoWave2());
+            waves.Add(new LadderDemoWave1());
+            waves.Add(new LadderDemoWave2());
 
             //waves.Add(new LadderWave1());
             //waves.Add(new LadderWave2());
