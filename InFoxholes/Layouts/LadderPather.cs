@@ -7,14 +7,10 @@ namespace InFoxholes.Layouts
     public class LadderPather : Pather
     {
         /* Magic numbers */
-        static int halfwayX = 335;
-        Vector2 trenchentranceposition = new Vector2(1000,1000);
-        int trenchentrancewidth = 115;
-        int trenchentranceheight = 60;
+        Vector2 trenchentranceposition = new Vector2(165, 50);
+        int trenchentrancewidth = 50;
+        int trenchentranceheight = 100;
         Vector2 columnPosition = new Vector2(265, 115);
-        int columnWidth = 70;
-        int columnHeight = 300;
-        int endOfRoadY = 410;
         float xFactor = .94F;
         float yFactor = .34F; 
 

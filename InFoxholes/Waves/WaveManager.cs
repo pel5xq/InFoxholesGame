@@ -69,6 +69,7 @@ namespace InFoxholes.Waves
             waves.Add(new TowerWave1());
             waves.Add(new TowerWave2());
             waves.Add(new TowerWave3());
+            waves.Add(new LadderWave1());
             for (int i = 0; i < waves.Count; i++)
             {
                 waves[i].Initialize(content, this);
