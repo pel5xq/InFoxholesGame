@@ -62,6 +62,8 @@
     <Compile Include="Enemies\ParachuteEnemy.cs" />
     <Compile Include="Enemies\RegionedEnemy.cs" />
     <Compile Include="Friendlies\ScavengerManager.cs" />
+    <Compile Include="Layouts\LadderLayout.cs" />
+    <Compile Include="Layouts\LadderPather.cs" />
     <Compile Include="Layouts\TowerLayout.cs" />
     <Compile Include="Layouts\TowerPather.cs" />
     <Compile Include="Layouts\FoxholeLayout.cs" />
@@ -207,6 +209,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\FoxholeBackdropGameOver.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\LadderGameOver.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\LadderLevel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\LeeEnfield.png">
