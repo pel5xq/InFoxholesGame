@@ -59,7 +59,7 @@ namespace InFoxholes.Waves
             lootList.Add(new SniperAmmoLoot(4, content));
             lootList.Add(new MachineGunAmmoLoot(14, content));
 
-            openingTextFilename = "Content//Text//FoxholeDemoWave1.txt";
+            openingTextFilename = "Content//Text//TowerDemoWave2.txt";
             layout = new TowerLayout();
             base.Initialize(content, manager);
         }
