@@ -26,7 +26,7 @@ namespace InFoxholes.Waves
             spawnTimings = new List<double>(waveSize);
             enemiesToSpawn = new List<Enemy>(waveSize);
             lootList = new List<Loot>(waveSize);
-            enemiesToSpawn.Insert(0, new Enemy1());
+            enemiesToSpawn.Insert(0, new TankEnemy());
             spawnTimings.Insert(0, baseTime + 0 * interval);
             enemiesToSpawn.Insert(1, new Enemy1());
             spawnTimings.Insert(1, 2 * interval);
